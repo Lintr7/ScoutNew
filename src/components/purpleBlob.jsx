@@ -1,7 +1,7 @@
 import React from "react";
 import { CanvasRevealEffect } from "./ui/staticEffect";
 
-const CyanSpotlight = ({ size = 800 }) => {
+const purpleSpotlight = ({ size = 800 }) => {
   return (
     <div style={{ position: 'relative'}} >
       <div
@@ -29,4 +29,4 @@ const CyanSpotlight = ({ size = 800 }) => {
   );
 };
 
-export default CyanSpotlight;
+export default purpleSpotlight;

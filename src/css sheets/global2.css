@@ -83,5 +83,14 @@
   animation: fadeUpText 1s forwards;
 }
 
+input::placeholder {
+  color: rgba(189, 190, 192, 0.4); 
+}
+
+input:disabled::placeholder {
+  color: rgba(215, 217, 221, 0.4); 
+}
+
+
 
 

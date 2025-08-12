@@ -48,12 +48,12 @@ export const CanvasRevealEffect = ({
                   
                   // Determine cluster size based on index
                   float cluster_size;
-                  if (i < 12.0) {
+                  if (i < 10.0) {
                       // Small clusters (first 15): 2-3 dots radius
-                      cluster_size = 1.0 + random(cluster_seed * 3.0) * 1.8; // 1-2 radius (2-3 dots)
+                      cluster_size = 1.0 + random(cluster_seed * 3.0) * 2.0; // 1-2 radius (2-3 dots)
                   } else {
                       // Large clusters (last 5): 5-15 dots radius  
-                      cluster_size = 2.5 + random(cluster_seed * 3.0) * 6.8; // 2.5-7 radius (5-15 dots)
+                      cluster_size = 2.5 + random(cluster_seed * 3.0) * 7.0; // 2.5-7 radius (5-15 dots)
                   }
                   
                   // Calculate relative position from cluster center
