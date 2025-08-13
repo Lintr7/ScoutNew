@@ -14,7 +14,6 @@ import { Navbar,
 import { ContainerScroll } from '../components/ui/device.jsx';
 import LogoCarousel2 from '../components/carousel.jsx';
 import { useNavigate } from 'react-router-dom';
-import { MultiStepLoader } from '../components/ui/loader.jsx';
 
 function Homepage() {
   // Navigation items

@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Homepage from './pages/homepage';
-import StocksPage from './pages/stocks';
+import Stocks from './pages/stocks';
 import Login from './components/Login';
 import Signup from './components/SignUp';
 
@@ -17,7 +17,7 @@ export default function App() {
           path="/stocks"
           element={
             <ProtectedRoute>
-              <StocksPage />
+              <Stocks />
             </ProtectedRoute>
           }
         />
