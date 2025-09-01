@@ -130,11 +130,11 @@ export const MobileNav = ({
         damping: 50,
       }}
       style={{
-        minWidth: "500px", 
+        minWidth: "400px", 
       }}
       className={cn(
         "relative z-[60] mx-auto flex w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:hidden dark:bg-transparent", // Same base classes as desktop
-        visible && "bg-white/80 dark:bg-[rgba(0,0,0,0.3)] backdrop-blur-3xl", // Same visible styling as desktop
+        visible && "bg-[rgba(0,0,0,0.3)] backdrop-blur-3xl", // Same visible styling as desktop
         className
       )}>
       {children}
