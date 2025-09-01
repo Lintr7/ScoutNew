@@ -16,7 +16,7 @@ function Loader() {
                 style={{
                     width: '10em', 
                     marginTop: '-10em', 
-                    filter: 'drop-shadow(0 0 30px #9D4EDD)'
+                    filter: 'drop-shadow(0 0 15px #9D4EDD)'
                 }}
                 src="./logoScout.png"
             />
