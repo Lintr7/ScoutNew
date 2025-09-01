@@ -59,10 +59,10 @@ function Homepage() {
          <MobileNavHeader>
            <NavbarLogo />
            <div className="flex items-center space-x-2">
-             <NavbarButton variant="secondary" className="text-xs px-2 py-1">
+             <NavbarButton variant="secondary" className="text-xs px-2 py-1" onClick={() => navigate('/login')}>
                Login
              </NavbarButton>
-             <NavbarButton variant="primary" className="text-xs px-2 py-1">
+             <NavbarButton variant="primary" className="text-xs px-2 py-1" onClick={() => navigate('/signup')}>
                Get Started
              </NavbarButton>
              <MobileNavToggle
