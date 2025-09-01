@@ -112,8 +112,7 @@ function Homepage() {
             <ContainerScroll
             >
               <img
-                src={`/slide3.png`}
-                alt="hero"
+                alt="Not finished implementing yet"
                 height={720}
                 width={1400}
                 className="mx-auto rounded-2xl object-cover h-full object-left-top"
