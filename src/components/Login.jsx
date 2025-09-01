@@ -86,17 +86,17 @@ export default function Login() {
         inactiveZone={0.01}
       />
       {/* Inner container - your actual card content */}
-      <div className="relative bg-[rgb(10,10,12)] dark:bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 border-0 dark:border-purple-300">
+      <div className="relative bg-white dark:bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 border-0 dark:border-purple-300">
         <div className="flex justify-center mb-5">
           <img style={{width: '3.5em'}} src='./logoScout.png' alt="Scout Logo" />
         </div>
-        <h2 className="mt-3 text-center text-2xl font-extrabold text-white dark:text-white">
+        <h2 className="mt-3 text-center text-2xl font-extrabold text-gray-900 dark:text-white">
           Welcome Back
         </h2>
         <p style={{ fontWeight: 'bold', fontSize: '1rem', opacity: '0.6'}} className="mt-2 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">Sign in to Scout</p>
         <br/>
         {error && (
-          <div className="mb-4 p-3 bg-red-900/30 dark:bg-red-900/30 border border-red-600 dark:border-red-600 text-red-400 dark:text-red-400 rounded">
+          <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-400 rounded">
             {error}
           </div>
         )}
@@ -144,10 +144,10 @@ export default function Login() {
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-600 dark:border-zinc-600" />
+              <div className="w-full border-t border-gray-300 dark:border-zinc-600" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-[rgb(10,10,12)] dark:bg-[rgb(10,10,12)] text-zinc-400 dark:text-zinc-400">Or continue with</span>
+              <span className="px-2 bg-white dark:bg-[rgb(10,10,12)] text-gray-500 dark:text-zinc-400">Or continue with</span>
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export default function Login() {
             <button
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full inline-flex justify-center py-2 px-4 border border-zinc-600 dark:border-zinc-600 rounded-md shadow-sm bg-zinc-800 dark:bg-zinc-800 text-sm font-medium text-zinc-400 dark:text-zinc-400 hover:bg-zinc-700 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-zinc-600 rounded-md shadow-sm bg-white dark:bg-zinc-800 text-sm font-medium text-gray-500 dark:text-zinc-400 hover:bg-gray-50 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -169,7 +169,7 @@ export default function Login() {
         </div>
 
         <div className="mt-6 text-center">
-          <span className="text-sm text-zinc-400 dark:text-zinc-400">
+          <span className="text-sm text-gray-600 dark:text-zinc-400">
             Don't have an account?{' '}
             <Link to="/signup" className="font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
               Sign up
