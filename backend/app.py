@@ -55,7 +55,6 @@ def handle_search(payload: CompanyRequest, request: Request):
         soup = BeautifulSoup(resp.content, "html.parser")
 
         soup = BeautifulSoup(resp.content, "html.parser")
-        # Grab headline text from h3 tags (same as your old logic)
         headlines = [h3.get_text(strip=True) for h3 in soup.find_all("h3")][:10]
 
         if not headlines:
@@ -94,7 +93,7 @@ def handle_search(payload: CompanyRequest, request: Request):
         }
 
     except HTTPException:
-        # re-raise FastAPI HTTPExceptions
+
         raise
     except Exception as e:
         print(f"Error in /search: {e}")

@@ -28,7 +28,7 @@ export const CanvasRevealEffect = ({
               float total_opacity = 0.0;
               
               // Create 20 independent clusters total (15 small + 5 large)
-              for (float i = 0.0; i < 28.0; i++) {
+              for (float i = 0.0; i < 25.0; i++) {
                   // Each cluster has its own frequency and offset
                   float cluster_frequency = base_frequency + random(vec2(i * 17.0, i * 23.0)) * 0.04;
                   float cluster_offset = random(vec2(i * 31.0, i * 37.0)) * 100.0; // Random start time
@@ -48,12 +48,12 @@ export const CanvasRevealEffect = ({
                   
                   // Determine cluster size based on index
                   float cluster_size;
-                  if (i < 10.0) {
+                  if (i < 8.0) {
                       // Small clusters (first 15): 2-3 dots radius
-                      cluster_size = 1.0 + random(cluster_seed * 3.0) * 2.0; // 1-2 radius (2-3 dots)
+                      cluster_size = 1.0 + random(cluster_seed * 3.0) * 4.0; // 1-2 radius (2-3 dots)
                   } else {
                       // Large clusters (last 5): 5-15 dots radius  
-                      cluster_size = 2.5 + random(cluster_seed * 3.0) * 7.0; // 2.5-7 radius (5-15 dots)
+                      cluster_size = 2.5 + random(cluster_seed * 3.0) * 10.0; // 2.5-7 radius (5-15 dots)
                   }
                   
                   // Calculate relative position from cluster center

@@ -16,7 +16,6 @@ import LogoCarousel2 from '../components/carousel.jsx';
 import { useNavigate } from 'react-router-dom';
 
 function Homepage() {
-  // Navigation items
   const navItems = [
     { name: 'Home', link: '#home' },
     { name: 'Features', link: '#features' },

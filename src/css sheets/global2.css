@@ -10,6 +10,18 @@
   overflow: hidden;
 }
 
+.reels {
+  margin: 0;
+  background: rgb(0, 1, 9);
+  color: white;             
+  height: 100vh;            
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
 @theme inline {
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 

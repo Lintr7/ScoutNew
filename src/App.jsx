@@ -5,6 +5,7 @@ import Homepage from './pages/homepage';
 import Stocks from './pages/stocks';
 import Login from './components/Login';
 import Signup from './components/SignUp';
+import StockReels from './components/stockReels';
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/stockReels" element={<StockReels />} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>

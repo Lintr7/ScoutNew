@@ -9,7 +9,6 @@ export const ContainerScroll = ({
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    // Add offset to make scrolling begin earlier
     offset: ["start end", "end start"]
   });
 
