@@ -12,8 +12,8 @@
 
 .reels {
   margin: 0;
-  background: rgb(0, 1, 9);
-  /* background: rgb(3, 7, 18); */
+  /* background: rgb(0, 1, 9); */
+  background: rgb(3, 7, 18);
   color: white;             
   height: 100vh;            
   font-family: Arial, sans-serif;
