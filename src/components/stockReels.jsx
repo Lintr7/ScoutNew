@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BentoGridSecondDemo } from "./bentoBox";
+import { BentoGridThirdDemo } from './ui/bentoBox3';
 
 function StockReels() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -128,7 +129,7 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <BentoGridSecondDemo />
+        <BentoGridThirdDemo />
       </div>
 
       <div
@@ -145,7 +146,7 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <BentoGridSecondDemo />
+        <BentoGridThirdDemo />
       </div>
 
       {/* down arrow */}
