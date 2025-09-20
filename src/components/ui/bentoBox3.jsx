@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import StockDashboard from "../../api/alpaca";
+import NewsComponent from "../../api/marketaux";
 
 
 export function BentoGridThirdDemo() {
@@ -150,6 +151,7 @@ const SkeletonThree = () => {
     </motion.div>
   );
 };
+/*
 const SkeletonFour = () => {
   const first = {
     initial: {
@@ -233,6 +235,7 @@ const SkeletonFour = () => {
     </motion.div>
   );
 };
+*/
 const SkeletonFive = () => {
   const variants = {
     initial: {
@@ -317,15 +320,17 @@ const items = [
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Sentiment Analysis",
+    title: <span className="text-purple-400">Market News</span>,
     description: (
-      <span className="text-sm">
-        Understand the sentiment of your text with AI analysis.
+      <span className="text-sm text-purple-50">
+        Stay updated with the latest market news and sentiment analysis.
       </span>
     ),
-    header: <SkeletonFour />,
+    header: <NewsComponent symbol="GOOG" companyName="Google" />,
     className: "md:col-span-2",
+    /*
     icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+    */
   },
 
   {

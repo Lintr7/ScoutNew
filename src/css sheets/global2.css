@@ -23,6 +23,15 @@
   overflow: hidden;
 }
 
+.recharts-surface {
+  outline: none !important;
+  user-select: none !important;
+}
+
+.recharts-surface:focus {
+  outline: none !important;
+}
+
 @theme inline {
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 
