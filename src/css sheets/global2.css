@@ -10,10 +10,25 @@
   overflow: hidden;
 }
 
+.always-scroll {
+  overflow-y: scroll !important;
+  scrollbar-gutter: stable;
+}
+
+.always-scroll::-webkit-scrollbar {
+  width: 8px;
+  display: 'none';
+}
+
+.always-scroll::-webkit-scrollbar-thumb {
+  background: #256faf;
+  border-radius: 6px;
+}
+
 .reels {
   margin: 0;
   /* background: rgb(0, 1, 9); */
-  background: rgb(5, 13, 34);
+  background: rgb(5, 12, 34);
   color: white;             
   height: 100vh;            
   font-family: Arial, sans-serif;

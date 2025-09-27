@@ -10,6 +10,7 @@ import httpx
 from fastapi import FastAPI, HTTPException
 import os
 from datetime import datetime, timedelta
+import urllib.parse
 
 # Load .env
 load_dotenv()

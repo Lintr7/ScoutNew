@@ -28,7 +28,7 @@ export const CanvasRevealEffect = ({
               float total_opacity = 0.0;
               
               // Create 20 independent clusters total (15 small + 5 large)
-              for (float i = 0.0; i < 25.0; i++) {
+              for (float i = 0.0; i < 23.0; i++) {
                   // Each cluster has its own frequency and offset
                   float cluster_frequency = base_frequency + random(vec2(i * 17.0, i * 23.0)) * 0.04;
                   float cluster_offset = random(vec2(i * 31.0, i * 37.0)) * 100.0; // Random start time

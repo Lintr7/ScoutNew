@@ -140,8 +140,8 @@ const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
   if (error) {
     return (
       <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2">
-        <div className="h-full w-full rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
-          <p className="text-blue-300/20 text-sm">Error loading news</p>
+        <div className="h-full w-full rounded-2xl bg-blue-300 p-4 dark:text-blue-300 dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
+          <p className="text-white text-sm">Error loading news</p>
         </div>
       </motion.div>
     );
@@ -173,14 +173,14 @@ const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
       <motion.div
         variants={first}
         onClick={() => handleCardClick(article1)}
-        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/20 dark:border-blue-300/[0.2] hover:bg-blue-300/30 border-[3px] border-neutral-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
         {renderCard(article1, "No news available", "border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600")}
       </motion.div>
 
       {/* Middle card - no animation */}
       <motion.div
         onClick={() => handleCardClick(article2)}
-        className="group h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/20 dark:border-blue-300/[0.2] hover:bg-blue-300/30 border-[3px] border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        className="group h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
         {renderCard(article2, "No news available", "border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600")}
       </motion.div>
 
@@ -188,7 +188,7 @@ const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
       <motion.div
         variants={second}
         onClick={() => handleCardClick(article3)}
-        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/20 dark:border-blue-300/[0.2] hover:bg-blue-300/30 border-[3px] border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
         {renderCard(article3, "No news available", "border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600")}
       </motion.div>
     </motion.div>

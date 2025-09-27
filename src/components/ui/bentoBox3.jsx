@@ -12,7 +12,8 @@ import {
 import { motion } from "motion/react";
 import StockDashboard from "../../api/alpaca";
 import NewsComponent from "../../api/marketaux";
-
+import Sentiment from "../sentiment";
+import { EvervaultCard } from "./cryptic";
 
 export function BentoGridThirdDemo() {
   return (
@@ -312,7 +313,7 @@ const items = [
     title: "Contextual Suggestions",
     description: (
       <span className="text-sm">
-        Get AI-powered suggestions based on your writing context.
+        Get AI-powered suggestions based on your writing context
       </span>
     ),
     header: <SkeletonThree />,
@@ -323,7 +324,7 @@ const items = [
     title: <span className="text-purple-400">Market News</span>,
     description: (
       <span className="text-sm text-purple-50">
-        Stay updated with the latest market news and sentiment analysis.
+        Stay updated with the latest market news and sentiment analysis
       </span>
     ),
     header: <NewsComponent symbol="GOOG" companyName="Google" />,
@@ -334,14 +335,14 @@ const items = [
   },
 
   {
-    title: "Text Summarization",
+    title: <span className="text-purple-400">LLM Sentiment Analysis</span>,
     description: (
-      <span className="text-sm">
-        Summarize your lengthy documents with AI technology.
+      <span className="text-sm text-purple-50">
+        AI analysis on the latest news
       </span>
     ),
-    header: <SkeletonFive />,
+    header: <Sentiment/>,
     className: "md:col-span-1",
-    icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
+    // icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
   },
 ];

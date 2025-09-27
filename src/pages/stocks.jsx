@@ -1,23 +1,21 @@
 import { useAuth } from '../auth/AuthContext';
 import Sentiment from '../components/sentiment';
+import StockReels from '../components/stockReels';
 
 function Stocks() {
   const { user, signOut } = useAuth();
   
   return (
     <>
-        <div style={{ backgroundColor: 'rgb(1, 3, 33)', minHeight: '100vh', overflow: 'auto'}}>
-            <div style={{ }}>
+        <div style={{ position: 'relative', backgroundColor: 'rgb(1, 3, 33)', minHeight: '100vh', overflow: 'auto'}}>
                 <button
                     onClick={signOut}
+                    style = {{ position: 'absolute', zIndex: '100'}}
                     className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
                 >
                     Sign Out
                 </button>
-              </div>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '15em'}}> 
-                <Sentiment/>
-            </div>
+            <StockReels/>
         </div>
     </>
 
