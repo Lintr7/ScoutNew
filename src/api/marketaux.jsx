@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "motion/react";
 
-const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
+const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   const [newsData, setNewsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,20 +10,22 @@ const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
     const fetchNews = async () => {
       try {
         // Create cache key based on company symbol
-        const cacheKey = `${symbol.toLowerCase()}-news`;
+        const cacheKey = `${symbol.toLowerCase()}-news-v`;
         const timestampKey = `${symbol.toLowerCase()}-news-timestamp`;
         
-        // Check for cached data from the past day for this specific company
-        const cachedData = sessionStorage.getItem(cacheKey);
-        const lastFetch = sessionStorage.getItem(timestampKey);
-        const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+        // Check for cached data from the past hour for this specific company
+        const cachedData = localStorage.getItem(cacheKey);
+        const lastFetch = localStorage.getItem(timestampKey);
+        const oneHourAgo = Date.now() - 60 * 60 * 1000; // 1 hour cache
         
-        if (cachedData && lastFetch && parseInt(lastFetch) > oneDayAgo) {
+        if (cachedData && lastFetch && parseInt(lastFetch) > oneHourAgo) {
+          console.log(`Using cached data for ${symbol}`);
           setNewsData(JSON.parse(cachedData));
           setLoading(false);
           return;
         }
 
+        console.log(`Fetching fresh data for ${symbol}`);
         setLoading(true);
         setError(null);
 
@@ -41,8 +43,8 @@ const NewsComponent = ({ symbol = 'CWH', companyName = 'Camping World' }) => {
         const result = await response.json();
         
         // Cache the result with company-specific keys
-        sessionStorage.setItem(cacheKey, JSON.stringify(result));
-        sessionStorage.setItem(timestampKey, Date.now().toString());
+        localStorage.setItem(cacheKey, JSON.stringify(result));
+        localStorage.setItem(timestampKey, Date.now().toString());
         
         setNewsData(result);
         setLoading(false);

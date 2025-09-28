@@ -11,6 +11,8 @@ from fastapi import FastAPI, HTTPException
 import os
 from datetime import datetime, timedelta
 import urllib.parse
+import asyncio
+from typing import Optional, Dict, Any
 
 # Load .env
 load_dotenv()
@@ -136,6 +138,7 @@ async def get_stock_data(symbol: str, start: str, end: str, timeframe: str):
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"Error fetching Alpaca data: {str(e)}")
 
+MARKETAUX_API_KEY = os.getenv("MARKETAUX_API_KEY")
 @app.get("/news/{symbol}")
 async def get_news(
     symbol: str,
@@ -148,7 +151,7 @@ async def get_news(
         
         # Prepare parameters
         params = {
-            'api_token': 'b5tzk2xYMO2TL3VXGeT3DVJFTBEKYP9gPVhIawuf',
+            'api_token': MARKETAUX_API_KEY,
             'search': company_name,
             'limit': '50',
             'published_after': date_string,
@@ -176,6 +179,182 @@ async def get_news(
         raise HTTPException(status_code=408, detail="Request timeout")
     except Exception as err:
         raise HTTPException(status_code=500, detail=f"Error fetching news: {str(err)}")
+
+FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
+FINNHUB_BASE_URL = "https://finnhub.io/api/v1"
+async def fetch_with_timeout(url: str, timeout: int = 10) -> Dict[Any, Any]:
+    """Fetch data from URL with timeout handling"""
+    async with httpx.AsyncClient(timeout=timeout) as client:
+        try:
+            response = await client.get(url)
+            response.raise_for_status()
+            return response.json()
+        except httpx.TimeoutException:
+            raise HTTPException(status_code=408, detail="Request timeout")
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code == 401:
+                raise HTTPException(status_code=401, detail="Invalid API key")
+            elif e.response.status_code == 403:
+                raise HTTPException(status_code=403, detail="API access forbidden - check subscription level")
+            elif e.response.status_code == 429:
+                raise HTTPException(status_code=429, detail="Rate limit exceeded")
+            elif e.response.status_code == 500:
+                raise HTTPException(status_code=500, detail="Finnhub server error")
+            else:
+                raise HTTPException(status_code=e.response.status_code, detail=f"API error: {e.response.status_code}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Unexpected error: {str(e)}")
+
+def safe_number(value: Any, fallback: float = 0.0) -> float:
+    """Safely convert value to number with fallback"""
+    try:
+        if value is None:
+            return fallback
+        num = float(value)
+        return num if not (num != num) else fallback  # Check for NaN
+    except (ValueError, TypeError):
+        return fallback
+
+def process_earnings_data(earnings_array: list) -> list:
+    """Process raw earnings data into the format expected by frontend"""
+    if not earnings_array:
+        return []
+    
+    processed_earnings = []
+    for i, earning in enumerate(earnings_array[:4]):
+        try:
+            period = earning.get('period')
+            if period:
+                period_date = datetime.fromisoformat(period.replace('Z', '+00:00'))
+                quarter = f"Q{earning.get('quarter', i+1)} {earning.get('year', period_date.year)}"
+            else:
+                quarter = f"Q{i+1}"
+            
+            expected = safe_number(earning.get('estimate'), 0)
+            actual = safe_number(earning.get('actual'), 0)
+            surprise = safe_number(earning.get('surprisePercent'), 0)
+            
+            processed_earnings.append({
+                "quarter": quarter,
+                "expected": expected,
+                "actual": actual,
+                "surprise": round(surprise, 2),
+                "period": period
+            })
+        except Exception as e:
+            print(f"Error processing earning {i}: {e}")
+            continue
+    
+    # Reverse to show chronological order (oldest to newest)
+    return list(reversed(processed_earnings))
+
+def process_company_metrics(profile: dict, quote: dict, metrics: dict) -> dict:
+    """Process company metrics from API responses"""
+    metrics_data = metrics.get('metric', {}) if metrics else {}
+    
+    return {
+        "marketCap": safe_number(profile.get('marketCapitalization', 0) * 1000000, 0),
+        "grossMargin": safe_number(metrics_data.get('grossMarginTTM'), 0),
+        "dayChange": safe_number(quote.get('d'), 0),
+        "dayChangePercent": safe_number(quote.get('dp'), 0),
+        "peRatio": safe_number(metrics_data.get('peTTM'), 0),
+        "volume10Day": safe_number(metrics_data.get('10DayAverageTradingVolume'), 0),
+        "weekHigh52": safe_number(metrics_data.get('52WeekHigh'), 0),
+        "weekLow52": safe_number(metrics_data.get('52WeekLow'), 0),
+    }
+
+@app.get("/finnhub/{symbol}")
+async def get_finnhub_data(
+    symbol: str,
+    company_name: Optional[str] = Query(None, description="Company name for reference")
+):
+    """
+    Fetch comprehensive Finnhub data for a stock symbol
+    
+    Args:
+        symbol: Stock symbol (e.g., AAPL, GOOGL)
+        company_name: Optional company name for reference
+    
+    Returns:
+        JSON object containing earnings data, company metrics, and raw API responses
+    """
+    if not symbol:
+        raise HTTPException(status_code=400, detail="Symbol parameter is required")
+    
+    if not FINNHUB_API_KEY or FINNHUB_API_KEY == "YOUR_FINNHUB_API_KEY":
+        raise HTTPException(status_code=500, detail="Finnhub API key not configured")
+    
+    clean_symbol = symbol.strip().upper()
+    
+    # Build API URLs
+    endpoints = {
+        "earnings": f"{FINNHUB_BASE_URL}/stock/earnings?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
+        "profile": f"{FINNHUB_BASE_URL}/stock/profile2?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
+        "quote": f"{FINNHUB_BASE_URL}/quote?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
+        "metrics": f"{FINNHUB_BASE_URL}/stock/metric?symbol={clean_symbol}&metric=all&token={FINNHUB_API_KEY}"
+    }
+    
+    try:
+        # Fetch all data in parallel
+        tasks = [
+            fetch_with_timeout(endpoints["earnings"]),
+            fetch_with_timeout(endpoints["profile"]),
+            fetch_with_timeout(endpoints["quote"]),
+            fetch_with_timeout(endpoints["metrics"])
+        ]
+        
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        earnings_data, profile_data, quote_data, metrics_data = results
+        
+        # Handle individual API failures
+        raw_data = {}
+        for i, (key, result) in enumerate(zip(["earnings", "profile", "quote", "metrics"], results)):
+            if isinstance(result, Exception):
+                raw_data[key] = {"error": str(result)}
+                print(f"Error fetching {key}: {result}")
+            else:
+                raw_data[key] = result
+        
+        # Process earnings data
+        processed_earnings = []
+        if not isinstance(earnings_data, Exception) and isinstance(earnings_data, list):
+            if len(earnings_data) == 0:
+                raise HTTPException(status_code=404, detail=f"No earnings data available for symbol {clean_symbol}")
+            processed_earnings = process_earnings_data(earnings_data)
+        elif isinstance(earnings_data, Exception):
+            raise HTTPException(status_code=500, detail=f"Failed to fetch earnings data: {str(earnings_data)}")
+        
+        # Process company metrics
+        profile = profile_data if not isinstance(profile_data, Exception) else {}
+        quote = quote_data if not isinstance(quote_data, Exception) else {}
+        metrics = metrics_data if not isinstance(metrics_data, Exception) else {}
+        
+        company_metrics = process_company_metrics(profile, quote, metrics)
+        
+        # Validate critical data
+        validation_warnings = []
+        if not quote.get('c'):
+            validation_warnings.append("No current price data")
+        if not profile.get('marketCapitalization'):
+            validation_warnings.append("No market cap data")
+        
+        response_data = {
+            "symbol": clean_symbol,
+            "company_name": company_name,
+            "timestamp": datetime.utcnow().isoformat(),
+            "earnings_data": processed_earnings,
+            "company_metrics": company_metrics,
+            "raw_data": raw_data,
+            "validation_warnings": validation_warnings
+        }
+        
+        return response_data
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Unexpected error processing data: {str(e)}")
+
 
 
 @app.get("/test")

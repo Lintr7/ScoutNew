@@ -300,12 +300,12 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
   );
 };
 
-const StockDashboard = () => {
+const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className }) => {
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPeriod, setSelectedPeriod] = useState('1D');
-  const [symbol, setSymbol] = useState('GOOG');
+  // const [symbol, setSymbol] = useState('GOOG');
   const [previousClose, setPreviousClose] = useState(null);
 
   const fetchPreviousClose = async (symbol, currentDate) => {
@@ -542,7 +542,7 @@ const StockDashboard = () => {
       ) : (
         <StockChart 
           data={stockData} 
-          title={`Google (${symbol})`}
+          title={`${companyName} (${symbol})`}
           period={selectedPeriod}
           selectedPeriod={selectedPeriod}
           onPeriodChange={handlePeriodChange}

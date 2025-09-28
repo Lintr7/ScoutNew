@@ -10,12 +10,22 @@ const companiesList = [
 
 const endpoint = 'http://localhost:8000/search';
 
-const Sentiment = () => {
-  const [query, setQuery] = useState("Google");
+const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
+  const [query, setQuery] = useState(companyName);
   const [sentiment, setSentiment] = useState("");
   const [recommendation, setRecommendation] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (companyName) {
+      setQuery(companyName);
+      // Clear previous results when company changes
+      setSentiment("");
+      setRecommendation("");
+      setError("");
+    }
+  }, [companyName]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !loading) {
@@ -33,7 +43,6 @@ const Sentiment = () => {
     setError("");
     setSentiment("");
     setRecommendation("");
-
 
     try {
       const response = await fetch(endpoint, {
@@ -79,18 +88,35 @@ const Sentiment = () => {
             onClick={handleSearch}
             disabled={loading}
             style={loading ? styles.buttonDisabled : styles.button}
+            onMouseEnter={(e) => {
+              if (!loading) {
+                e.target.style.transition = "all 0.5s ease 0.2s";
+                e.target.style.background = "linear-gradient(135deg, #4f46e5 0%, #9333ea 90%)";
+                e.target.style.transform = "translateY(-1px)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!loading) {
+                e.target.style.transition = "all 0.5s ease";
+                e.target.style.background = "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 90%)";
+                e.target.style.transform = "translateY(0)";
+              }
+            }}
           >
-            {loading ? "🔍 Searching..." : "Search"}
+            
+            {loading ? "🔍 Searching..." : `Search ${companyName}`}
           </button>
-          <EvervaultCard/>
+          <div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2 justify-center items-center mt-4">
+            <EvervaultCard/>
+          </div>
           </>
         )}
         {error && <p style={styles.error}>{error}</p>}
 
         {sentiment && (
           <div style={styles.resultBoxContainer}>
-            <div style={styles.resultBox} className="always-scroll">
-              <h3 style={styles.resultTitle}>Sentiment Analysis:</h3>
+            <div style={styles.resultBox} className="always-scroll flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2">
+              <h3 style={styles.resultTitle}>{companyName}:</h3>
               <div style={styles.resultText}>
                 <ReactMarkdown 
                   components={{
@@ -119,6 +145,7 @@ const styles = {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: '-1em',
   },  
   title: {
     fontSize: "32px",
@@ -143,6 +170,7 @@ const styles = {
   },
   button: {
     padding: "10px 20px",
+    marginTop: '1em',
     borderRadius: "18px",
     color: "#ffffff",
     fontSize: "14px",
@@ -153,10 +181,11 @@ const styles = {
     cursor: "pointer",
     transition: "all 0.3s ease",
     boxShadow: "0 4px 12px rgba(37, 99, 235, 0.9)",
-    background: "rgba(255,255,255,0.1)",
+    background: "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
   },
   buttonDisabled: {
     padding: "10px 20px",
+    marginTop: '1em',
     borderRadius: "12px",
     color: "#ffffff",
     fontSize: "14px",
@@ -217,9 +246,9 @@ const styles = {
   resultBoxContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start', // Changed from 'center' to 'flex-start'
     position: 'relative', 
-    marginTop: '0em', 
+    marginTop: '1em', 
     backgroundColor: "rgba(96, 165, 250, 0.3)",
     width: '260px',
     height: '211px',

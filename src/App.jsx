@@ -6,6 +6,7 @@ import Stocks from './pages/stocks';
 import Login from './components/Login';
 import Signup from './components/SignUp';
 import StockReels from './components/stockReels';
+import FinnhubEarnings from './api/finnhub';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           }
         />
         <Route path="/stockReels" element={<StockReels />} />
+        <Route path="/test" element={<FinnhubEarnings />} />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -3,7 +3,20 @@ import { BentoGridSecondDemo } from "./bentoBox";
 import { BentoGridThirdDemo } from './ui/bentoBox3';
 
 function StockReels() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Initialize currentIndex from localStorage or default to 0
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('stockReelsCurrentIndex');
+        return saved ? parseInt(saved, 10) : 0;
+      } catch (error) {
+        console.warn('Error reading from localStorage:', error);
+        return 0;
+      }
+    }
+    return 0;
+  });
+  
   const [isAnimating, setIsAnimating] = useState(false);
 
   const containerRef = useRef(null);
@@ -19,6 +32,37 @@ function StockReels() {
   const BLOCK_MARGIN_MS = 50;
   const GESTURE_BLOCK_MS = ANIMATION_MS + BLOCK_MARGIN_MS;
   const SMALL_THRESHOLD = 5; 
+
+  // Array of companies to cycle through
+  const companies = [
+    { symbol: "AAPL", name: "Apple Inc." },
+    { symbol: "GOOGL", name: "Alphabet" },
+    { symbol: "MSFT", name: "Microsoft" },
+    { symbol: "TSLA", name: "Tesla" },
+    { symbol: "AMZN", name: "Amazon" },
+    { symbol: "META", name: "Meta" },
+    { symbol: "NVDA", name: "NVIDIA" },
+    { symbol: "NFLX", name: "Netflix" },
+  ];
+
+  // Save to localStorage whenever currentIndex changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('stockReelsCurrentIndex', currentIndex.toString());
+      } catch (error) {
+        console.warn('Error saving to localStorage:', error);
+      }
+    }
+  }, [currentIndex]);
+
+  // Deterministic pseudo-random selection based on index
+  const getCurrentCompany = (index) => {
+    // Simple hash function to create deterministic "randomness"
+    const seed = ((index * 9301 + 49297) % 233280) * 1103515245 + 12345;
+    const randomIndex = Math.abs(seed) % companies.length;
+    return companies[randomIndex];
+  };
 
   useEffect(() => {
     isAnimatingRef.current = isAnimating;
@@ -129,7 +173,10 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <BentoGridThirdDemo />
+        <BentoGridThirdDemo 
+          companySymbol={getCurrentCompany(currentIndex).symbol}
+          companyName={getCurrentCompany(currentIndex).name}
+        />
       </div>
 
       <div
@@ -146,7 +193,10 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <BentoGridThirdDemo />
+        <BentoGridThirdDemo 
+          companySymbol={getCurrentCompany(currentIndex + 1).symbol}
+          companyName={getCurrentCompany(currentIndex + 1).name}
+        />
       </div>
 
       {/* down arrow */}
@@ -172,7 +222,7 @@ function StockReels() {
           justifyContent: 'center',
           alignItems: 'center',
           cursor: 'pointer',
-          background: 'rgba(255, 255, 255, 0.1)',
+          background: 'rgba(173, 216, 230, 0.1)',
           backdropFilter: 'blur(10px)',
           zIndex: 10,
           transition: 'all 0.3s ease'
@@ -199,7 +249,7 @@ function StockReels() {
         borderRadius: '10px',
         backdropFilter: 'blur(10px)'
       }}>
-        Reel: {currentIndex + 1}
+        Reel: {currentIndex + 1} - {getCurrentCompany(currentIndex).name}
       </div>
     </div>
   );
