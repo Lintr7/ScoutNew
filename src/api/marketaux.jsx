@@ -9,22 +9,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        // Create cache key based on company symbol
-        const cacheKey = `${symbol.toLowerCase()}-news-v`;
-        const timestampKey = `${symbol.toLowerCase()}-news-timestamp`;
-        
-        // Check for cached data from the past hour for this specific company
-        const cachedData = localStorage.getItem(cacheKey);
-        const lastFetch = localStorage.getItem(timestampKey);
-        const oneHourAgo = Date.now() - 60 * 60 * 1000; // 1 hour cache
-        
-        if (cachedData && lastFetch && parseInt(lastFetch) > oneHourAgo) {
-          console.log(`Using cached data for ${symbol}`);
-          setNewsData(JSON.parse(cachedData));
-          setLoading(false);
-          return;
-        }
-
         console.log(`Fetching fresh data for ${symbol}`);
         setLoading(true);
         setError(null);
@@ -41,10 +25,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         }
         
         const result = await response.json();
-        
-        // Cache the result with company-specific keys
-        localStorage.setItem(cacheKey, JSON.stringify(result));
-        localStorage.setItem(timestampKey, Date.now().toString());
         
         setNewsData(result);
         setLoading(false);
@@ -142,8 +122,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   if (error) {
     return (
       <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2">
-        <div className="h-full w-full rounded-2xl bg-blue-300 p-4 dark:text-blue-300 dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
-          <p className="text-white text-sm">Error loading news</p>
+        <div className="h-full w-full rounded-2xl bg-blue-300/60 p-4 dark:text-blue-300 dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
+          <p className="text-white text-sm text-center">API Limit Reached. <br /> Please try again later.</p>
         </div>
       </motion.div>
     );

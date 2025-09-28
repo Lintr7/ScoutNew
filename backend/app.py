@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 import urllib.parse
 import asyncio
 from typing import Optional, Dict, Any
+import time
 
 # Load .env
 load_dotenv()
@@ -25,6 +26,44 @@ if not OPENAI_API_KEY:
 client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 app = FastAPI(title="News Sentiment API")
+
+# In-memory cache with 1-hour expiration
+CACHE_EXPIRATION_HOURS = 1
+CACHE_EXPIRATION_SECONDS = CACHE_EXPIRATION_HOURS * 3600
+
+# Cache dictionaries - each stores {key: {"data": response, "timestamp": time.time()}}
+news_cache = {}
+finnhub_cache = {}
+search_cache = {}
+stocks_cache = {}
+
+def is_cache_valid(cache_entry: dict) -> bool:
+    """Check if a cache entry is still valid (within 1 hour)"""
+    if not cache_entry:
+        return False
+    return (time.time() - cache_entry["timestamp"]) < CACHE_EXPIRATION_SECONDS
+
+def get_cached_data(cache_dict: dict, key: str):
+    """Get cached data if valid, otherwise return None"""
+    cache_entry = cache_dict.get(key)
+    if cache_entry and is_cache_valid(cache_entry):
+        print(f"Cache HIT for key: {key}")
+        return cache_entry["data"]
+    elif cache_entry:
+        # Remove expired entry
+        del cache_dict[key]
+        print(f"Cache EXPIRED for key: {key}")
+    else:
+        print(f"Cache MISS for key: {key}")
+    return None
+
+def set_cached_data(cache_dict: dict, key: str, data):
+    """Store data in cache with current timestamp"""
+    cache_dict[key] = {
+        "data": data,
+        "timestamp": time.time()
+    }
+    print(f"Cache SET for key: {key}")
 
 # CORS settings: allow your frontend origins here
 FRONTEND_ORIGINS = [
@@ -56,6 +95,12 @@ def handle_search(payload: CompanyRequest, request: Request):
         company = payload.company.strip()
         if not company:
             raise HTTPException(status_code=400, detail="Missing 'company' parameter")
+
+        # Check cache first
+        cache_key = f"search_{company.lower()}"
+        cached_result = get_cached_data(search_cache, cache_key)
+        if cached_result:
+            return cached_result
 
         search_url = f"https://www.google.com/search?q={company}+news&tbm=nws"
         resp = requests.get(search_url)
@@ -93,14 +138,17 @@ def handle_search(payload: CompanyRequest, request: Request):
                 "Unable to analyze sentiment due to API error. "
             )
 
-        return {
+        result = {
             "sentiment": sentiment_analysis,
             "headlines": headlines,
             "company": company,
         }
 
-    except HTTPException:
+        # Cache the result
+        set_cached_data(search_cache, cache_key, result)
+        return result
 
+    except HTTPException:
         raise
     except Exception as e:
         print(f"Error in /search: {e}")
@@ -110,6 +158,12 @@ def handle_search(payload: CompanyRequest, request: Request):
 
 @app.get("/stocks/{symbol}")
 async def get_stock_data(symbol: str, start: str, end: str, timeframe: str):
+    # Check cache first
+    cache_key = f"stocks_{symbol}_{start}_{end}_{timeframe}"
+    cached_result = get_cached_data(stocks_cache, cache_key)
+    if cached_result:
+        return cached_result
+
     ALPACA_API_KEY = os.getenv("ALPACA_API_KEY")
     ALPACA_API_SECRET = os.getenv("ALPACA_API_SECRET")
     
@@ -134,7 +188,11 @@ async def get_stock_data(symbol: str, start: str, end: str, timeframe: str):
         async with httpx.AsyncClient() as client:
             response = await client.get(url, headers=headers, params=params)
             response.raise_for_status()
-            return response.json()
+            result = response.json()
+            
+            # Cache the result
+            set_cached_data(stocks_cache, cache_key, result)
+            return result
     except httpx.HTTPError as e:
         raise HTTPException(status_code=500, detail=f"Error fetching Alpaca data: {str(e)}")
 
@@ -144,6 +202,12 @@ async def get_news(
     symbol: str,
     company_name: str = Query(..., alias="companyName")
 ):
+    # Check cache first
+    cache_key = f"news_{symbol.lower()}_{company_name.lower()}"
+    cached_result = get_cached_data(news_cache, cache_key)
+    if cached_result:
+        return cached_result
+
     try:
         # Calculate date 30 days ago
         thirty_days_ago = datetime.now() - timedelta(days=30)
@@ -173,6 +237,9 @@ async def get_news(
                 raise HTTPException(status_code=response.status_code, detail=f"API error: {response.status_code}")
             
             result = response.json()
+            
+            # Cache the result
+            set_cached_data(news_cache, cache_key, result)
             return result
             
     except httpx.TimeoutException:
@@ -268,16 +335,6 @@ async def get_finnhub_data(
     symbol: str,
     company_name: Optional[str] = Query(None, description="Company name for reference")
 ):
-    """
-    Fetch comprehensive Finnhub data for a stock symbol
-    
-    Args:
-        symbol: Stock symbol (e.g., AAPL, GOOGL)
-        company_name: Optional company name for reference
-    
-    Returns:
-        JSON object containing earnings data, company metrics, and raw API responses
-    """
     if not symbol:
         raise HTTPException(status_code=400, detail="Symbol parameter is required")
     
@@ -286,34 +343,43 @@ async def get_finnhub_data(
     
     clean_symbol = symbol.strip().upper()
     
-    # Build API URLs
+    # Check cache first
+    cache_key = f"finnhub_{clean_symbol.lower()}"
+    if company_name:
+        cache_key += f"_{company_name.lower()}"
+    cached_result = get_cached_data(finnhub_cache, cache_key)
+    if cached_result:
+        return cached_result
+    
+    # Build API URLs - TESTING EARNINGS + PROFILE + METRICS (NO QUOTE)
     endpoints = {
         "earnings": f"{FINNHUB_BASE_URL}/stock/earnings?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
         "profile": f"{FINNHUB_BASE_URL}/stock/profile2?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
-        "quote": f"{FINNHUB_BASE_URL}/quote?symbol={clean_symbol}&token={FINNHUB_API_KEY}",
         "metrics": f"{FINNHUB_BASE_URL}/stock/metric?symbol={clean_symbol}&metric=all&token={FINNHUB_API_KEY}"
     }
     
     try:
-        # Fetch all data in parallel
+        # Fetch all data in parallel - TESTING EARNINGS + PROFILE + METRICS
         tasks = [
             fetch_with_timeout(endpoints["earnings"]),
             fetch_with_timeout(endpoints["profile"]),
-            fetch_with_timeout(endpoints["quote"]),
-            fetch_with_timeout(endpoints["metrics"])
+            fetch_with_timeout(endpoints["metrics"]),
         ]
         
         results = await asyncio.gather(*tasks, return_exceptions=True)
-        earnings_data, profile_data, quote_data, metrics_data = results
+        earnings_data, profile_data, metrics_data = results
         
         # Handle individual API failures
         raw_data = {}
-        for i, (key, result) in enumerate(zip(["earnings", "profile", "quote", "metrics"], results)):
+        for i, (key, result) in enumerate(zip(["earnings", "profile", "metrics"], results)):
             if isinstance(result, Exception):
                 raw_data[key] = {"error": str(result)}
                 print(f"Error fetching {key}: {result}")
             else:
                 raw_data[key] = result
+        
+        # FOR TESTING - Set dummy data for disabled endpoints
+        raw_data["quote"] = {"test": "disabled - removed quote endpoint"}
         
         # Process earnings data
         processed_earnings = []
@@ -324,19 +390,19 @@ async def get_finnhub_data(
         elif isinstance(earnings_data, Exception):
             raise HTTPException(status_code=500, detail=f"Failed to fetch earnings data: {str(earnings_data)}")
         
-        # Process company metrics
+        # Process company metrics - USE EARNINGS + PROFILE + METRICS DATA (NO QUOTE)
         profile = profile_data if not isinstance(profile_data, Exception) else {}
-        quote = quote_data if not isinstance(quote_data, Exception) else {}
+        quote = {}  # Empty since we removed quote endpoint
         metrics = metrics_data if not isinstance(metrics_data, Exception) else {}
         
         company_metrics = process_company_metrics(profile, quote, metrics)
         
         # Validate critical data
-        validation_warnings = []
-        if not quote.get('c'):
-            validation_warnings.append("No current price data")
+        validation_warnings = ["Testing earnings + profile + metrics endpoints - quote removed"]
         if not profile.get('marketCapitalization'):
             validation_warnings.append("No market cap data")
+        if not metrics.get('metric'):
+            validation_warnings.append("No metrics data")
         
         response_data = {
             "symbol": clean_symbol,
@@ -348,6 +414,8 @@ async def get_finnhub_data(
             "validation_warnings": validation_warnings
         }
         
+        # Cache the result
+        set_cached_data(finnhub_cache, cache_key, response_data)
         return response_data
         
     except HTTPException:
@@ -355,10 +423,39 @@ async def get_finnhub_data(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Unexpected error processing data: {str(e)}")
 
+@app.get("/cache/stats")
+def get_cache_stats():
+    """Debug endpoint to see cache statistics"""
+    def get_cache_info(cache_dict, name):
+        total_entries = len(cache_dict)
+        valid_entries = sum(1 for entry in cache_dict.values() if is_cache_valid(entry))
+        expired_entries = total_entries - valid_entries
+        return {
+            "name": name,
+            "total_entries": total_entries,
+            "valid_entries": valid_entries,
+            "expired_entries": expired_entries
+        }
+    
+    return {
+        "cache_expiration_hours": CACHE_EXPIRATION_HOURS,
+        "caches": [
+            get_cache_info(news_cache, "news"),
+            get_cache_info(finnhub_cache, "finnhub"),
+            get_cache_info(search_cache, "search"),
+            get_cache_info(stocks_cache, "stocks")
+        ]
+    }
 
-
+@app.get("/cache/clear")
+def clear_all_caches():
+    """Debug endpoint to clear all caches"""
+    news_cache.clear()
+    finnhub_cache.clear()
+    search_cache.clear()
+    stocks_cache.clear()
+    return {"message": "All caches cleared"}
+    
 @app.get("/test")
 def test():
     return {"message": "FastAPI server is running!", "status": "OK"}
-
-

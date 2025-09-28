@@ -20,17 +20,14 @@ function StockReels() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   const containerRef = useRef(null);
-  const isAnimatingRef = useRef(false);
-  const gestureBlocked = useRef(false);
+  const lastSwipeTime = useRef(0); // Track when the last swipe occurred
   const wheelAccum = useRef(0);
   const gestureEndTimer = useRef(null);
-  const unblockTimer = useRef(null);
 
   const WHEEL_THRESHOLD = 100;     
   const WHEEL_GESTURE_TIMEOUT = 80;
   const ANIMATION_MS = 600;       
-  const BLOCK_MARGIN_MS = 50;
-  const GESTURE_BLOCK_MS = ANIMATION_MS + BLOCK_MARGIN_MS;
+  const SWIPE_COOLDOWN_MS = 1000; // 1000ms cooldown between swipes
   const SMALL_THRESHOLD = 5; 
 
   // Array of companies to cycle through
@@ -43,6 +40,100 @@ function StockReels() {
     { symbol: "META", name: "Meta" },
     { symbol: "NVDA", name: "NVIDIA" },
     { symbol: "NFLX", name: "Netflix" },
+    { symbol: "JPM", name: "JPMorgan Chase" },
+    { symbol: "BAC", name: "Bank of America" },
+    { symbol: "V", name: "Visa" },
+    { symbol: "MA", name: "Mastercard" },
+    { symbol: "GS", name: "Goldman Sachs" },
+    { symbol: "MS", name: "Morgan Stanley" },
+    { symbol: "DIS", name: "Walt Disney" },
+    { symbol: "WMT", name: "Walmart" },
+    { symbol: "PEP", name: "PepsiCo" },
+    { symbol: "KO", name: "Coca-Cola" },
+    { symbol: "JNJ", name: "Johnson & Johnson" },
+    { symbol: "PFE", name: "Pfizer" },
+    { symbol: "XOM", name: "Exxon Mobil" },
+    { symbol: "CSCO", name: "Cisco Systems" },
+    { symbol: "C", name: "Citigroup" },
+    { symbol: "WFC", name: "Wells Fargo" },
+    { symbol: "CVX", name: "Chevron" },
+    { symbol: "BRK.B", name: "Berkshire Hathaway" },
+    { symbol: "UNH", name: "UnitedHealth Group" },
+    { symbol: "PG", name: "Procter & Gamble" },
+    { symbol: "HD", name: "Home Depot" },
+    { symbol: "ORCL", name: "Oracle" },
+    { symbol: "ADBE", name: "Adobe" },
+    { symbol: "CRM", name: "Salesforce" },
+    { symbol: "INTC", name: "Intel" },
+    { symbol: "COST", name: "Costco" },
+    { symbol: "MCD", name: "McDonald's" },
+    { symbol: "NKE", name: "Nike" },
+    { symbol: "ABT", name: "Abbott Laboratories" },
+    { symbol: "MRK", name: "Merck & Co." },
+    { symbol: "T", name: "AT&T" },
+    { symbol: "VZ", name: "Verizon" },
+    { symbol: "LLY", name: "Eli Lilly" },
+    { symbol: "ABBV", name: "AbbVie" },
+    { symbol: "QCOM", name: "Qualcomm" },
+    { symbol: "IBM", name: "IBM" },
+    { symbol: "TXN", name: "Texas Instruments" },
+    { symbol: "HON", name: "Honeywell" },
+    { symbol: "BA", name: "Boeing" },
+    { symbol: "GE", name: "General Electric" },
+    { symbol: "CAT", name: "Caterpillar" },
+    { symbol: "UPS", name: "United Parcel Service" },
+    { symbol: "CVS", name: "CVS Health" },
+    { symbol: "MDT", name: "Medtronic" },
+    { symbol: "LOW", name: "Lowe's" },
+    { symbol: "PM", name: "Philip Morris International" },
+    { symbol: "SPGI", name: "S&P Global" },
+    { symbol: "AXP", name: "American Express" },
+    { symbol: "DE", name: "Deere & Company" },
+    { symbol: "AMGN", name: "Amgen" },
+    { symbol: "MDLZ", name: "Mondelez International" },
+    { symbol: "PYPL", name: "PayPal" },
+    { symbol: "SBUX", name: "Starbucks" },
+    { symbol: "TGT", name: "Target" },
+    { symbol: "GM", name: "General Motors" },
+    { symbol: "F", name: "Ford Motor" },
+    { symbol: "DAL", name: "Delta Air Lines" },
+    { symbol: "LUV", name: "Southwest Airlines" },
+    { symbol: "BLK", name: "BlackRock" },
+    { symbol: "MMM", name: "3M" },
+    { symbol: "MO", name: "Altria Group" },
+    { symbol: "KHC", name: "Kraft Heinz" },
+    { symbol: "GIS", name: "General Mills" },
+    { symbol: "KMB", name: "Kimberly-Clark" },
+    { symbol: "CL", name: "Colgate-Palmolive" },
+    { symbol: "PLTR", name: "Palantir Technologies" },
+    { symbol: "INTU", name: "Intuit" },
+    { symbol: "NOW", name: "ServiceNow" },
+    { symbol: "ADP", name: "Automatic Data Processing" },
+    { symbol: "ISRG", name: "Intuitive Surgical" },
+    { symbol: "BKNG", name: "Booking Holdings" },
+    { symbol: "PGR", name: "Progressive" },
+    { symbol: "LMT", name: "Lockheed Martin" },
+    { symbol: "RTX", name: "Raytheon Technologies" },
+    { symbol: "DUK", name: "Duke Energy" },
+    { symbol: "SO", name: "Southern Company" },
+    { symbol: "GMAB", name: "Genmab" },
+    { symbol: "EL", name: "Estée Lauder" },
+    { symbol: "SHW", name: "Sherwin-Williams" },
+    { symbol: "TJX", name: "TJX Companies" },
+    { symbol: "BK", name: "Bank of New York Mellon" },
+    { symbol: "FDX", name: "FedEx" },
+    { symbol: "MAR", name: "Marriott International" },
+    { symbol: "CME", name: "CME Group" },
+    { symbol: "TMO", name: "Thermo Fisher Scientific" },
+    { symbol: "DHR", name: "Danaher" },
+    { symbol: "EQIX", name: "Equinix" },
+    { symbol: "CSX", name: "CSX Corporation" },
+    { symbol: "NSC", name: "Norfolk Southern" },
+    { symbol: "HUM", name: "Humana" },
+    { symbol: "AON", name: "Aon" },
+    { symbol: "MMC", name: "Marsh & McLennan" },
+    { symbol: "CB", name: "Chubb" },
+    { symbol: "ALL", name: "Allstate" },
   ];
 
   // Save to localStorage whenever currentIndex changes
@@ -64,19 +155,35 @@ function StockReels() {
     return companies[randomIndex];
   };
 
-  useEffect(() => {
-    isAnimatingRef.current = isAnimating;
-  }, [isAnimating]);
+  const currentCompany = getCurrentCompany(currentIndex);
+  const nextCompany = getCurrentCompany(currentIndex + 1);
 
   const swipeToNext = () => {
-    if (isAnimatingRef.current) return;
+    const now = Date.now();
+    
+    // Check if 1000ms have passed since the last swipe
+    if (now - lastSwipeTime.current < SWIPE_COOLDOWN_MS) {
+      console.log(`Swipe blocked. ${SWIPE_COOLDOWN_MS - (now - lastSwipeTime.current)}ms remaining`);
+      return; // Block the swipe
+    }
+    
+    // Record this swipe time
+    lastSwipeTime.current = now;
+    
+    // Start the swipe
     setIsAnimating(true);
-    isAnimatingRef.current = true;
+    
+    // Clear any wheel accumulation
+    wheelAccum.current = 0;
+    if (gestureEndTimer.current) {
+      clearTimeout(gestureEndTimer.current);
+      gestureEndTimer.current = null;
+    }
 
+    // Handle the animation and state update
     setTimeout(() => {
       setCurrentIndex((p) => p + 1);
       setIsAnimating(false);
-      isAnimatingRef.current = false;
     }, ANIMATION_MS);
   };
 
@@ -87,8 +194,10 @@ function StockReels() {
     const onWheel = (e) => {
       e.preventDefault();
 
-      if (gestureBlocked.current || isAnimatingRef.current) {
-        return;
+      // Check if we're still in cooldown period
+      const now = Date.now();
+      if (now - lastSwipeTime.current < SWIPE_COOLDOWN_MS) {
+        return; // Block all wheel events during cooldown
       }
 
       if (Math.abs(e.deltaY) < SMALL_THRESHOLD) return;
@@ -97,6 +206,7 @@ function StockReels() {
       if (gestureEndTimer.current) {
         clearTimeout(gestureEndTimer.current);
       }
+      
       gestureEndTimer.current = setTimeout(() => {
         wheelAccum.current = 0;
         gestureEndTimer.current = null;
@@ -104,37 +214,24 @@ function StockReels() {
 
       if (Math.abs(wheelAccum.current) >= WHEEL_THRESHOLD) {
         if (wheelAccum.current > 0) {
-          wheelAccum.current = 0;
-          gestureBlocked.current = true;
-
-          if (gestureEndTimer.current) { clearTimeout(gestureEndTimer.current); gestureEndTimer.current = null; }
-          if (unblockTimer.current) { clearTimeout(unblockTimer.current); unblockTimer.current = null; }
-
+          if (gestureEndTimer.current) {
+            clearTimeout(gestureEndTimer.current);
+            gestureEndTimer.current = null;
+          }
           swipeToNext();
-
-          unblockTimer.current = setTimeout(() => {
-            gestureBlocked.current = false;
-            unblockTimer.current = null;
-          }, GESTURE_BLOCK_MS);
         } else {
           wheelAccum.current = 0;
         }
       }
     };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
-
     const onKey = (ev) => {
       if (ev.key === 'ArrowDown') {
         ev.preventDefault();
-        if (!isAnimatingRef.current && !gestureBlocked.current) {
-          gestureBlocked.current = true;
-          swipeToNext();
-          if (unblockTimer.current) clearTimeout(unblockTimer.current);
-          unblockTimer.current = setTimeout(() => { gestureBlocked.current = false; unblockTimer.current = null; }, GESTURE_BLOCK_MS);
-        }
+        swipeToNext();
       }
     };
+    el.addEventListener('wheel', onWheel, { passive: false });
     el.addEventListener('keydown', onKey);
     el.setAttribute('tabindex', '0');
     el.style.outline = 'none';
@@ -142,10 +239,20 @@ function StockReels() {
     return () => {
       el.removeEventListener('wheel', onWheel);
       el.removeEventListener('keydown', onKey);
-      if (gestureEndTimer.current) { clearTimeout(gestureEndTimer.current); gestureEndTimer.current = null; }
-      if (unblockTimer.current) { clearTimeout(unblockTimer.current); unblockTimer.current = null; }
+      if (gestureEndTimer.current) {
+        clearTimeout(gestureEndTimer.current);
+        gestureEndTimer.current = null;
+      }
     };
   }, []); 
+
+  const isInCooldown = () => {
+    return Date.now() - lastSwipeTime.current < SWIPE_COOLDOWN_MS;
+  };
+
+  const handleArrowClick = () => {
+    swipeToNext();
+  };
 
   return (
     <div
@@ -174,8 +281,8 @@ function StockReels() {
         }}
       >
         <BentoGridThirdDemo 
-          companySymbol={getCurrentCompany(currentIndex).symbol}
-          companyName={getCurrentCompany(currentIndex).name}
+          companySymbol={currentCompany.symbol}
+          companyName={currentCompany.name}
         />
       </div>
 
@@ -194,21 +301,14 @@ function StockReels() {
         }}
       >
         <BentoGridThirdDemo 
-          companySymbol={getCurrentCompany(currentIndex + 1).symbol}
-          companyName={getCurrentCompany(currentIndex + 1).name}
+          companySymbol={nextCompany.symbol}
+          companyName={nextCompany.name}
         />
       </div>
 
       {/* down arrow */}
       <div
-        onClick={() => {
-          if (!isAnimatingRef.current && !gestureBlocked.current) {
-            gestureBlocked.current = true;
-            swipeToNext();
-            if (unblockTimer.current) clearTimeout(unblockTimer.current);
-            unblockTimer.current = setTimeout(() => { gestureBlocked.current = false; unblockTimer.current = null; }, GESTURE_BLOCK_MS);
-          }
-        }}
+        onClick={handleArrowClick}
         style={{
           position: 'fixed',
           bottom: '20px',
@@ -225,7 +325,9 @@ function StockReels() {
           background: 'rgba(173, 216, 230, 0.1)',
           backdropFilter: 'blur(10px)',
           zIndex: 10,
-          transition: 'all 0.3s ease'
+          transition: 'all 0.3s ease',
+          opacity: isInCooldown() ? 0.5 : 1,
+          pointerEvents: isInCooldown() ? 'none' : 'auto'
         }}
       >
         <div style={{

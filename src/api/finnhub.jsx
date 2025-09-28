@@ -10,38 +10,9 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
 
   useEffect(() => {
     if (symbol) {
-      loadData();
+      fetchAllData();
     }
   }, [symbol]);
-
-  const loadData = async () => {
-    try {
-      // Create cache keys based on company symbol
-      const cacheKey = `${symbol.toLowerCase()}-finnhub-data`;
-      const timestampKey = `${symbol.toLowerCase()}-finnhub-timestamp`;
-      
-      // Check for cached data from the past 30 minutes for this specific company
-      const cachedData = localStorage.getItem(cacheKey);
-      const lastFetch = localStorage.getItem(timestampKey);
-      const thirtyMinutesAgo = Date.now() - 30 * 60 * 1000; // 30 minutes cache
-      
-      if (cachedData && lastFetch && parseInt(lastFetch) > thirtyMinutesAgo) {
-        console.log(`Using cached Finnhub data for ${symbol}`);
-        const parsedData = JSON.parse(cachedData);
-        setEarningsData(parsedData.earningsData || []);
-        setCompanyMetrics(parsedData.companyMetrics || {});
-        setRawData(parsedData.rawData || {});
-        return;
-      }
-
-      console.log(`Fetching fresh Finnhub data for ${symbol}`);
-      // Fetch fresh data
-      await fetchAllData();
-    } catch (err) {
-      console.error('Error loading data:', err);
-      await fetchAllData();
-    }
-  };
 
   const safeNumber = (value, fallback = 0) => {
     const num = Number(value);
@@ -104,20 +75,6 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
       if (result.validation_warnings && result.validation_warnings.length > 0) {
         console.warn('Data validation warnings:', result.validation_warnings);
       }
-      
-      // Cache the result
-      const dataToCache = {
-        earningsData: processedEarningsData,
-        companyMetrics: processedCompanyMetrics,
-        rawData: currentRawData,
-        timestamp: result.timestamp
-      };
-      
-      const cacheKey = `${cleanSymbol.toLowerCase()}-finnhub-data`;
-      const timestampKey = `${cleanSymbol.toLowerCase()}-finnhub-timestamp`;
-      
-      localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
-      localStorage.setItem(timestampKey, Date.now().toString());
 
       // Check if we have earnings data
       if (processedEarningsData.length === 0) {
@@ -182,7 +139,7 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
         </div>
       )}
 
-      {!error && !loading && (
+      {!error && !loading && earningsData.length > 0 && (
         <div style={styles.chartContainer}>
           <ResponsiveContainer width="160%" height="65%">
             <BarChart data={earningsData} barGap={10}>
@@ -334,12 +291,13 @@ const styles = {
     cursor: 'pointer',
   },
   noData: {
+    fontSize: '13px',
     textAlign: 'center',
     padding: '20px',
     color: '#64748b',
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
     borderRadius: '6px',
-    marginTop: '-8em',
+    marginTop: '4em',
   },
   tooltip: {
     backgroundColor: 'rgba(255, 255, 255, 0.8)',

@@ -69,7 +69,7 @@ const TimePeriodToggle = ({ selectedPeriod, onPeriodChange, loading }) => {
   const periods = Object.keys(TIME_PERIODS);
   
   return (
-    <div style={{fontFamily: 'Geist, sans-serif'}}className="flex flex-wrap gap-1">
+    <div style={{fontFamily: 'Geist, sans-serif'}}className="flex gap-1 overflow-x-hidden">
       {periods.map((period) => (
         <button
           key={period}
@@ -205,7 +205,7 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-start justify-between w-full">
           <div>
-            <h3 style={{ fontFamily: 'Geist, sans-serif', fontWeight: '700'}} className="text-2xl text-purple-400">{title}</h3>
+            <h3 style={{ fontFamily: 'Geist, sans-serif', fontWeight: '700', whiteSpace: 'nowrap'}} className="text-2xl text-purple-400">{title}</h3>
             <div className="flex items-center gap-4 mt-1">
               <span className="text-2xl font-bold font-mono text-white">
                 ${lastPrice.toFixed(2)}
@@ -217,7 +217,7 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
               </span>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-end gap-2 whitespace-nowrap">
             <TimePeriodToggle 
               selectedPeriod={selectedPeriod}
               onPeriodChange={onPeriodChange}
@@ -533,7 +533,7 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="max-w-6xl mx-auto p-4 overflow-hidden">
       {loading ? (
         <div className="flex items-center justify-center p-12 rounded-lg shadow-lg">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
