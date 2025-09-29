@@ -149,9 +149,8 @@ function StockReels() {
 
   // Deterministic pseudo-random selection based on index
   const getCurrentCompany = (index) => {
-    // Simple hash function to create deterministic "randomness"
-    const seed = ((index * 9301 + 49297) % 233280) * 1103515245 + 12345;
-    const randomIndex = Math.abs(seed) % companies.length;
+    const seed = (index * 1664525 + 1013904223) >>> 0; // Use unsigned 32-bit
+    const randomIndex = seed % companies.length;
     return companies[randomIndex];
   };
 

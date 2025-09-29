@@ -66,11 +66,11 @@ const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
       if (match) {
         const avgScore = parseFloat(match[1]);
         if (avgScore >= 8) {
-          setRecommendation("🚀 You should BUY.");
-        } else if (avgScore < 4) {
-          setRecommendation("⚠️ You should SELL.");
+          setRecommendation("🚀 Positive Overall Sentiment");
+        } else if (avgScore <= 3) {
+          setRecommendation("⚠️ Negative Overall Sentiment");
         } else {
-          setRecommendation("🤔 You should HOLD if you own it, or don't buy yet.");
+          setRecommendation("🤔 Neutral Overall Sentiment");
         }
       }
     } catch (err) {
