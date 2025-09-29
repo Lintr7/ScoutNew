@@ -225,13 +225,15 @@ const styles = {
   },
   error: {
     color: "#ef4444",
-    marginTop: "16px",
-    backgroundColor: "#fef2f2",
+    marginTop: "10em",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
     padding: "12px 16px",
     borderRadius: "8px",
     border: "1px solid #fecaca",
     fontSize: "14px",
     fontWeight: "500",
+    position: 'absolute',
+    zIndex: '100',
   },
   resultBox: {
     marginTop: "0em",
