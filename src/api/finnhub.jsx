@@ -42,7 +42,7 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
         company_name: companyName
       });
       
-      const response = await fetch(`http://localhost:8000/finnhub/${cleanSymbol}?${params}`);
+      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
       
       if (!response.ok) {
         const errorText = await response.text();
