@@ -65,7 +65,7 @@ const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
       const match = result.sentiment.match(/average sentiment score:\s*([\d.]+)/i);
       if (match) {
         const avgScore = parseFloat(match[1]);
-        if (avgScore >= 8) {
+        if (avgScore >= 7) {
           setRecommendation("🚀 Positive Overall Sentiment");
         } else if (avgScore <= 3) {
           setRecommendation("⚠️ Negative Overall Sentiment");

@@ -338,7 +338,7 @@ function StockReels() {
           marginTop: '-3px'
         }} />
       </div>
-
+      {/* 
       <div style={{
         position: 'fixed',
         top: '20px',
@@ -352,6 +352,7 @@ function StockReels() {
       }}>
         Reel: {currentIndex + 1} - {getCurrentCompany(currentIndex).name}
       </div>
+      */}
     </div>
   );
 }
