@@ -156,6 +156,7 @@ function StockReels() {
 
   const currentCompany = getCurrentCompany(currentIndex);
   const nextCompany = getCurrentCompany(currentIndex + 1);
+  const [cooldownActive, setCooldownActive] = useState(false);
 
   const swipeToNext = () => {
     const now = Date.now();
@@ -171,6 +172,7 @@ function StockReels() {
     
     // Start the swipe
     setIsAnimating(true);
+    setCooldownActive(true); 
     
     // Clear any wheel accumulation
     wheelAccum.current = 0;
@@ -179,11 +181,16 @@ function StockReels() {
       gestureEndTimer.current = null;
     }
 
-    // Handle the animation and state update
+    // Update index and stop animation after ANIMATION_MS
     setTimeout(() => {
       setCurrentIndex((p) => p + 1);
       setIsAnimating(false);
     }, ANIMATION_MS);
+    
+    // Re-enable button after SWIPE_COOLDOWN_MS
+    setTimeout(() => {
+      setCooldownActive(false);
+    }, SWIPE_COOLDOWN_MS);
   };
 
   useEffect(() => {
@@ -245,10 +252,6 @@ function StockReels() {
     };
   }, []); 
 
-  const isInCooldown = () => {
-    return Date.now() - lastSwipeTime.current < SWIPE_COOLDOWN_MS;
-  };
-
   const handleArrowClick = () => {
     swipeToNext();
   };
@@ -264,6 +267,18 @@ function StockReels() {
           @keyframes synchronizedSwipe {
             from { transform: translateY(0); }
             to   { transform: translateY(-100vh); }
+          }
+          
+          @keyframes floatUpDown {
+            0% { 
+              transform: translateX(-50%) translateY(0);
+            }
+            50% { 
+              transform: translateX(-50%) translateY(-5px);
+            }
+            100% { 
+              transform: translateX(-50%) translateY(0);
+            }
           }
         `}
       </style>
@@ -310,11 +325,11 @@ function StockReels() {
         onClick={handleArrowClick}
         style={{
           position: 'fixed',
-          bottom: '20px',
+          bottom: '1.35em',
           left: '50%',
           transform: 'translateX(-50%)',
-          width: '30px',
-          height: '30px',
+          width: '35px',
+          height: '35px',
           border: '2px solid white',
           borderRadius: '50%',
           display: 'flex',
@@ -325,13 +340,14 @@ function StockReels() {
           backdropFilter: 'blur(10px)',
           zIndex: 10,
           transition: 'all 0.3s ease',
-          opacity: isInCooldown() ? 0.5 : 1,
-          pointerEvents: isInCooldown() ? 'none' : 'auto'
+          opacity: cooldownActive ? 0.5 : 1,
+          pointerEvents: cooldownActive ? 'none' : 'auto',
+          animation: cooldownActive ? 'none' : 'floatUpDown 2s ease-in-out infinite'
         }}
       >
         <div style={{
-          width: '8px',
-          height: '8px',
+          width: '9px',
+          height: '9px',
           borderRight: '2px solid white',
           borderBottom: '2px solid white',
           transform: 'rotate(45deg)',
