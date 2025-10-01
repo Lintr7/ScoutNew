@@ -1,8 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useAuth } from '../auth/AuthContext';
 import { BentoGridSecondDemo } from "./bentoBox";
 import { BentoGridThirdDemo } from './ui/bentoBox3';
+import { supabase } from '../lib/supabaseClient';
+import { User } from 'lucide-react';
+
+function useUserAvatar() {
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      console.log('User data:', user);
+      if (user) {
+        const avatarUrl = user.user_metadata?.avatar_url;
+        console.log('Avatar URL:', avatarUrl);
+        setAvatarUrl(avatarUrl);
+      }
+    };
+    getUser();
+  }, []);
+
+  return avatarUrl;
+}
 
 function StockReels() {
+  const avatarUrl = useUserAvatar();
+  const [email, setEmail] = useState('');
+  useEffect(() => {
+    getEmail();
+  }, []);
   // Initialize currentIndex from localStorage or default to 0
   const [currentIndex, setCurrentIndex] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -16,8 +44,34 @@ function StockReels() {
     }
     return 0;
   });
+
+  const getEmail = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    const userEmail = user?.email;
+    setEmail(userEmail);
+  };
+  
   
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Handle clicks outside the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   const containerRef = useRef(null);
   const lastSwipeTime = useRef(0); // Track when the last swipe occurred
@@ -30,7 +84,6 @@ function StockReels() {
   const SWIPE_COOLDOWN_MS = 1000; // 1000ms cooldown between swipes
   const SMALL_THRESHOLD = 5; 
 
-  // Array of companies to cycle through
   const companies = [
     { symbol: "AAPL", name: "Apple Inc." },
     { symbol: "GOOGL", name: "Alphabet" },
@@ -256,11 +309,24 @@ function StockReels() {
     swipeToNext();
   };
 
+  const { user, signOut } = useAuth();
+  const [isSigningOut, setIsSigningOut] = useState(false);
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+      setIsSigningOut(false); // Reset loading state on error
+    }
+  };
+
   return (
     <div
       ref={containerRef}
       className="reels"
-      style={{ position: 'relative', overflow: 'hidden', height: '100vh' }}
+      style={{ position: 'relative', overflow: 'hidden', height: '100vh'}}
     >
       <style>
         {`
@@ -282,7 +348,85 @@ function StockReels() {
           }
         `}
       </style>
+      <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', position: 'absolute', top: '0', height: '48px', zIndex: '50'}}></div>
+      <div style={{ borderTop: '1px solid rgba(135, 206, 250, 0.1)', height: '1px', width: '100%', position: 'absolute', marginTop: '3em', zIndex: '51'}}></div>
+      <div ref={dropdownRef} style={{ position: 'fixed', top: '6px', right: '15px', zIndex: 100 }}>
+  {avatarUrl ? (
+    <img
+      src={avatarUrl}
+      alt="User avatar"
+      referrerPolicy="no-referrer"
+      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      style={{
+        width: '35px',
+        height: '35px',
+        borderRadius: '50%',
+        objectFit: 'cover',
+        cursor: 'pointer',
+      }}
+    />
+  ) : (
+    <div
+      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+      style={{
+        width: '35px',
+        height: '35px',
+        borderRadius: '50%',
+        backgroundColor: '#e0e0e0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer'
+      }}
+    >
+      <User size={20} color="#666" />
+    </div>
+  )}
+  
+  {isDropdownOpen && (
+    <div style={{
+      position: 'absolute',
+      maxWidth: '300px',
+      top: '40px',
+      right: '5px',
+      backgroundColor: '#011930',
+      border: '1px solid #01203d',
+      borderRadius: '8px',
+      boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+      minWidth: '100px',
+      padding: '14px 20px'
+    }}>
+      <p>{email}</p>
+      <button
+        onClick={handleSignOut}
+        disabled={isSigningOut}
+        style={{
+          maxWidth: '150px',
+          marginTop: '10px',
+          padding: '7px 15px',
+          border: 'none',
+          fontWeight: 'bold',
+          cursor: isSigningOut ? 'not-allowed' : 'pointer'
+        }}
+        className={`${
+          isSigningOut
+            ? 'bg-red-600 cursor-not-allowed'
+            : 'bg-red-600 hover:bg-red-700'
+        } text-white rounded-md text-sm font-medium flex items-center justify-center gap-2`}
+      >
+        {isSigningOut && (
+          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+        )}
+        {isSigningOut ? 'Sign Out' : 'Sign Out'}
+      </button>
+    </div>
+  )}
+</div>
 
+
+      {/*
+      <img src="logoScout.png" style={{top: '5px', left: '15px', position: 'absolute', height: '38px', width: '38px', userSelect: 'none', zIndex: '51'}}/>
+      */}
       <div
         key={`current-${currentIndex}`}
         style={{

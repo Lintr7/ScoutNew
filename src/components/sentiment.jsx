@@ -244,7 +244,7 @@ const styles = {
   resultBoxContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start', // Changed from 'center' to 'flex-start'
+    alignItems: 'flex-start', 
     position: 'relative', 
     marginTop: '1em', 
     backgroundColor: "rgba(96, 165, 250, 0.3)",

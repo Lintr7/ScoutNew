@@ -7,6 +7,8 @@ import Login from './components/Login';
 import Signup from './components/SignUp';
 import StockReels from './components/stockReels';
 import FinnhubEarnings from './api/finnhub';
+import SearchStock from './pages/searchStock';
+import Favorites from './pages/favorites';
 
 export default function App() {
   return (
@@ -23,8 +25,22 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/stockReels" element={<StockReels />} />
-        <Route path="/test" element={<FinnhubEarnings />} />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <Favorites />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/searchStock"
+          element={
+            <ProtectedRoute>
+              <SearchStock />
+            </ProtectedRoute>
+          }
+        />
         
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

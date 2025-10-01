@@ -30,7 +30,7 @@ CACHE_TIMES = {
     "news": 10,          # MarketAux news 
     "finnhub": 6,       # Finnhub earnings/metrics 
     "search": 2,        # OpenAI sentiment analysis 
-    "stocks": 0.16      # Alpaca stock data
+    "stocks": 0.1      # Alpaca stock data
 }
 
 # Convert to seconds
