@@ -7,7 +7,7 @@ Scout is an AI-powered stock sentiment analyzer tailored for S&P 500 companies. 
 ## Try It Out Now! 🤩
 
 Experience Scout in action (best viewed on a laptop):  
-[https://scout-stock-analyzer.vercel.app](https://scout-new.vercel.app)
+[https://scout-new.vercel.app](https://scout-new.vercel.app)
 
 ## Tech Stack 🛠️
 
