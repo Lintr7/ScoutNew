@@ -1,12 +1,30 @@
-# React + Vite
+# Welcome to Scout! 📈📊
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## What is Scout? 🤔
 
-Currently, two official plugins are available:
+Scout is an AI-powered stock platform that allows you to view stocks in an Instagram reels format. We provide the latest news, price movement, financial metrics, and LLM-powered sentiment analysis on popular stocks.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Try It Out Now! 🤩
 
-## Expanding the ESLint configuration
+Experience Scout in action (best viewed on a laptop):  
+Coming soon!
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack 🛠️
+
+**Frontend:**
+- React.js
+- AceternityUI
+
+**Backend:**
+- FastAPI
+- AWS Elastic Beanstalk (for backend deployment)
+- Python (for web scraping and OpenAI sentiment analysis)
+- Marketaux, Finnhub, and Alpaca API calls
+
+## Challenges Faced 😰
+
+During development, we tackled several challenges:
+
+- **Responsive Design:** Ensuring our React components scaled and displayed correctly across different screen sizes required meticulous adjustments and testing.
+- **AWS Elastic Beanstalk:** Configuring and restructuring files to meet AWS deployment requirements definitely proved to be a complicated.
+- **API Communication:** Initially, our API endpoint calls failed due to mixed content issues (HTTPS on the frontend vs. HTTP on the backend). We resolved this by implementing a secure proxy to align both endpoints under HTTPS.
