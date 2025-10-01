@@ -2,7 +2,7 @@
 
 ## What is Scout? 🤔
 
-Scout is an AI-powered stock sentiment analyzer tailored for S&P 500 companies. Simply search for a company, and our backend will scrape Google News to gather the top 10 relevant articles. By leveraging the OpenAI API, Scout then provides an in-depth sentiment analysis along with a sentiment score (from 1 to 10) and a recommendation—keeping you updated on the latest market trends.
+Scout is an AI-powered stock platform that allows you to view stocks in an Instagram reels format. We provide the latest news, price movement, financial metrics, and LLM-powered sentiment analysis on popular stocks.
 
 ## Try It Out Now! 🤩
 
