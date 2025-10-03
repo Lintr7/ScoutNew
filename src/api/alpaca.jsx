@@ -69,7 +69,7 @@ const TimePeriodToggle = ({ selectedPeriod, onPeriodChange, loading }) => {
   const periods = Object.keys(TIME_PERIODS);
   
   return (
-    <div style={{fontFamily: 'Geist, sans-serif', position: 'absolute'}}className="flex gap-1 overflow-x-hidden">
+    <div style={{fontFamily: 'Geist, sans-serif', position: 'absolute', marginTop: '0.4em'}}className="flex gap-1 overflow-x-hidden">
       {periods.map((period) => (
         <button
           key={period}

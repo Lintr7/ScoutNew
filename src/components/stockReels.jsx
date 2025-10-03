@@ -1,36 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../auth/AuthContext';
 import { BentoGridSecondDemo } from "./bentoBox";
 import { BentoGridThirdDemo } from './ui/bentoBox3';
-import { supabase } from '../lib/supabaseClient';
 import { User } from 'lucide-react';
 
-function useUserAvatar() {
-  const [avatarUrl, setAvatarUrl] = useState(null);
-  
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      console.log('User data:', user);
-      if (user) {
-        const avatarUrl = user.user_metadata?.avatar_url;
-        console.log('Avatar URL:', avatarUrl);
-        setAvatarUrl(avatarUrl);
-      }
-    };
-    getUser();
-  }, []);
-
-  return avatarUrl;
-}
 
 function StockReels() {
-  const avatarUrl = useUserAvatar();
-  const [email, setEmail] = useState('');
-  useEffect(() => {
-    getEmail();
-  }, []);
   // Initialize currentIndex from localStorage or default to 0
   const [currentIndex, setCurrentIndex] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -44,35 +18,11 @@ function StockReels() {
     }
     return 0;
   });
-
-  const getEmail = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    const userEmail = user?.email;
-    setEmail(userEmail);
-  };
   
   
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
   // Handle clicks outside the dropdown
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isDropdownOpen]);
-
   const containerRef = useRef(null);
   const lastSwipeTime = useRef(0); // Track when the last swipe occurred
   const wheelAccum = useRef(0);
@@ -187,6 +137,164 @@ function StockReels() {
     { symbol: "MMC", name: "Marsh & McLennan" },
     { symbol: "CB", name: "Chubb" },
     { symbol: "ALL", name: "Allstate" },
+    { symbol: "FCEL", name: "FuelCell Energy" },
+    { symbol: "KLAC", name: "KLA" },
+    { symbol: "FTNT", name: "Fortinet" },
+    { symbol: "ALGN", name: "Align Technology" },
+    { symbol: "EXC", name: "Exelon" },
+    { symbol: "ABNB", name: "Airbnb" },
+    { symbol: "PNC", name: "PNC Financial Services Group" },
+    { symbol: "RBLX", name: "Roblox" },
+    { symbol: "PANW", name: "Palo Alto Networks" },
+    { symbol: "RCL", name: "Royal Caribbean Group" },
+    { symbol: "FAST", name: "Fastenal" },
+    { symbol: "KMI", name: "Kinder Morgan" },
+    { symbol: "CTAS", name: "Cintas" },
+    { symbol: "EIX", name: "Edison International" },
+    { symbol: "HCA", name: "HCA Healthcare" },
+    { symbol: "PTON", name: "Peloton Interactive" },
+    { symbol: "NEE", name: "NextEra Energy" },
+    { symbol: "MU", name: "Micron Technology" },
+    { symbol: "VLO", name: "Valero Energy" },
+    { symbol: "USB", name: "U.S. Bancorp" },
+    { symbol: "HLT", name: "Hilton Worldwide Holdings" },
+    { symbol: "LYFT", name: "Lyft" },
+    { symbol: "EMR", name: "Emerson Electric" },
+    { symbol: "IRM", name: "Iron Mountain" },
+    { symbol: "AIG", name: "American International Group" },
+    { symbol: "BMY", name: "Bristol-Myers Squibb" },
+    { symbol: "EOG", name: "EOG Resources" },
+    { symbol: "MCK", name: "McKesson" },
+    { symbol: "ECL", name: "Ecolab" },
+    { symbol: "CRSR", name: "Corsair Gaming" },
+    { symbol: "WELL", name: "Welltower" },
+    { symbol: "GILD", name: "Gilead Sciences" },
+    { symbol: "VRTX", name: "Vertex Pharmaceuticals" },
+    { symbol: "MNST", name: "Monster Beverage" },
+    { symbol: "SPG", name: "Simon Property Group" },
+    { symbol: "WDAY", name: "Workday" },
+    { symbol: "ZM", name: "Zoom Video Communications" },
+    { symbol: "BIIB", name: "Biogen" },
+    { symbol: "NEM", name: "Newmont" },
+    { symbol: "LHX", name: "L3Harris Technologies" },
+    { symbol: "LIN", name: "Linde" },
+    { symbol: "TWLO", name: "Twilio" },
+    { symbol: "DTE", name: "DTE Energy" },
+    { symbol: "PXD", name: "Pioneer Natural Resources" },
+    { symbol: "VICI", name: "VICI Properties" },
+    { symbol: "ITW", name: "Illinois Tool Works" },
+    { symbol: "REGN", name: "Regeneron Pharmaceuticals" },
+    { symbol: "AXON", name: "Axon Enterprise" },
+    { symbol: "CDNS", name: "Cadence Design Systems" },
+    { symbol: "NKLA", name: "Nikola" },
+    { symbol: "ZTS", name: "Zoetis" },
+    { symbol: "AMAT", name: "Applied Materials" },
+    { symbol: "PLUG", name: "Plug Power" },
+    { symbol: "FCX", name: "Freeport-McMoRan" },
+    { symbol: "DLTR", name: "Dollar Tree" },
+    { symbol: "ROKU", name: "Roku" },
+    { symbol: "AEP", name: "American Electric Power" },
+    { symbol: "TDG", name: "TransDigm Group" },
+    { symbol: "ADI", name: "Analog Devices" },
+    { symbol: "CEG", name: "Constellation Energy" },
+    { symbol: "PSX", name: "Phillips 66" },
+    { symbol: "BP", name: "BP" },
+    { symbol: "SLB", name: "Schlumberger" },
+    { symbol: "PH", name: "Parker-Hannifin" },
+    { symbol: "WM", name: "Waste Management" },
+    { symbol: "COIN", name: "Coinbase Global" },
+    { symbol: "AOS", name: "A. O. Smith" },
+    { symbol: "BABA", name: "Alibaba Group" },
+    { symbol: "UBER", name: "Uber Technologies" },
+    { symbol: "OXY", name: "Occidental Petroleum" },
+    { symbol: "FHN", name: "First Horizon" },
+    { symbol: "ENPH", name: "Enphase Energy" },
+    { symbol: "APH", name: "Amphenol" },
+    { symbol: "SYK", name: "Stryker" },
+    { symbol: "BYND", name: "Beyond Meat" },
+    { symbol: "BDX", name: "Becton, Dickinson" },
+    { symbol: "PPL", name: "PPL" },
+    { symbol: "ACN", name: "Accenture" },
+    { symbol: "NOC", name: "Northrop Grumman" },
+    { symbol: "COP", name: "ConocoPhillips" },
+    { symbol: "DASH", name: "DoorDash" },
+    { symbol: "KKR", name: "KKR" },
+    { symbol: "ORLY", name: "O'Reilly Automotive" },
+    { symbol: "MSI", name: "Motorola Solutions" },
+    { symbol: "ETR", name: "Entergy" },
+    { symbol: "HAL", name: "Halliburton" },
+    { symbol: "UNP", name: "Union Pacific" },
+    { symbol: "TT", name: "Trane Technologies" },
+    { symbol: "HBAN", name: "Huntington Bancshares" },
+    { symbol: "FSLR", name: "First Solar" },
+    { symbol: "CRWD", name: "CrowdStrike" },
+    { symbol: "MET", name: "MetLife" },
+    { symbol: "SHOP", name: "Shopify" },
+    { symbol: "DOCU", name: "DocuSign" },
+    { symbol: "PSA", name: "Public Storage" },
+    { symbol: "ADSK", name: "Autodesk" },
+    { symbol: "CMI", name: "Cummins" },
+    { symbol: "RSG", name: "Republic Services" },
+    { symbol: "OKTA", name: "Okta" },
+    { symbol: "ETN", name: "Eaton" },
+    { symbol: "AMD", name: "Advanced Micro Devices" },
+    { symbol: "MCO", name: "Moody's" },
+    { symbol: "BKR", name: "Baker Hughes" },
+    { symbol: "ICE", name: "Intercontinental Exchange" },
+    { symbol: "AVGO", name: "Broadcom" },
+    { symbol: "TXT", name: "Textron" },
+    { symbol: "BX", name: "Blackstone" },
+    { symbol: "APP", name: "AppLovin" },
+    { symbol: "AFL", name: "Aflac" },
+    { symbol: "ZION", name: "Zions Bancorporation" },
+    { symbol: "PLD", name: "Prologis" },
+    { symbol: "NXPI", name: "NXP Semiconductors" },
+    { symbol: "SNPS", name: "Synopsys" },
+    { symbol: "TRV", name: "Travelers" },
+    { symbol: "LRCX", name: "Lam Research" },
+    { symbol: "AZO", name: "AutoZone" },
+    { symbol: "DXCM", name: "DexCom" },
+    { symbol: "EQR", name: "Equity Residential" },
+    { symbol: "ANET", name: "Arista Networks" },
+    { symbol: "IP", name: "International Paper" },
+    { symbol: "AMT", name: "American Tower" },
+    { symbol: "MELI", name: "MercadoLibre" },
+    { symbol: "COF", name: "Capital One Financial" },
+    { symbol: "HWM", name: "Howmet Aerospace" },
+    { symbol: "TEL", name: "TE Connectivity" },
+    { symbol: "HOOD", name: "Robinhood Markets" },
+    { symbol: "AJG", name: "Arthur J. Gallagher" },
+    { symbol: "APD", name: "Air Products and Chemicals" },
+    { symbol: "GD", name: "General Dynamics" },
+    { symbol: "ESS", name: "Essex Property Trust" },
+    { symbol: "SHEL", name: "Shell" },   
+    { symbol: "XYZ", name: "Block" },
+    { symbol: "LI", name: "Li Auto" },
+    { symbol: "ALLE", name: "Allegion" },
+    { symbol: "XPEV", name: "XPeng" },
+    { symbol: "TTD", name: "The Trade Desk" },
+    { symbol: "ROK", name: "Rockwell Automation" },
+    { symbol: "CMG", name: "Chipotle Mexican Grill" },
+    { symbol: "CI", name: "Cigna Group" },
+    { symbol: "DLR", name: "Digital Realty Trust" },
+    { symbol: "MPC", name: "Marathon Petroleum" },
+    { symbol: "SNAP", name: "Snap" },
+    { symbol: "AVB", name: "AvalonBay Communities" },
+    { symbol: "BSX", name: "Boston Scientific" },
+    { symbol: "SEDG", name: "SolarEdge Technologies" },
+    { symbol: "STX", name: "Seagate Technology" },
+    { symbol: "CMA", name: "Comerica" },
+    { symbol: "EXPE", name: "Expedia Group" },
+    { symbol: "ELV", name: "Elevance Health" },   
+    { symbol: "SCHW", name: "Charles Schwab" },
+    { symbol: "CMCSA", name: "Comcast" },
+    { symbol: "GLW", name: "Corning" },
+    { symbol: "DELL", name: "Dell Technologies" },
+    { symbol: "TFC", name: "Truist Financial" },
+    { symbol: "VST", name: "Vistra" },
+    { symbol: "URI", name: "United Rentals" },
+    { symbol: "GEV", name: "GE Vernova" },
+    { symbol: "WMB", name: "Williams Companies" },
   ];
 
   // Save to localStorage whenever currentIndex changes
@@ -309,18 +417,6 @@ function StockReels() {
     swipeToNext();
   };
 
-  const { user, signOut } = useAuth();
-  const [isSigningOut, setIsSigningOut] = useState(false);
-
-  const handleSignOut = async () => {
-    setIsSigningOut(true);
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Sign out error:', error);
-      setIsSigningOut(false); // Reset loading state on error
-    }
-  };
 
   return (
     <div
@@ -328,6 +424,15 @@ function StockReels() {
       className="reels"
       style={{ position: 'relative', overflow: 'hidden', height: '100vh'}}
     >
+      <div style={{ 
+          backgroundColor: 'rgb(5, 12, 34)', 
+          width: '100%', 
+          position: 'absolute', 
+          top: '0em', 
+          height: '48px', 
+          borderTopLeftRadius: '1rem',
+          zIndex: '1',
+        }}></div>
       <style>
         {`
           @keyframes synchronizedSwipe {
@@ -348,80 +453,7 @@ function StockReels() {
           }
         `}
       </style>
-      <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', position: 'absolute', top: '0', height: '48px', zIndex: '50'}}></div>
-      <div style={{ borderTop: '1px solid rgba(135, 206, 250, 0.1)', height: '1px', width: '100%', position: 'absolute', marginTop: '3em', zIndex: '51'}}></div>
-      <div ref={dropdownRef} style={{ position: 'fixed', top: '6px', right: '15px', zIndex: 100 }}>
-  {avatarUrl ? (
-    <img
-      src={avatarUrl}
-      alt="User avatar"
-      referrerPolicy="no-referrer"
-      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      style={{
-        width: '35px',
-        height: '35px',
-        borderRadius: '50%',
-        objectFit: 'cover',
-        cursor: 'pointer',
-      }}
-    />
-  ) : (
-    <div
-      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-      style={{
-        width: '35px',
-        height: '35px',
-        borderRadius: '50%',
-        backgroundColor: '#e0e0e0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer'
-      }}
-    >
-      <User size={20} color="#666" />
-    </div>
-  )}
-  
-  {isDropdownOpen && (
-    <div style={{
-      position: 'absolute',
-      maxWidth: '300px',
-      top: '40px',
-      right: '5px',
-      backgroundColor: '#011930',
-      border: '1px solid #01203d',
-      borderRadius: '8px',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
-      minWidth: '100px',
-      padding: '14px 20px'
-    }}>
-      <p>{email}</p>
-      <button
-        onClick={handleSignOut}
-        disabled={isSigningOut}
-        style={{
-          maxWidth: '150px',
-          marginTop: '10px',
-          padding: '7px 15px',
-          border: 'none',
-          fontWeight: 'bold',
-          cursor: isSigningOut ? 'not-allowed' : 'pointer'
-        }}
-        className={`${
-          isSigningOut
-            ? 'bg-red-600 cursor-not-allowed'
-            : 'bg-red-600 hover:bg-red-700'
-        } text-white rounded-md text-sm font-medium flex items-center justify-center gap-2`}
-      >
-        {isSigningOut && (
-          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
-        )}
-        {isSigningOut ? 'Sign Out' : 'Sign Out'}
-      </button>
-    </div>
-  )}
-</div>
+      
 
 
       {/*

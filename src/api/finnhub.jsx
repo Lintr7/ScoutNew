@@ -60,7 +60,6 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
       }
       
       const result = await response.json();
-      
       // Use the processed data directly from FastAPI
       const processedEarningsData = result.earnings_data || [];
       const processedCompanyMetrics = result.company_metrics || {};
