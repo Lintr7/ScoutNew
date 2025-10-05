@@ -178,7 +178,6 @@ function StockReels() {
     { symbol: "NEM", name: "Newmont" },
     { symbol: "LHX", name: "L3Harris Technologies" },
     { symbol: "LIN", name: "Linde" },
-    { symbol: "TWLO", name: "Twilio" },
     { symbol: "DTE", name: "DTE Energy" },
     { symbol: "PXD", name: "Pioneer Natural Resources" },
     { symbol: "VICI", name: "VICI Properties" },

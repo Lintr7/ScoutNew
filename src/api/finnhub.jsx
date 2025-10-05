@@ -7,6 +7,7 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [rawData, setRawData] = useState({});
+  const [industry, setIndustry] = useState('');
 
   useEffect(() => {
     if (symbol) {
@@ -64,11 +65,14 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
       const processedEarningsData = result.earnings_data || [];
       const processedCompanyMetrics = result.company_metrics || {};
       const currentRawData = result.raw_data || {};
+      const logo = currentRawData.profile.logo || '';
+      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
       
       // Set state
       setEarningsData(processedEarningsData);
       setCompanyMetrics(processedCompanyMetrics);
       setRawData(currentRawData);
+      setIndustry(industry);
       
       // Check for validation warnings
       if (result.validation_warnings && result.validation_warnings.length > 0) {

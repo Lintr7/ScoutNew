@@ -3,7 +3,7 @@ import { PlaceholdersAndVanishInput } from "../components/ui/searchComponent";
 import { BentoGridThirdDemo } from "../components/ui/bentoBox3";
 import { TypewriterEffectSmooth } from "../components/ui/typewriterEffect";
 import { ArrowLeft } from 'lucide-react';
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // Array of search suggestions with symbols
 const searchSuggestions = [
@@ -150,7 +150,6 @@ const searchSuggestions = [
   { symbol: "NEM", name: "Newmont" },
   { symbol: "LHX", name: "L3Harris Technologies" },
   { symbol: "LIN", name: "Linde" },
-  { symbol: "TWLO", name: "Twilio" },
   { symbol: "DTE", name: "DTE Energy" },
   { symbol: "PXD", name: "Pioneer Natural Resources" },
   { symbol: "VICI", name: "VICI Properties" },
@@ -274,12 +273,16 @@ function SearchStock() {
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedStock, setSelectedStock] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const dropdownRef = useRef(null);
 
   const placeholders = [
     "Search for Apple...",
     "Search for Tesla...",
     "Search for Microsoft...",
-    "Search for Amazon..."
+    "Search for Amazon...",
+    "Search for Meta...",
+    "Search for Google...",
   ];
 
   const words = [
@@ -301,9 +304,21 @@ function SearchStock() {
     },
   ];
 
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
+    setSelectedIndex(-1);
     console.log(value);
 
     if (value.trim() === '') {
@@ -327,6 +342,12 @@ function SearchStock() {
     console.log("Submitted:", searchValue);
     setShowDropdown(false);
     
+    // If a suggestion is highlighted, use it
+    if (selectedIndex >= 0 && filteredSuggestions[selectedIndex]) {
+      setSelectedStock(filteredSuggestions[selectedIndex]);
+      return;
+    }
+    
     // Find the stock that matches the search value
     const matchedStock = searchSuggestions.find(stock => 
       stock.name.toLowerCase() === searchValue.toLowerCase() ||
@@ -341,15 +362,21 @@ function SearchStock() {
   const handleSuggestionClick = (stock) => {
     setSearchValue(stock.name);
     setShowDropdown(false);
-    // Don't navigate to BentoBox yet - wait for submit
-    console.log('Selected:', stock);
+    setSelectedIndex(-1);
+    // Keep focus on input so user can press Enter
+    setTimeout(() => {
+      const input = document.querySelector('input[type="text"]');
+      if (input) {
+        input.focus();
+      }
+    }, 0);
   };
 
   return(
     <div style={{backgroundColor: 'rgb(5, 12, 34)', width: '100vw', height: '100vh'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
-          <h2 style={{marginTop: '-1em', positon: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
+          <h2 style={{marginTop: '-1em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
             <TypewriterEffectSmooth words={words} />
           </h2>
           <div style={{marginTop: '20em', position: 'absolute', width: '100%'}}>
@@ -361,7 +388,7 @@ function SearchStock() {
             />
             
             {showDropdown && (
-              <div style={{
+              <div ref={dropdownRef} style={{
                 position: 'absolute',
                 top: '100%',
                 left: '50%',
@@ -386,10 +413,10 @@ function SearchStock() {
                       cursor: 'pointer',
                       borderBottom: idx < filteredSuggestions.length - 1 ? '1px solid rgba(255, 255, 255, 0.6)' : 'none',
                       transition: 'background-color 0.2s',
-                      backgroundColor: 'transparent',
+                      backgroundColor: selectedIndex === idx ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = selectedIndex === idx ? 'rgba(255, 255, 255, 0.2)' : 'transparent'}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ color: 'white', fontSize: '14px' }}>{stock.name}</span>

@@ -78,7 +78,6 @@ FRONTEND_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://scout-new.vercel.app",
-    # add production origin(s) here, e.g. "https://yourdomain.com"
 ]
 
 app.add_middleware(
@@ -93,7 +92,7 @@ app.add_middleware(
 class CompanyRequest(BaseModel):
     company: str
 
-
+# OpenAI Sentiment
 @app.post("/search")
 def handle_search(payload: CompanyRequest, request: Request):
     """
