@@ -169,6 +169,7 @@ const styles = {
     marginTop: '1em',
     borderRadius: "18px",
     color: "#ffffff",
+    maxWidth: '200px',
     fontSize: "clamp(10px, 1.2vw, 12px)",
     fontWeight: "600",
     position: 'absolute',

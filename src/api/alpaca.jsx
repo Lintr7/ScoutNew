@@ -88,7 +88,7 @@ const TimePeriodToggle = ({ selectedPeriod, onPeriodChange, loading }) => {
   );
 };
 
-const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loading, previousClose }) => {
+const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loading, previousClose, logo, industry }) => {
   // Filter data to market hours for 1D and 5D periods
   const filteredData = (period === '1D' || period === '5D') ? filterToMarketHours(data) : data;
 
@@ -205,7 +205,25 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-start justify-between w-full">
           <div>
-            <h3 style={{ fontFamily: 'Geist, sans-serif', fontWeight: '700', whiteSpace: 'nowrap'}} className="text-2xl text-purple-400">{title}</h3>
+            <div style={{ marginLeft: '-1em' }} className="flex items-center gap-2 max-w-[40em] overflow-hidden">
+              <img
+                src={logo}
+                style={{ width: "40px", height: "40px" }}
+                alt="logo"
+              />
+              <h3
+                className="text-2xl text-purple-400 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+                style={{ position: 'absolute', marginLeft: '2em', marginTop: '-0.8em', fontFamily: 'Geist, sans-serif' }}
+              >
+                {title}
+              </h3>
+              <h3 className="text-sm text-purple-100 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+                  style={{position: 'absolute', marginLeft: '3.5em', marginTop: '1.9em'}}
+              >
+                {industry}
+              </h3>
+            </div>
+
             <div className="flex items-center gap-4 mt-1">
               <span className="text-2xl font-bold font-mono text-white">
                 ${lastPrice.toFixed(2)}
@@ -304,9 +322,74 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [errorF, setErrorF] = useState(null);
+  const [rawData, setRawData] = useState({});
+  const [industry, setIndustry] = useState('');
+  const [logo, setLogo] = useState('');
+
   const [selectedPeriod, setSelectedPeriod] = useState('1D');
   // const [symbol, setSymbol] = useState('GOOG');
   const [previousClose, setPreviousClose] = useState(null);
+
+  useEffect(() => {
+    if (symbol) {
+      fetchFinnhub();
+    }
+  }, [symbol]);
+
+  const fetchFinnhub = async () => {
+    setLoading(true);
+    setError('');
+    setRawData({});
+
+    try {
+      const cleanSymbol = symbol.trim().toUpperCase();
+      
+      // Build FastAPI URL
+      const params = new URLSearchParams({
+        company_name: companyName
+      });
+      
+      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = `Server error: ${response.status}`;
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.detail || errorMessage;
+        } catch {
+          // If can't parse JSON, use the raw text
+          errorMessage = errorText || errorMessage;
+        }
+        
+        throw new Error(errorMessage);
+      }
+      
+      const result = await response.json();
+      // Use the processed data directly from FastAPI
+      const currentRawData = result.raw_data || {};
+      const logo = currentRawData.profile.logo || '';
+      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
+      
+      // Set state
+      setRawData(currentRawData);
+      setIndustry(industry);
+      setLogo(logo);
+      
+      // Check for validation warnings
+      if (result.validation_warnings && result.validation_warnings.length > 0) {
+        console.warn('Data validation warnings:', result.validation_warnings);
+      }
+
+    } catch (err) {
+      console.error('Fetch error:', err);
+      setErrorF('');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchPreviousClose = async (symbol, currentDate) => {
     const prevDate = new Date(currentDate);
@@ -548,6 +631,8 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
           onPeriodChange={handlePeriodChange}
           loading={loading}
           previousClose={previousClose}
+          logo = {logo}
+          industry = {industry}
         />
       )}
     </div>
