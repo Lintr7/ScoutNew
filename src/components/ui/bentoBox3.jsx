@@ -112,7 +112,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
 
   const items = [
     {
-      header: <div style={{}}>
+      header: <div>
         <StockDashboard 
           className="flex-1 w-full h-full" 
           symbol={symbol}
@@ -121,7 +121,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
           logo={logo}
         />
       </div>,
-      className: "col-span-1 md:col-span-2",
+      className: "mobile-stocks col-span-1 md:col-span-2",
     },
 
     {

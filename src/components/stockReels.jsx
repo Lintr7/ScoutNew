@@ -421,7 +421,7 @@ function StockReels() {
       className="reels"
       style={{ position: 'relative', overflow: 'hidden', height: '100vh', width: '100vw', maxWidth: '100vw', maxHeight: '100vh'}}
     >
-      <div style={{ 
+      <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(5, 12, 34)', 
           width: '100%', 
           position: 'absolute', 
@@ -499,19 +499,23 @@ function StockReels() {
             
             @media (max-width: 768px) {
               .bento-scale-wrapper {
-                transform: scale(0.7);
+                margin-top: -3em;
+                margin-left: 2em;
+                transform: scale(0.5);
               }
             }
             
             @media (max-width: 640px) {
               .bento-scale-wrapper {
-                transform: scale(0.6);
+                margin-top: -3em;
+                margin-left: 2em;
+                transform: scale(0.5);
               }
             }
           `}
         </style>
         
-        <div style={{display: 'flex', justifyContent:'center', alignItems: 'center',  marginRight: '2em' }} className="bento-scale-wrapper">
+        <div style={{display: 'flex', justifyContent:'center', alignItems: 'center',  marginRight: '2em'}} className="bento-scale-wrapper">
           <BentoGridThirdDemo
             companySymbol={currentCompany.symbol}
             companyName={currentCompany.name}

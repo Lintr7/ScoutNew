@@ -10,6 +10,20 @@
   overflow: hidden;
 }
 
+@media (max-width: 768px) {
+  .mobile-stocks {
+    width: 100%;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .mobile-stocks {
+
+  }
+}
+
+
 .always-scroll {
   overflow-y: scroll !important;
   scrollbar-gutter: stable;
