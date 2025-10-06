@@ -96,19 +96,19 @@ function Stocks() {
     {
       label: "Reels",
       onClick: () => setCurrentView('reels'),
-      icon: <IconDeviceMobile className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+      icon: <IconDeviceMobile className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'reels'
     },
     {
       label: "Search",
       onClick: () => setCurrentView('search'),
-      icon: <IconSearch className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+      icon: <IconSearch className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'search'
     },
     {
       label: "Favorites",
       onClick: () => setCurrentView('favorites'),
-      icon: <IconStar className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />,
+      icon: <IconStar className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'favorites'
     },
   ];
@@ -128,7 +128,7 @@ function Stocks() {
   };
 
   return (
-    <div className="flex h-screen bg-neutral-100 dark:bg-gray-900">
+    <div className="flex h-screen bg-gray-900">
       
       <div style={{ 
         borderTop: '1px solid rgba(135, 206, 250, 0.1)', 
@@ -229,7 +229,7 @@ function Stocks() {
               <span style={{ 
                 fontFamily: "'SF Mono', Monaco, monospace", 
                 fontSize: '1.5em'
-              }} className="font-black dark:text-[#9167fb]">
+              }} className="text-[#9167fb]">
                 Scout
               </span>
             </div>
@@ -255,7 +255,7 @@ function Stocks() {
       
       {/* Main Content */}
       <div className="flex-1 overflow-auto p-0">
-        <div style={{zIndex:'-1'}} className="rounded-tl-2xl dark:border-neutral-700 bg-white dark:bg-neutral-900 h-full overflow-auto">
+        <div style={{zIndex:'-1'}} className="rounded-tl-2xl border-neutral-700 bg-neutral-900 h-full overflow-auto">
           {renderContent()}
         </div>
       </div>

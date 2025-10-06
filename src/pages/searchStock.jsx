@@ -299,7 +299,7 @@ function SearchStock() {
     },
     {
       text: "Scout.",
-      className: "text-blue-500 dark:text-purple-400",
+      className: "text-purple-400",
     },
   ];
 
