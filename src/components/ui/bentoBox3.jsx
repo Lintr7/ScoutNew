@@ -121,7 +121,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
           logo={logo}
         />
       </div>,
-      className: "md:col-span-2",
+      className: "col-span-1 md:col-span-2",
     },
 
     {
@@ -142,7 +142,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         error={error}      
         onRetry={fetchAllData}  
       />,
-      className: "md:col-span-1",
+      className: "col-span-1 md:col-span-1",
     },
     {
       title: <span className="text-purple-400">Market News</span>,
@@ -152,7 +152,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         </span>
       ),
       header: <NewsComponent symbol={symbol} companyName={name} />,
-      className: "md:col-span-2",
+      className: "col-span-1 md:col-span-2",
     },
 
     {
@@ -163,13 +163,13 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         </span>
       ),
       header: <Sentiment symbol={symbol} companyName={name} />,
-      className: "md:col-span-1",
+      className: "col-span-1 md:col-span-1",
     },
   ];
 
   return (
     
-    <BentoGrid className="w-full max-w-4xl mx-auto md:auto-rows-[20rem]">
+    <BentoGrid className="w-full max-w-4xl mx-auto grid-cols-1 auto-rows-[20rem] md:grid-cols-3 md:auto-rows-[20rem]">
       {items.map((item, i) => (
         <BentoGridItem
           key={`${symbol}-${i}`} // Use symbol in key to ensure proper re-rendering

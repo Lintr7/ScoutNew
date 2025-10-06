@@ -89,10 +89,10 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-800 w-full"
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-white w-full"
         )}
         {...props}>
-        <div className="flex justify-end z-20 w-full">
+        <div style={{marginRight: '5em'}} className="flex justify-end z-20 w-full">
           <IconMenu2
             className="text-neutral-200"
             onClick={() => setOpen(!open)} />
@@ -112,7 +112,7 @@ export const MobileSidebar = ({
                 className
               )}>
               <div
-                className="absolute right-10 top-10 z-50 text-neutral-200"
+                className="absolute right-10 top-10 z-200 text-neutral-200"
                 onClick={() => setOpen(!open)}>
                 <IconX />
               </div>

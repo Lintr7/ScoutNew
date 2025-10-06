@@ -166,7 +166,6 @@ function StockReels() {
     { symbol: "EOG", name: "EOG Resources" },
     { symbol: "MCK", name: "McKesson" },
     { symbol: "ECL", name: "Ecolab" },
-    { symbol: "CRSR", name: "Corsair Gaming" },
     { symbol: "WELL", name: "Welltower" },
     { symbol: "GILD", name: "Gilead Sciences" },
     { symbol: "VRTX", name: "Vertex Pharmaceuticals" },
@@ -512,7 +511,7 @@ function StockReels() {
           `}
         </style>
         
-        <div style={{display: 'flex', justifyContent:'center', alignItems: 'center'}} className="bento-scale-wrapper">
+        <div style={{display: 'flex', justifyContent:'center', alignItems: 'center',  marginRight: '2em' }} className="bento-scale-wrapper">
           <BentoGridThirdDemo
             companySymbol={currentCompany.symbol}
             companyName={currentCompany.name}
@@ -534,7 +533,7 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-       <div style={{display: 'flex', justifyContent:'center', alignItems: 'center'}} className="bento-scale-wrapper">
+       <div style={{display: 'flex', justifyContent:'center', alignItems: 'center',  marginRight: '2em'}} className="bento-scale-wrapper">
           <BentoGridThirdDemo
             companySymbol={nextCompany.symbol}
             companyName={nextCompany.name}

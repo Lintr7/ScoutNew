@@ -1,6 +1,6 @@
 import StockReels from '../components/stockReels';
 import { Sidebar, SidebarBody, SidebarLink } from '../components/ui/sidebar';
-import { IconPlayerPlay, IconDeviceMobile, IconSearch, IconStar, IconStarFilled, IconHome, IconUser, IconSettings, IconLogout } from '@tabler/icons-react';
+import { IconDeviceMobile, IconSearch, IconStar } from '@tabler/icons-react';
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../auth/AuthContext';
 import { supabase } from '../lib/supabaseClient';
@@ -27,21 +27,16 @@ function useUserAvatar() {
 }
 
 function Stocks() {
-  // URL params for persistence
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  // All state declarations at the top
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   
-  // Refs and custom hooks
   const dropdownRef = useRef(null);
   const avatarUrl = useUserAvatar();
   const { user, signOut } = useAuth();
   
-  // Initialize currentView from URL or default to 'reels'
   const [currentView, setCurrentView] = useState(() => {
     const viewFromUrl = searchParams.get('view');
     return viewFromUrl && ['reels', 'search', 'favorites'].includes(viewFromUrl) 
@@ -49,7 +44,6 @@ function Stocks() {
       : 'reels';
   });
 
-  // Function definitions
   const getEmail = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     const userEmail = user?.email || 'No email';
@@ -66,12 +60,10 @@ function Stocks() {
     }
   };
 
-  // Effects
   useEffect(() => {
     getEmail();
   }, []);
 
-  // Update URL when view changes
   useEffect(() => {
     setSearchParams({ view: currentView });
   }, [currentView, setSearchParams]);
@@ -95,25 +87,33 @@ function Stocks() {
   const links = [
     {
       label: "Reels",
-      onClick: () => setCurrentView('reels'),
+      onClick: () => {
+        setCurrentView('reels');
+        if (window.innerWidth < 768) setOpen(false);
+      },
       icon: <IconDeviceMobile className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'reels'
     },
     {
       label: "Search",
-      onClick: () => setCurrentView('search'),
+      onClick: () => {
+        setCurrentView('search');
+        if (window.innerWidth < 768) setOpen(false);
+      },
       icon: <IconSearch className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'search'
     },
     {
       label: "Favorites",
-      onClick: () => setCurrentView('favorites'),
+      onClick: () => {
+        setCurrentView('favorites');
+        if (window.innerWidth < 768) setOpen(false);
+      },
       icon: <IconStar className="text-neutral-200 h-5 w-5 flex-shrink-0" />,
       isActive: currentView === 'favorites'
     },
   ];
 
-  // Render different content based on currentView
   const renderContent = () => {
     switch(currentView) {
       case 'reels':
@@ -128,9 +128,10 @@ function Stocks() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-900">
       
-      <div style={{ 
+      {/* Desktop border - hidden on mobile */}
+      <div className="hidden md:block" style={{ 
         borderTop: '1px solid rgba(135, 206, 250, 0.1)', 
         height: '1px', 
         width: '100%', 
@@ -139,7 +140,8 @@ function Stocks() {
         zIndex: '1001'
       }}></div>
       
-      <div ref={dropdownRef} style={{ 
+      {/* Desktop avatar dropdown - hidden on mobile */}
+      <div ref={dropdownRef} className="" style={{ 
         position: 'fixed', 
         top: '6px', 
         right: '15px', 
@@ -253,8 +255,8 @@ function Stocks() {
         </SidebarBody>
       </Sidebar>
       
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto p-0">
+      {/* Main Content - add padding top on mobile for header */}
+      <div className="flex-1 overflow-auto p-0 pt-14 md:pt-0">
         <div style={{zIndex:'-1'}} className="rounded-tl-2xl border-neutral-700 bg-neutral-900 h-full overflow-auto">
           {renderContent()}
         </div>

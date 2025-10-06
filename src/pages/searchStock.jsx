@@ -138,7 +138,6 @@ const searchSuggestions = [
   { symbol: "EOG", name: "EOG Resources" },
   { symbol: "MCK", name: "McKesson" },
   { symbol: "ECL", name: "Ecolab" },
-  { symbol: "CRSR", name: "Corsair Gaming" },
   { symbol: "WELL", name: "Welltower" },
   { symbol: "GILD", name: "Gilead Sciences" },
   { symbol: "VRTX", name: "Vertex Pharmaceuticals" },
@@ -375,7 +374,7 @@ function SearchStock() {
     <div style={{backgroundColor: 'rgb(5, 12, 34)', width: '100vw', height: '100vh'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
-          <h2 style={{marginTop: '-1em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl">
+          <h2 style={{marginTop: '-1em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">
             <TypewriterEffectSmooth words={words} />
           </h2>
           <div style={{marginTop: '20em', position: 'absolute', width: '100%'}}>
@@ -428,7 +427,7 @@ function SearchStock() {
           </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative', marginRight: '2em'}}>
           <button
             onClick={() => {
               setSelectedStock(null);
