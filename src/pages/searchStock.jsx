@@ -217,7 +217,6 @@ const searchSuggestions = [
   { symbol: "BX", name: "Blackstone" },
   { symbol: "APP", name: "AppLovin" },
   { symbol: "AFL", name: "Aflac" },
-  { symbol: "ZION", name: "Zions Bancorporation" },
   { symbol: "PLD", name: "Prologis" },
   { symbol: "NXPI", name: "NXP Semiconductors" },
   { symbol: "SNPS", name: "Synopsys" },

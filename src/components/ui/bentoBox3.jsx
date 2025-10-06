@@ -22,7 +22,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
 
   const items = [
     {
-      header: <div style={{ width: '100%', height: '100%' }}>
+      header: <div style={{}}>
         <StockDashboard 
           className="flex-1 w-full h-full" 
           symbol={symbol}
@@ -67,7 +67,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
 
   return (
     
-    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
+    <BentoGrid className="w-full max-w-4xl mx-auto md:auto-rows-[20rem]">
       {items.map((item, i) => (
         <BentoGridItem
           key={`${symbol}-${i}`} // Use symbol in key to ensure proper re-rendering

@@ -245,7 +245,6 @@ function StockReels() {
     { symbol: "BX", name: "Blackstone" },
     { symbol: "APP", name: "AppLovin" },
     { symbol: "AFL", name: "Aflac" },
-    { symbol: "ZION", name: "Zions Bancorporation" },
     { symbol: "PLD", name: "Prologis" },
     { symbol: "NXPI", name: "NXP Semiconductors" },
     { symbol: "SNPS", name: "Synopsys" },
@@ -459,21 +458,67 @@ function StockReels() {
       <img src="logoScout.png" style={{top: '5px', left: '15px', position: 'absolute', height: '38px', width: '38px', userSelect: 'none', zIndex: '51'}}/>
       */}
       <div
-        key={`current-${currentIndex}`}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          position: 'relative',
-          animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
-        }}
-      >
-        <BentoGridThirdDemo 
-          companySymbol={currentCompany.symbol}
-          companyName={currentCompany.name}
-        />
-      </div>
+  key={`current-${currentIndex}`}
+  style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',  // Changed from minHeight
+    width: '100vw',   // Added explicit width
+    position: 'absolute',
+    overflow: 'hidden', // Prevent scrollbars
+    animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
+  }}
+>
+  <style>
+    {`
+      .bento-scale-wrapper {
+        transform-origin: center center;
+        transform: scale(1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      @media (max-width: 1536px) {
+        .bento-scale-wrapper {
+          transform: scale(1);
+        }
+      }
+      
+      @media (max-width: 1280px) {
+        .bento-scale-wrapper {
+          transform: scale(0.8);
+        }
+      }
+      
+      @media (max-width: 1024px) {
+        .bento-scale-wrapper {
+          transform: scale(0.75);
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .bento-scale-wrapper {
+          transform: scale(0.7);
+        }
+      }
+      
+      @media (max-width: 640px) {
+        .bento-scale-wrapper {
+          transform: scale(0.6);
+        }
+      }
+    `}
+  </style>
+  
+  <div className="bento-scale-wrapper">
+    <BentoGridThirdDemo
+      companySymbol={currentCompany.symbol}
+      companyName={currentCompany.name}
+    />
+  </div>
+</div>
 
       <div
         key={`next-${currentIndex + 1}`}

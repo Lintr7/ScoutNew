@@ -245,7 +245,7 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
         </div>
       </div>
       
-      <ResponsiveContainer width="105%" height={315} style={{marginLeft: '-1em', marginTop:'-0.5em'}}>
+      <ResponsiveContainer width="105%" height={310} style={{marginLeft: '-1em', marginTop:'-0.5em'}}>
         <AreaChart 
           data={sampledData} 
           margin={{ top: 5, right: 30, left: 0, bottom: 100 }}
