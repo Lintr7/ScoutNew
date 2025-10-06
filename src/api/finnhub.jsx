@@ -56,7 +56,7 @@ const FinnhubEarnings = ({
       {error && (
         <div style={styles.error}>
           <h4>Error</h4>
-          <p>{error}</p>
+          <p>API limit reached<br/> Please wait</p>
           <button onClick={onRetry} style={styles.retryButton}>
             Retry
           </button>

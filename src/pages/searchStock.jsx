@@ -156,7 +156,6 @@ const searchSuggestions = [
   { symbol: "REGN", name: "Regeneron Pharmaceuticals" },
   { symbol: "AXON", name: "Axon Enterprise" },
   { symbol: "CDNS", name: "Cadence Design Systems" },
-  { symbol: "NKLA", name: "Nikola" },
   { symbol: "ZTS", name: "Zoetis" },
   { symbol: "AMAT", name: "Applied Materials" },
   { symbol: "PLUG", name: "Plug Power" },

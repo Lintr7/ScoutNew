@@ -184,7 +184,6 @@ function StockReels() {
     { symbol: "REGN", name: "Regeneron Pharmaceuticals" },
     { symbol: "AXON", name: "Axon Enterprise" },
     { symbol: "CDNS", name: "Cadence Design Systems" },
-    { symbol: "NKLA", name: "Nikola" },
     { symbol: "ZTS", name: "Zoetis" },
     { symbol: "AMAT", name: "Applied Materials" },
     { symbol: "PLUG", name: "Plug Power" },
@@ -305,12 +304,23 @@ function StockReels() {
     }
   }, [currentIndex]);
 
-  // Deterministic pseudo-random selection based on index
+  // Random Reel Function
+  
   const getCurrentCompany = (index) => {
-    const seed = (index * 1664525 + 1013904223) >>> 0; // Use unsigned 32-bit
+    let s = index + 1;
+    s ^= s << 13;
+    s ^= s >>> 17;
+    s ^= s << 5;
+    return companies[(s >>> 0) % companies.length];
+  };
+  /*
+  const getCurrentCompany = (index) => {
+    const seed = (index * 1664525 + 1013904223) >>> 0;
     const randomIndex = seed % companies.length;
     return companies[randomIndex];
   };
+  */
+  
 
   const currentCompany = getCurrentCompany(currentIndex);
   const nextCompany = getCurrentCompany(currentIndex + 1);

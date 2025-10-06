@@ -123,7 +123,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     return (
       <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
         <div className="h-full w-full rounded-2xl bg-blue-300/60 p-4 text-blue-300 border-white/[0.1] border flex items-center justify-center">
-          <p className="text-white text-sm text-center">API Limit Reached. <br /> Please try again later.</p>
+          <p className="text-white text-sm text-center">API Limit Reached <br /> Please wait</p>
         </div>
       </motion.div>
     );
