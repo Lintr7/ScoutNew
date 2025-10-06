@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
-  const [earningsData, setEarningsData] = useState([]);
-  const [companyMetrics, setCompanyMetrics] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [rawData, setRawData] = useState({});
-  const [industry, setIndustry] = useState('');
-
-  useEffect(() => {
-    if (symbol) {
-      fetchAllData();
-    }
-  }, [symbol]);
-
+const FinnhubEarnings = ({ 
+  symbol = 'GOOGL', 
+  companyName = 'Google', 
+  earningsData, 
+  companyMetrics,
+  loading,
+  error,
+  onRetry
+}) => {
+  
   const safeNumber = (value, fallback = 0) => {
     const num = Number(value);
     return Number.isFinite(num) ? num : fallback;
@@ -28,81 +24,6 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
     if (absNum >= 1e6) return (num / 1e6).toFixed(2) + 'M';
     if (absNum >= 1e3) return (num / 1e3).toFixed(2) + 'K';
     return num.toFixed(2);
-  };
-
-  const fetchAllData = async () => {
-    setLoading(true);
-    setError('');
-    setRawData({});
-
-    try {
-      const cleanSymbol = symbol.trim().toUpperCase();
-      
-      // Build FastAPI URL
-      const params = new URLSearchParams({
-        company_name: companyName
-      });
-      
-      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = `Server error: ${response.status}`;
-        
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.detail || errorMessage;
-        } catch {
-          // If can't parse JSON, use the raw text
-          errorMessage = errorText || errorMessage;
-        }
-        
-        throw new Error(errorMessage);
-      }
-      
-      const result = await response.json();
-      // Use the processed data directly from FastAPI
-      const processedEarningsData = result.earnings_data || [];
-      const processedCompanyMetrics = result.company_metrics || {};
-      const currentRawData = result.raw_data || {};
-      const logo = currentRawData.profile.logo || '';
-      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
-      
-      // Set state
-      setEarningsData(processedEarningsData);
-      setCompanyMetrics(processedCompanyMetrics);
-      setRawData(currentRawData);
-      setIndustry(industry);
-      
-      // Check for validation warnings
-      if (result.validation_warnings && result.validation_warnings.length > 0) {
-        console.warn('Data validation warnings:', result.validation_warnings);
-      }
-
-      // Check if we have earnings data
-      if (processedEarningsData.length === 0) {
-        setError('No earnings data available for this symbol');
-      }
-
-    } catch (err) {
-      console.error('Fetch error:', err);
-      
-      if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-        setError('Network error - check your internet connection and server status');
-      } else if (err.message.includes('timeout')) {
-        setError('Request timed out - please try again');
-      } else if (err.message.includes('404')) {
-        setError(`No data found for symbol: ${symbol}`);
-      } else if (err.message.includes('429')) {
-        setError('Rate limit exceeded - please wait before retrying');
-      } else if (err.message.includes('401') || err.message.includes('403')) {
-        setError('API authentication error - check server configuration');
-      } else {
-        setError(err.message || 'An unexpected error occurred');
-      }
-    } finally {
-      setLoading(false);
-    }
   };
 
   const CustomTooltip = ({ active, payload, label }) => {
@@ -136,13 +57,13 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
         <div style={styles.error}>
           <h4>Error</h4>
           <p>{error}</p>
-          <button onClick={fetchAllData} style={styles.retryButton}>
+          <button onClick={onRetry} style={styles.retryButton}>
             Retry
           </button>
         </div>
       )}
 
-      {!error && !loading && earningsData.length > 0 && (
+      {!error && !loading && earningsData && earningsData.length > 0 && (
         <div style={styles.chartContainer}>
           <ResponsiveContainer width="160%" height="65%">
             <BarChart data={earningsData} barGap={10}>
@@ -163,46 +84,46 @@ const FinnhubEarnings = ({ symbol = 'GOOGL', companyName = 'Google' }) => {
         </div>
       )}
 
-      {!loading && !error && earningsData.length > 0 && (
+      {!loading && !error && earningsData && earningsData.length > 0 && (
         <div style={styles.metricsGrid}>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>Market Cap</div>
-            <div style={styles.metricValue}>${formatNumber(companyMetrics.marketCap)}</div>
+            <div style={styles.metricValue}>${formatNumber(companyMetrics?.marketCap)}</div>
           </div>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>P/E Ratio</div>
             <div style={styles.metricValue}>
-              {companyMetrics.peRatio ? companyMetrics.peRatio.toFixed(2) : 'N/A'}
+              {companyMetrics?.peRatio ? companyMetrics.peRatio.toFixed(2) : 'N/A'}
             </div>
           </div>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>52W High</div>
             <div style={styles.metricValue}>
-              ${companyMetrics.weekHigh52 ? companyMetrics.weekHigh52.toFixed(2) : 'N/A'}
+              ${companyMetrics?.weekHigh52 ? companyMetrics.weekHigh52.toFixed(2) : 'N/A'}
             </div>
           </div>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>52W Low</div>
             <div style={styles.metricValue}>
-              ${companyMetrics.weekLow52 ? companyMetrics.weekLow52.toFixed(2) : 'N/A'}
+              ${companyMetrics?.weekLow52 ? companyMetrics.weekLow52.toFixed(2) : 'N/A'}
             </div>
           </div>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>Gross Margin</div>
             <div style={styles.metricValue}>
-              {companyMetrics.grossMargin ? (companyMetrics.grossMargin / 100).toFixed(1) + '%' : 'N/A'}
+              {companyMetrics?.grossMargin ? (companyMetrics.grossMargin / 100).toFixed(1) + '%' : 'N/A'}
             </div>
           </div>
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>10D Avg Volume</div>
             <div style={styles.metricValue}>
-              {formatNumber(companyMetrics.volume10Day * 1000000)}
+              {companyMetrics?.volume10Day ? formatNumber(companyMetrics.volume10Day * 1000000) : 'N/A'}
             </div>
           </div>
         </div>
       )}
 
-      {!loading && !error && earningsData.length === 0 && (
+      {!loading && !error && (!earningsData || earningsData.length === 0) && (
         <div style={styles.noData}>
           <h4>No Data Available</h4>
           <p>No earnings data found for symbol: {symbol}</p>

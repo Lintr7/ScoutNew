@@ -39,9 +39,9 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   }, [symbol, companyName]); // Re-fetch when symbol or companyName changes
 
   const getSentimentColor = (sentiment) => {
-    if (sentiment === 'positive') return 'border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600';
-    if (sentiment === 'negative') return 'border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600';
-    return 'border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600';
+    if (sentiment === 'positive') return 'border-green-500 bg-green-900/20 text-green-600';
+    if (sentiment === 'negative') return 'border-red-500 bg-red-900/20 text-red-600';
+    return 'border-orange-500 bg-orange-900/20 text-orange-600';
   };
 
   // Fixed animation variants
@@ -105,9 +105,9 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
       <motion.div 
         initial="initial"
         whileHover="hover"
-        className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2">
+        className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex flex-col items-center justify-center">
+          <div key={i} className="h-full w-1/3 rounded-2xl bg-black p-4 border-white/[0.1] border flex flex-col items-center justify-center">
             <div className="animate-pulse">
               <div className="w-10 h-10 bg-gray-300 rounded-full mb-2"></div>
               <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
@@ -121,8 +121,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
 
   if (error) {
     return (
-      <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2">
-        <div className="h-full w-full rounded-2xl bg-blue-300/60 p-4 dark:text-blue-300 dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
+      <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
+        <div className="h-full w-full rounded-2xl bg-blue-300/60 p-4 text-blue-300 border-white/[0.1] border flex items-center justify-center">
           <p className="text-white text-sm text-center">API Limit Reached. <br /> Please try again later.</p>
         </div>
       </motion.div>
@@ -131,8 +131,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
 
   if (!newsData?.data || newsData.data.length === 0) {
     return (
-      <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-2">
-        <div className="h-full w-full rounded-2xl bg-white p-4 dark:bg-black dark:border-white/[0.1] border border-neutral-200 flex items-center justify-center">
+      <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
+        <div className="h-full w-full rounded-2xl bg-black p-4 dark:bg-black dark:border-white/[0.1] border border-white/[0.1] flex items-center justify-center">
           <p className="text-neutral-500 text-sm">No {companyName} news found</p>
         </div>
       </motion.div>
@@ -149,29 +149,29 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     <motion.div
       initial="initial"
       whileHover="hover"
-      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex-row space-x-3">
+      className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-3">
       
       {/* First card with left animation */}
       <motion.div
         variants={first}
         onClick={() => handleCardClick(article1)}
-        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
-        {renderCard(article1, "No news available", "border-red-500 bg-red-100 dark:bg-red-900/20 text-red-600")}
+        className="group h-full w-1/3 rounded-2xl  p-4 bg-blue-300/10 border-blue-300/[0.1] hover:bg-blue-300/20 border-2 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        {renderCard(article1, "No news available", "border-red-500 bg-red-900/20 text-red-600")}
       </motion.div>
 
       {/* Middle card - no animation */}
       <motion.div
         onClick={() => handleCardClick(article2)}
-        className="group h-full relative z-20 w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
-        {renderCard(article2, "No news available", "border-green-500 bg-green-100 dark:bg-green-900/20 text-green-600")}
+        className="group h-full relative z-20 w-1/3 rounded-2xl  p-4 bg-blue-300/10 border-blue-300/[0.1] hover:bg-blue-300/20 border-2  flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        {renderCard(article2, "No news available", "border-green-500 bg-green-900/20 text-green-600")}
       </motion.div>
 
       {/* Third card with right animation */}
       <motion.div
         variants={second}
         onClick={() => handleCardClick(article3)}
-        className="group h-full w-1/3 rounded-2xl bg-white p-4 dark:bg-blue-300/10 dark:border-blue-300/[0.1] hover:bg-blue-300/20 border-2 border-neutral-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
-        {renderCard(article3, "No news available", "border-orange-500 bg-orange-100 dark:bg-orange-900/20 text-orange-600")}
+        className="group h-full w-1/3 rounded-2xl p-4 bg-blue-300/10 border-blue-300/[0.1] hover:bg-blue-300/20 border-2  flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+        {renderCard(article3, "No news available", "border-orange-500 bg-orange-900/20 text-orange-600")}
       </motion.div>
     </motion.div>
   );

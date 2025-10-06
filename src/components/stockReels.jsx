@@ -512,7 +512,7 @@ function StockReels() {
           `}
         </style>
         
-        <div className="bento-scale-wrapper">
+        <div style={{display: 'flex', justifyContent:'center', alignItems: 'center'}} className="bento-scale-wrapper">
           <BentoGridThirdDemo
             companySymbol={currentCompany.symbol}
             companyName={currentCompany.name}
@@ -534,10 +534,12 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <BentoGridThirdDemo 
-          companySymbol={nextCompany.symbol}
-          companyName={nextCompany.name}
-        />
+       <div style={{display: 'flex', justifyContent:'center', alignItems: 'center'}} className="bento-scale-wrapper">
+          <BentoGridThirdDemo
+            companySymbol={nextCompany.symbol}
+            companyName={nextCompany.name}
+          />
+        </div>
       </div>
 
       {/* down arrow */}

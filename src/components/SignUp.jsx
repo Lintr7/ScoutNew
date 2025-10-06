@@ -219,10 +219,10 @@ export default function Signup() {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300 dark:border-zinc-600" />
+                <div className="w-full border-t border-zinc-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white dark:bg-[rgb(10,10,12)] text-gray-500 dark:text-zinc-400">Or continue with</span>
+                <span className="px-2 bg-[rgb(10,10,12)] text-zinc-400">Or continue with</span>
               </div>
             </div>
 
@@ -230,7 +230,7 @@ export default function Signup() {
               <button
                 onClick={handleGoogleSignUp}
                 disabled={loading}
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-zinc-600 rounded-md shadow-sm bg-white dark:bg-zinc-800 text-sm font-medium text-gray-500 dark:text-zinc-400 hover:bg-gray-50 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full inline-flex justify-center py-2 px-4 border border-zinc-600 rounded-md shadow-sm bg-zinc-800 text-sm font-medium text-zinc-400 hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -244,9 +244,9 @@ export default function Signup() {
           </div>
 
           <div className="mt-6 text-center">
-            <span className="text-sm text-gray-600 dark:text-zinc-400">
+            <span className="text-sm text-zinc-400">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-purple-600 hover:text-purple-500 dark:text-purple-400 dark:hover:text-purple-300">
+              <Link to="/login" className="font-medium text-purple-400 hover:text-purple-300 dark:text-purple-400 dark:hover:text-purple-300">
                 Sign in
               </Link>
             </span>
@@ -257,7 +257,7 @@ export default function Signup() {
             <div className="mt-4 text-center">
               <Link 
                 to="/login" 
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-purple-600 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-purple-600 bg-purple-900/30 hover:bg-purple-900/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
               >
                 Go to Sign In →
               </Link>

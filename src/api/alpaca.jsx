@@ -318,78 +318,18 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
   );
 };
 
-const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className }) => {
+const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className, industry, logo }) => {
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [errorF, setErrorF] = useState(null);
   const [rawData, setRawData] = useState({});
-  const [industry, setIndustry] = useState('');
-  const [logo, setLogo] = useState('');
 
   const [selectedPeriod, setSelectedPeriod] = useState('1D');
   // const [symbol, setSymbol] = useState('GOOG');
   const [previousClose, setPreviousClose] = useState(null);
 
-  useEffect(() => {
-    if (symbol) {
-      fetchFinnhub();
-    }
-  }, [symbol]);
-
-  const fetchFinnhub = async () => {
-    setLoading(true);
-    setError('');
-    setRawData({});
-
-    try {
-      const cleanSymbol = symbol.trim().toUpperCase();
-      
-      // Build FastAPI URL
-      const params = new URLSearchParams({
-        company_name: companyName
-      });
-      
-      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = `Server error: ${response.status}`;
-        
-        try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.detail || errorMessage;
-        } catch {
-          // If can't parse JSON, use the raw text
-          errorMessage = errorText || errorMessage;
-        }
-        
-        throw new Error(errorMessage);
-      }
-      
-      const result = await response.json();
-      // Use the processed data directly from FastAPI
-      const currentRawData = result.raw_data || {};
-      const logo = currentRawData.profile.logo || '';
-      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
-      
-      // Set state
-      setRawData(currentRawData);
-      setIndustry(industry);
-      setLogo(logo);
-      
-      // Check for validation warnings
-      if (result.validation_warnings && result.validation_warnings.length > 0) {
-        console.warn('Data validation warnings:', result.validation_warnings);
-      }
-
-    } catch (err) {
-      console.error('Fetch error:', err);
-      setErrorF('');
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
   const fetchPreviousClose = async (symbol, currentDate) => {
     const prevDate = new Date(currentDate);

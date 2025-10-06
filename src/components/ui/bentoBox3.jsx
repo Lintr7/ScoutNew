@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "../../lib/utils";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
 import {
   IconBoxAlignRightFilled,
@@ -20,6 +20,96 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
   const symbol = companySymbol || "AAPL";
   const name = companyName || "Apple Inc.";
 
+  const [earningsData, setEarningsData] = useState([]);
+  const [companyMetrics, setCompanyMetrics] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [rawData, setRawData] = useState({});
+  const [industry, setIndustry] = useState('');
+  const [logo, setLogo] = useState('');
+
+  useEffect(() => {
+      if (symbol) {
+        fetchAllData();
+      }
+    }, [symbol]);
+
+  const fetchAllData = async () => {
+    setLoading(true);
+    setError('');
+    setRawData({});
+
+    try {
+      const cleanSymbol = symbol.trim().toUpperCase();
+      
+      // Build FastAPI URL
+      const params = new URLSearchParams({
+        company_name: companyName
+      });
+      
+      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = `Server error: ${response.status}`;
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.detail || errorMessage;
+        } catch {
+          // If can't parse JSON, use the raw text
+          errorMessage = errorText || errorMessage;
+        }
+        
+        throw new Error(errorMessage);
+      }
+      
+      const result = await response.json();
+      // Use the processed data directly from FastAPI
+      const processedEarningsData = result.earnings_data || [];
+      const processedCompanyMetrics = result.company_metrics || {};
+      const currentRawData = result.raw_data || {};
+      const logo = currentRawData.profile.logo || '';
+      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
+      
+      // Set state
+      setEarningsData(processedEarningsData);
+      setCompanyMetrics(processedCompanyMetrics);
+      setRawData(currentRawData);
+      setIndustry(industry);
+      setLogo(logo);
+      
+      // Check for validation warnings
+      if (result.validation_warnings && result.validation_warnings.length > 0) {
+        console.warn('Data validation warnings:', result.validation_warnings);
+      }
+
+      // Check if we have earnings data
+      if (processedEarningsData.length === 0) {
+        setError('No earnings data available for this symbol');
+      }
+
+    } catch (err) {
+      console.error('Fetch error:', err);
+      
+      if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+        setError('Network error - check your internet connection and server status');
+      } else if (err.message.includes('timeout')) {
+        setError('Request timed out - please try again');
+      } else if (err.message.includes('404')) {
+        setError(`No data found for symbol: ${symbol}`);
+      } else if (err.message.includes('429')) {
+        setError('Rate limit exceeded - please wait before retrying');
+      } else if (err.message.includes('401') || err.message.includes('403')) {
+        setError('API authentication error - check server configuration');
+      } else {
+        setError(err.message || 'An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const items = [
     {
       header: <div style={{}}>
@@ -27,6 +117,8 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
           className="flex-1 w-full h-full" 
           symbol={symbol}
           companyName={name}
+          industry={industry}
+          logo={logo}
         />
       </div>,
       className: "md:col-span-2",
@@ -39,7 +131,17 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
           Stock Stats - {name}
         </span>
       ),
-      header: <FinnhubEarnings symbol={symbol} companyName={name}/>,
+      header: <FinnhubEarnings 
+        symbol={symbol} 
+        companyName={name} 
+        earningsData={earningsData} 
+        setEarningsData={setEarningsData} 
+        companyMetrics={companyMetrics} 
+        setCompanyMetrics={setCompanyMetrics}
+        loading={loading}  
+        error={error}      
+        onRetry={fetchAllData}  
+      />,
       className: "md:col-span-1",
     },
     {
