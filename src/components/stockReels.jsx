@@ -305,7 +305,18 @@ function StockReels() {
   }, [currentIndex]);
 
   // Random Reel Function
-  
+  const daySeed = new Date().toISOString().slice(0, 10)
+    .split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+
+  const getCurrentCompany = (index) => {
+    let s = index + daySeed;
+    s ^= s << 13;
+    s ^= s >>> 17;
+    s ^= s << 5;
+    return companies[(s >>> 0) % companies.length];
+  };
+
+  /*
   const getCurrentCompany = (index) => {
     let s = index + 1;
     s ^= s << 13;
@@ -313,7 +324,6 @@ function StockReels() {
     s ^= s << 5;
     return companies[(s >>> 0) % companies.length];
   };
-  /*
   const getCurrentCompany = (index) => {
     const seed = (index * 1664525 + 1013904223) >>> 0;
     const randomIndex = seed % companies.length;
