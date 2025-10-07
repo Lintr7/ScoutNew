@@ -74,7 +74,7 @@ const FinnhubEarnings = ({
                 stroke="hsla(0, 0%, 85%, 1)"
                 axisLine={false}
                 tickLine={false}
-                tickFormatter={(value) => `$${safeNumber(value, 0).toFixed(2)}`}
+                tickFormatter={(value) => `$${formatNumber(value)}`}
               />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="expected" fill="#3b82f6" name="Expected EPS" radius={[2, 2, 0, 0]} />

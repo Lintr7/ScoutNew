@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Star } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, AreaChart, Area } from 'recharts';
 
 const TIME_PERIODS = {
@@ -33,6 +34,7 @@ const fetchAlpacaStockData = async (symbol, start, end, timeframe) => {
     return [];
   }
 };
+
 
 // Helper function to check if market is currently open
 const isMarketOpen = (easternTime) => {
@@ -200,32 +202,38 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
     }
   };
 
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const handleClick = () => {
+    setIsFavorited(!isFavorited);
+  };
+
   return (
-    <div style={{ marginTop: '-0.9em' }}>
+    <div style={{ marginTop: '-1.3em'}}>
       <div className="flex justify-between items-start mb-4">
-        <div className="flex items-start justify-between w-full">
+        <div className="flex items-start w-full">
           <div>
-            <div style={{ marginLeft: '-1em' }} className="flex items-center gap-2 max-w-[40em] overflow-hidden">
+            <div style={{ marginLeft: '-1em' }} className="flex items-center gap-2 overflow-hidden">
               <img
                 src={logo}
-                style={{ width: "40px", height: "40px" }}
+                style={{ width: "42px", height: "42px", flexShrink: 0 }}
                 alt="logo"
               />
-              <h3
-                className="text-2xl text-purple-400 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
-                style={{ position: 'absolute', marginLeft: '2em', marginTop: '-0.8em', fontFamily: 'Geist, sans-serif' }}
-              >
-                {title}
-              </h3>
-              <h3 className="text-sm text-purple-100 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
-                  style={{position: 'absolute', marginLeft: '3.5em', marginTop: '1.9em'}}
-              >
-                {industry}
-              </h3>
+              <div className="flex flex-col min-w-0 flex-1">
+                <h3
+                  className="text-2xl text-purple-400 font-bold whitespace-nowrap overflow-hidden text-ellipsis"
+                  style={{ fontFamily: 'Geist, sans-serif' }}
+                >
+                  {title}
+                </h3>
+                <h3 style={{marginTop: '-0.3em'}} className="text-sm text-purple-100 font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+                  {industry}
+                </h3>
+              </div>
             </div>
 
-            <div className="flex items-center gap-4 mt-1">
-              <span className="text-2xl font-bold font-mono text-white">
+            <div className="flex items-center gap-4 mt-0.5">
+              <span style={{ marginLeft: '-0.5em' }} className="text-2xl font-bold font-mono text-white">
                 ${lastPrice.toFixed(2)}
               </span>
               <span style={{ fontFamily: 'Geist, sans-serif', marginTop: '0.3em', marginLeft: '-0.5em'}} className={`text-sm font-medium ${
@@ -235,7 +243,18 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
               </span>
             </div>
           </div>
-          <div className="flex flex-col items-end gap-2 whitespace-nowrap">
+
+          <div style={{marginTop: '0.5em'}} className="flex flex-col items-end gap-2 whitespace-nowrap ml-auto">
+            <button
+              onClick={handleClick}
+              className="z-10 transition-all hover:scale-105 active:scale-100 cursor-pointer"
+              aria-label={isFavorited ? "Unfavorite" : "Favorite"}
+            >
+              <Star
+                size={26}
+                className={isFavorited ? "fill-yellow-400 text-yellow-400" : "text-yellow-400"}
+              />
+            </button>
             <TimePeriodToggle 
               selectedPeriod={selectedPeriod}
               onPeriodChange={onPeriodChange}
@@ -245,7 +264,7 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
         </div>
       </div>
       
-      <ResponsiveContainer width="105%" height={310} style={{marginLeft: '-1em', marginTop:'-0.5em'}}>
+      <ResponsiveContainer width="111%" height={315} style={{marginLeft: '-1.9em', marginTop:'-0.9em'}}>
         <AreaChart 
           data={sampledData} 
           margin={{ top: 5, right: 30, left: 0, bottom: 100 }}
@@ -322,14 +341,12 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
   const [stockData, setStockData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [errorF, setErrorF] = useState(null);
-  const [rawData, setRawData] = useState({});
 
   const [selectedPeriod, setSelectedPeriod] = useState('1D');
   // const [symbol, setSymbol] = useState('GOOG');
   const [previousClose, setPreviousClose] = useState(null);
 
-  
+
 
   const fetchPreviousClose = async (symbol, currentDate) => {
     const prevDate = new Date(currentDate);
@@ -556,7 +573,7 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4 overflow-hidden">
+    <div className="max-w-6xl mx-auto p-4">
       {loading ? (
         <div className="flex items-center justify-center p-12 rounded-lg shadow-lg">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>

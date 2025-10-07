@@ -121,7 +121,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
           logo={logo}
         />
       </div>,
-      className: "mobile-stocks col-span-1 md:col-span-2",
+      className: "mobile-stocks col-span-1 md:col-span-2 overflow-hidden",
     },
 
     {
@@ -142,7 +142,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         error={error}      
         onRetry={fetchAllData}  
       />,
-      className: "col-span-1 md:col-span-1",
+      className: "overflow-hidden col-span-1 md:col-span-1",
     },
     {
       title: <span className="text-purple-400">Market News</span>,
