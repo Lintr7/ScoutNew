@@ -383,12 +383,13 @@ function SearchStock() {
             />
             
             {showDropdown && (
-              <div ref={dropdownRef} style={{
+              <div ref={dropdownRef} 
+              className="w-110 sm:w-110 md:w-110 lg:w-full xl:w-full"
+              style={{
                 position: 'absolute',
                 top: '100%',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: '80%',
                 maxWidth: '600px',
                 marginTop: '8px',
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',

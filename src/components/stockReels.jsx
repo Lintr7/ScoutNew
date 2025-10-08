@@ -490,13 +490,8 @@ function StockReels() {
         <style>
           {`
             .bento-scale-wrapper {
-              transform-origin: center center;
-              transform: scale(1);
-              display: flex;
-              justify-content: center;
-              align-items: center;
             }
-            
+
             @media (max-width: 1536px) {
               .bento-scale-wrapper {
                 transform: scale(1);
@@ -505,17 +500,19 @@ function StockReels() {
             
             @media (max-width: 1280px) {
               .bento-scale-wrapper {
-                transform: scale(0.9);
+                transform: scale(0.95);
+                margin-left: -2em;
               }
             }
             
-            @media (max-width: 1024px) {
+            @media (max-width: 1000px) {
               .bento-scale-wrapper {
-                transform: scale(0.9);
+                margin-left: -1.9em;
+                transform: scale(0.85);
               }
             }
             
-            @media (max-width: 768px) {
+            @media (max-width: 767px) {
               .bento-scale-wrapper {
                 margin-top: -3em;
                 margin-left: 2em;
@@ -570,7 +567,6 @@ function StockReels() {
           position: 'fixed',
           bottom: '1.35em',
           left: '50%',
-          transform: 'translateX(-50%)',
           width: '35px',
           height: '35px',
           border: '2px solid white',
