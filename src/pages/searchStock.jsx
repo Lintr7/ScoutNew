@@ -4,8 +4,9 @@ import { BentoGridThirdDemo } from "../components/ui/bentoBox3";
 import { TypewriterEffectSmooth } from "../components/ui/typewriterEffect";
 import { ArrowLeft } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
+import { LayoutTextFlip } from "../components/ui/layout-text-flip";
+import { motion } from "framer-motion";
 
-// Array of search suggestions with symbols
 const searchSuggestions = [
   { symbol: "AAPL", name: "Apple Inc." },
   { symbol: "GOOGL", name: "Alphabet" },
@@ -278,6 +279,7 @@ function SearchStock() {
     "Search for Amazon...",
     "Search for Meta...",
     "Search for Google...",
+    "Search for NVIDIA...",
   ];
 
   const words = [
@@ -371,9 +373,25 @@ function SearchStock() {
     <div style={{backgroundColor: 'rgb(5, 12, 34)', width: '100vw', height: '100vh'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
-          <h2 style={{marginTop: '-1em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">
+          <h2 style={{marginTop: '-1.7em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">
             <TypewriterEffectSmooth words={words} />
           </h2>
+          <div>
+            <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
+              <LayoutTextFlip
+                text="Analyze "
+                words={[
+                  { text: "Apple", image: "/slide5.png" }, 
+                  { text: "Tesla", image: "/slide3.png" }, 
+                  { text: "Microsoft", image: "/microsoftLogo.png" }, 
+                  { text: "Amazon", image: "/amazonLogo.png" },
+                  { text: "Meta", image: "/metaLogo.png" }, 
+                  { text: "Google", image: "/googleLogo.png" }, 
+                  { text: "NVIDIA", image: "/nvidiaLogo.png" }, 
+                ]}
+              />
+            </motion.div>
+          </div>
           <div style={{marginTop: '20em', position: 'absolute', width: '100%'}}>
             <PlaceholdersAndVanishInput
               placeholders={placeholders}
@@ -453,7 +471,9 @@ function SearchStock() {
           >
             <ArrowLeft size={20} />
           </button>
-          <BentoGridThirdDemo companySymbol={selectedStock.symbol} companyName={selectedStock.name} />
+          <div className="bento-scale-wrapper">
+            <BentoGridThirdDemo companySymbol={selectedStock.symbol} companyName={selectedStock.name} />
+          </div>
         </div>
       )}
     </div>

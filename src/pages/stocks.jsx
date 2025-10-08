@@ -104,7 +104,7 @@ function Stocks() {
       isActive: currentView === 'search'
     },
     {
-      label: "Favorites",
+      label: "Watchlist",
       onClick: () => {
         setCurrentView('favorites');
         if (window.innerWidth < 768) setOpen(false);
@@ -183,7 +183,7 @@ function Stocks() {
           <div style={{
             position: 'absolute',
             maxWidth: '300px',
-            top: '40px',
+            top: '43px',
             right: '5px',
             backgroundColor: '#011930',
             border: '1px solid #01203d',
@@ -257,7 +257,7 @@ function Stocks() {
       
       {/* Main Content - add padding top on mobile for header */}
       <div className="flex-1 overflow-auto p-0 md:pt-0">
-        <div style={{zIndex:'-1'}} className="rounded-tl-2xl border-neutral-700 bg-neutral-900 h-full overflow-auto">
+        <div style={{zIndex:'-1', backgroundColor: 'rgb(5, 12, 34)'}} className="rounded-tl-2xl border-neutral-700 h-full overflow-auto">
           {renderContent()}
         </div>
       </div>

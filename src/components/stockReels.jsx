@@ -487,48 +487,6 @@ function StockReels() {
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >
-        <style>
-          {`
-            .bento-scale-wrapper {
-            }
-
-            @media (max-width: 1536px) {
-              .bento-scale-wrapper {
-                transform: scale(1);
-              }
-            }
-            
-            @media (max-width: 1280px) {
-              .bento-scale-wrapper {
-                transform: scale(0.95);
-                margin-left: -2em;
-              }
-            }
-            
-            @media (max-width: 1000px) {
-              .bento-scale-wrapper {
-                margin-left: -1.9em;
-                transform: scale(0.85);
-              }
-            }
-            
-            @media (max-width: 767px) {
-              .bento-scale-wrapper {
-                margin-top: -3em;
-                margin-left: 2em;
-                transform: scale(0.5);
-              }
-            }
-            
-            @media (max-width: 640px) {
-              .bento-scale-wrapper {
-                margin-top: -3em;
-                margin-left: 2em;
-                transform: scale(0.5);
-              }
-            }
-          `}
-        </style>
         
         <div style={{display: 'flex', justifyContent:'center', alignItems: 'center',  marginRight: '2em'}} className="bento-scale-wrapper">
           <BentoGridThirdDemo

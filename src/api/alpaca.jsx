@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Star } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, AreaChart, Area } from 'recharts';
+import { addFavorite, removeFavorite, checkIsFavorited } from './supabaseFavorites';
 
 const TIME_PERIODS = {
   '1D': { days: 1, timeframe: '5Min', label: '1 Day' },
@@ -90,7 +91,7 @@ const TimePeriodToggle = ({ selectedPeriod, onPeriodChange, loading }) => {
   );
 };
 
-const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loading, previousClose, logo, industry }) => {
+const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loading, previousClose, logo, industry, symbol, companyName }) => {
   // Filter data to market hours for 1D and 5D periods
   const filteredData = (period === '1D' || period === '5D') ? filterToMarketHours(data) : data;
 
@@ -203,10 +204,42 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
   };
 
   const [isFavorited, setIsFavorited] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
 
-  const handleClick = () => {
-    setIsFavorited(!isFavorited);
+  useEffect(() => {
+    const checkFavorite = async () => {
+      try {
+        const favorited = await checkIsFavorited(symbol);
+        setIsFavorited(favorited);
+      } catch (error) {
+        console.error('Error checking favorite:', error);
+      }
+    };
+    checkFavorite();
+  }, [symbol]);
+
+  const handleClick = async () => {
+    try {
+      setFavoriteLoading(true);
+      
+      if (isFavorited) {
+        await removeFavorite(symbol);
+        setIsFavorited(false);
+        console.log(`Removed ${companyName} from favorites`);
+      } else {
+        await addFavorite(symbol, companyName);
+        setIsFavorited(true);
+        console.log(`Added ${companyName} to favorites`);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+      alert(error.message); 
+    } finally {
+      setFavoriteLoading(false);
+    }
   };
+
+  
 
   return (
     <div style={{ marginTop: '-1.3em'}}>
@@ -247,7 +280,12 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
           <div style={{marginTop: '0.5em'}} className="flex flex-col items-end gap-2 whitespace-nowrap ml-auto">
             <button
               onClick={handleClick}
-              className="z-10 transition-all hover:scale-105 active:scale-100 cursor-pointer"
+              disabled={favoriteLoading}
+              className={`z-10 transition-all ${
+                favoriteLoading 
+                  ? 'opacity-50 cursor-none' 
+                  : 'hover:scale-105 active:scale-100 cursor-pointer'
+              }`}
               aria-label={isFavorited ? "Unfavorite" : "Favorite"}
             >
               <Star
@@ -590,6 +628,8 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
           previousClose={previousClose}
           logo = {logo}
           industry = {industry}
+          symbol = {symbol}
+          companyName = {companyName}
         />
       )}
     </div>
