@@ -54,7 +54,7 @@ html, body {
   .bento-scale-wrapper {
     transform: scale(0.85);
     margin-left: -2em;
-    margin-top: -2.5em;
+    margin-top: -3.3em;
   }
   .bento-scale-wrapper2 {
     transform: scale(0.95);
@@ -64,7 +64,7 @@ html, body {
   .bento-scale-wrapper3 {
     transform: scale(0.93);
     margin-left: 2em;
-    margin-top: -0.5em;
+    margin-top: -1em;
   }
 }
 
