@@ -111,7 +111,7 @@ const Favorites = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', overflowY: 'auto'}}>
+    <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', overflowY: 'auto', position: 'relative'}}>
         <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(5, 12, 34)', 
           width: '100%', 
@@ -121,7 +121,7 @@ const Favorites = () => {
           borderTopLeftRadius: '1rem',
           zIndex: '1',
         }}></div>
-        
+
         <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(5, 12, 34)',  
           position: 'absolute', 
@@ -135,29 +135,33 @@ const Favorites = () => {
             <h2 style={{zIndex: '-1'}} className="flex justify-center pb-5 text-3xl font-bold text-purple-400 mt-15">
             My Watchlist
             </h2>
-            <div className="flex justify-center grid gap-4">
-            {favorites.map((favorite) => (
-                <div
-                key={favorite.id}
-                onClick={() => handleClick(favorite)}
-                className="flex items-center justify-between p-4 w-200 bg-gray-800/80 rounded-lg shadow hover:shadow-md hover:bg-gray-700/80 hover:scale-[1.01] transition-all duration-300 cursor-pointer group"
-                >
-                <div>
-                    <h3 className="font-bold text-lg text-white group-hover:text-purple-400/90">{favorite.company_name}</h3>
-                    <p className="text-gray-400">{favorite.symbol}</p>
+            <div className="flex justify-center px-10 md:px-8">
+            <div className="w-full max-w-3xl"> 
+                <div className="grid gap-4"> 
+                {favorites.map((favorite) => (
+                    <div
+                    key={favorite.id}
+                    onClick={() => handleClick(favorite)}
+                    className="flex items-center justify-between p-4 w-full bg-gray-700/80 rounded-lg shadow hover:shadow-md hover:bg-gray-700 hover:scale-[1.01] transition-all duration-300 cursor-pointer group"
+                    >
+                    <div>
+                        <h3 className="font-bold text-lg text-white group-hover:text-purple-400/90">{favorite.company_name}</h3>
+                        <p className="text-gray-400">{favorite.symbol}</p>
+                    </div>
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemove(favorite.symbol);
+                        }}
+                        className="text-yellow-400 hover:text-yellow-500 transition-colors hover:scale-110 cursor-pointer"
+                        aria-label="Remove from favorites"
+                    >
+                        <Star size={24} className="fill-yellow-400" />
+                    </button>
+                    </div>
+                ))}
                 </div>
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        handleRemove(favorite.symbol);
-                    }}
-                    className="text-yellow-400 hover:text-yellow-500 transition-colors hover:scale-110 cursor-pointer"
-                    aria-label="Remove from favorites"
-                >
-                    <Star size={24} className="fill-yellow-400" />
-                </button>
-                </div>
-            ))}
+            </div>
             </div>
         </>
         ) : (

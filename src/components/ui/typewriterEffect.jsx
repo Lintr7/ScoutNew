@@ -1,5 +1,4 @@
 "use client";
-
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect } from "react";
 
@@ -12,7 +11,6 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
     ...word,
     text: word.text.split(""),
   }));
-
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
 
@@ -40,10 +38,10 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
         <div key={`word-${idx}`} className="inline-block">
           {word.text.map((char, index) => (
             <motion.span
-              initial={{}}
+              initial={{ opacity: 0, display: "inline-block", width: 0 }}
               key={`char-${index}`}
               className={cn(
-                "dark:text-white text-black opacity-0 hidden",
+                "dark:text-white text-black",
                 word.className
               )}
             >
@@ -51,7 +49,7 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
             </motion.span>
           ))}
           {idx < wordsArray.length - 1 && (
-            <span className="opacity-0 hidden">&nbsp;</span>
+            <span>&nbsp;</span>
           )}
         </div>
       ))}
@@ -126,7 +124,6 @@ export const TypewriterEffectSmooth = ({
           {renderWords()}{" "}
         </div>
       </motion.div>
-
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
