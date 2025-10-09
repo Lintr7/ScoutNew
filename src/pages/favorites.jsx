@@ -111,10 +111,28 @@ const Favorites = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100vw', height: '100vh'}}>
+    <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', overflowY: 'auto'}}>
+        <div className="hidden md:block" style={{ 
+          backgroundColor: 'rgb(5, 12, 34)', 
+          width: '100%', 
+          position: 'absolute', 
+          top: '0em', 
+          height: '48px', 
+          borderTopLeftRadius: '1rem',
+          zIndex: '1',
+        }}></div>
+        
+        <div className="hidden md:block" style={{ 
+          backgroundColor: 'rgb(5, 12, 34)',  
+          position: 'absolute', 
+          top: '0em', 
+          height: '48px', 
+          borderTopLeftRadius: '1rem',
+          zIndex: '1',
+        }}></div>
         {isReel ? (
         <>
-            <h2 className="flex justify-center pb-5 text-3xl font-bold text-purple-400 mt-15">
+            <h2 style={{zIndex: '-1'}} className="flex justify-center pb-5 text-3xl font-bold text-purple-400 mt-15">
             My Watchlist
             </h2>
             <div className="flex justify-center grid gap-4">
@@ -129,7 +147,10 @@ const Favorites = () => {
                     <p className="text-gray-400">{favorite.symbol}</p>
                 </div>
                 <button
-                    onClick={() => handleRemove(favorite.symbol)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemove(favorite.symbol);
+                    }}
                     className="text-yellow-400 hover:text-yellow-500 transition-colors hover:scale-110 cursor-pointer"
                     aria-label="Remove from favorites"
                 >
@@ -140,7 +161,7 @@ const Favorites = () => {
             </div>
         </>
         ) : (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative', marginRight: '2em'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em'}}>
             <button
                 onClick={() => {
                 setReel(true);

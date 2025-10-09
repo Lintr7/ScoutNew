@@ -9,15 +9,14 @@ export const LayoutTextFlip = ({
   duration = 3000
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
     }, duration);
     return () => clearInterval(interval);
-  }, [duration, words.length]); // Added dependencies
-  
-  // Helper function to get text and image from word
+  }, [duration, words.length]);
+
   const getCurrentWord = () => {
     const word = words[currentIndex];
     if (typeof word === 'string') {
@@ -25,19 +24,19 @@ export const LayoutTextFlip = ({
     }
     return word;
   };
-  
+
   const currentWord = getCurrentWord();
-  
+
   return (
-    <>
+    <div className="flex items-center gap-3 flex-wrap md:flex-nowrap">
       <motion.span
         layoutId="subtext"
-        className="text-neutral-300/60 text-2xl font-bold tracking-tight drop-shadow-lg md:text-4xl">
+        className="text-neutral-300/60 text-2xl font-bold tracking-tight drop-shadow-lg md:text-4xl whitespace-nowrap">
         {text}
       </motion.span>
       <motion.span
         layout
-        className="relative w-fit overflow-hidden rounded-md border border-transparent px-4 py-2 font-sans text-2xl font-bold tracking-tight text-black shadow-sm ring shadow-black/10 ring-black/10 drop-shadow-lg md:text-4xl dark:bg-neutral-500/30 dark:text-white dark:shadow-sm dark:ring-1 dark:shadow-white/10 dark:ring-white/10 flex items-center gap-3">
+        className="relative w-fit overflow-hidden rounded-md border border-transparent px-4 py-2 font-sans text-2xl font-bold tracking-tight text-black shadow-sm ring shadow-black/10 ring-black/10 drop-shadow-lg md:text-4xl dark:bg-neutral-500/30 dark:text-white dark:shadow-sm dark:ring-1 dark:shadow-white/10 dark:ring-white/10 flex items-center gap-3 whitespace-nowrap flex-shrink-0">
         <AnimatePresence mode="popLayout">
           <motion.span
             key={currentIndex}
@@ -64,11 +63,11 @@ export const LayoutTextFlip = ({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.3 }}
-              className="w-10 h-10 md:w-10 md:h-10 object-contain"
+              className="w-10 h-10 md:w-10 md:h-10 object-contain flex-shrink-0"
             />
           </AnimatePresence>
         )}
       </motion.span>
-    </>
+    </div>
   );
 };

@@ -437,7 +437,7 @@ function StockReels() {
     <div
       ref={containerRef}
       className="reels"
-      style={{ position: 'relative', overflow: 'hidden', height: '100vh', width: '100vw', maxWidth: '100vw', maxHeight: '100vh'}}
+      style={{ position: 'relative', overflow: 'hidden', height: '100dvh', width: '100dvw', maxWidth: '100dvw', maxHeight: '100dvh'}}
     >
       <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(5, 12, 34)', 
