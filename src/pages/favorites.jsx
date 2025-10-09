@@ -115,16 +115,7 @@ const Favorites = () => {
         <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(5, 12, 34)', 
           width: '100%', 
-          position: 'absolute', 
-          top: '0em', 
-          height: '48px', 
-          borderTopLeftRadius: '1rem',
-          zIndex: '1',
-        }}></div>
-
-        <div className="hidden md:block" style={{ 
-          backgroundColor: 'rgb(5, 12, 34)',  
-          position: 'absolute', 
+          position: 'fixed', 
           top: '0em', 
           height: '48px', 
           borderTopLeftRadius: '1rem',
@@ -167,6 +158,7 @@ const Favorites = () => {
         ) : (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em'}}>
             <button
+                className='mobile-button'
                 onClick={() => {
                 setReel(true);
                 }}
@@ -192,7 +184,7 @@ const Favorites = () => {
             >
                 <ArrowLeft size={20} />
             </button>
-            <div className="bento-scale-wrapper">
+            <div className="bento-scale-wrapper2 mt-20">
                 <BentoGridThirdDemo companySymbol={selectedFavorite.symbol} companyName={selectedFavorite.company_name} />
             </div>
             </div>

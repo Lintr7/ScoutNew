@@ -111,76 +111,78 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
   };
 
   const items = [
-    {
-      header: <div>
-        <StockDashboard 
-          className="flex-1 w-full h-full" 
-          symbol={symbol}
-          companyName={name}
-          industry={industry}
-          logo={logo}
-        />
-      </div>,
-      className: "mobile-stocks col-span-1 md:col-span-2 overflow-hidden",
-    },
+  {
+    header: <div>
+      <StockDashboard
+        className="flex-1 w-full h-full"
+        symbol={symbol}
+        companyName={name}
+        industry={industry}
+        logo={logo}
+      />
+    </div>,
+    // First row: full width on mobile and desktop
+    className: "col-span-2 md:col-span-2 overflow-hidden",
+  },
+  {
+    title: <span style={{ position: 'relative'}} className="text-purple-400">Key Financial Metrics</span>,
+    description: (
+      <span className="text-sm text-purple-50">
+        Stock Stats - {name}
+      </span>
+    ),
+    header: <FinnhubEarnings
+      symbol={symbol}
+      companyName={name}
+      earningsData={earningsData}
+      setEarningsData={setEarningsData}
+      companyMetrics={companyMetrics}
+      setCompanyMetrics={setCompanyMetrics}
+      loading={loading}
+      error={error}
+      onRetry={fetchAllData}
+    />,
+    // Second row left: half width on mobile, full on desktop
+    className: "col-span-1 md:col-span-1 overflow-hidden",
+  },
+  {
+    title: <span className="text-purple-400">LLM Sentiment Analysis</span>,
+    description: (
+      <span className="text-sm text-purple-50">
+        Latest news on {name}
+      </span>
+    ),
+    header: <Sentiment symbol={symbol} companyName={name} />,
+    // Second row right: half width on mobile, full on desktop
+    className: "col-span-1 md:col-span-1",
+  },
+  {
+    title: <span className="text-purple-400">Market News</span>,
+    description: (
+      <span className="text-sm text-purple-50">
+        Stay updated with the latest market news for {name}
+      </span>
+    ),
+    header: <NewsComponent symbol={symbol} companyName={name} />,
+    // Third row: full width on mobile and desktop
+    className: "col-span-2 md:col-span-2",
+  },
+];
 
-    {
-      title: <span style={{ position: 'relative'}} className="text-purple-400">Key Financial Metrics</span>,
-      description: (
-        <span className="text-sm text-purple-50">
-          Stock Stats - {name}
-        </span>
-      ),
-      header: <FinnhubEarnings 
-        symbol={symbol} 
-        companyName={name} 
-        earningsData={earningsData} 
-        setEarningsData={setEarningsData} 
-        companyMetrics={companyMetrics} 
-        setCompanyMetrics={setCompanyMetrics}
-        loading={loading}  
-        error={error}      
-        onRetry={fetchAllData}  
-      />,
-      className: "overflow-hidden col-span-1 md:col-span-1",
-    },
-    {
-      title: <span className="text-purple-400">Market News</span>,
-      description: (
-        <span className="text-sm text-purple-50">
-          Stay updated with the latest market news for {name}
-        </span>
-      ),
-      header: <NewsComponent symbol={symbol} companyName={name} />,
-      className: "col-span-1 md:col-span-2",
-    },
-
-    {
-      title: <span className="text-purple-400">LLM Sentiment Analysis</span>,
-      description: (
-        <span className="text-sm text-purple-50">
-          Latest news on {name}
-        </span>
-      ),
-      header: <Sentiment symbol={symbol} companyName={name} />,
-      className: "col-span-1 md:col-span-1",
-    },
-  ];
-
-  return (
-    
-    <BentoGrid className="w-full max-w-4xl mx-auto grid-cols-1 auto-rows-[20rem] md:grid-cols-3 md:auto-rows-[20rem]">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={`${symbol}-${i}`} // Use symbol in key to ensure proper re-rendering
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={cn("[&>p:text-lg]", item.className)}
-          icon={item.icon} />
-      ))}
-    </BentoGrid>
-  );
+return (
+  <BentoGrid className="mobile-stocks w-full max-md:min-w-[660px] md:min-w-[850px] max-w-4xl mx-auto grid-cols-2 auto-rows-[20rem] md:grid-cols-3 md:auto-rows-[20rem]">
+    {items.map((item, i) => (
+      <BentoGridItem
+        key={`${symbol}-${i}`}
+        title={item.title}
+        description={item.description}
+        header={item.header}
+        className={item.className}
+        icon={item.icon}
+      />
+    ))}
+  </BentoGrid>
+);
 }
 
 const SkeletonOne = () => {

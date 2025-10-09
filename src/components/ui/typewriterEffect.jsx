@@ -1,6 +1,6 @@
 "use client";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -13,6 +13,12 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
   }));
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  // Force animation on mount/refresh
+  useEffect(() => {
+    setAnimationKey(prev => prev + 1);
+  }, []);
 
   useEffect(() => {
     if (isInView) {
@@ -30,7 +36,7 @@ export const TypewriterEffect = ({ words, className, cursorClassName }) => {
         }
       );
     }
-  }, [isInView, animate]);
+  }, [isInView, animate, animationKey]);
 
   const renderWords = () => (
     <motion.div ref={scope} className="inline">
@@ -86,10 +92,20 @@ export const TypewriterEffectSmooth = ({
   className,
   cursorClassName,
 }) => {
+  const [animationKey, setAnimationKey] = useState(0);
+
+  // Force animation on mount/refresh
+  useEffect(() => {
+    setAnimationKey(prev => prev + 1);
+  }, []);
+
   const wordsArray = words.map((word) => ({
     ...word,
     text: word.text.split(""),
   }));
+
+  // Calculate total characters for proper timing
+  const totalChars = wordsArray.reduce((sum, word) => sum + word.text.length, 0) + wordsArray.length - 1;
 
   const renderWords = () => (
     <div>
@@ -112,9 +128,10 @@ export const TypewriterEffectSmooth = ({
   return (
     <div className={cn("flex items-stretch space-x-1 my-6", className)}>
       <motion.div
+        key={animationKey}
         className="overflow-hidden pb-2"
         initial={{ width: "0%" }}
-        whileInView={{ width: "fit-content" }}
+        animate={{ width: "fit-content" }}
         transition={{ duration: 2, ease: "linear", delay: 1 }}
       >
         <div

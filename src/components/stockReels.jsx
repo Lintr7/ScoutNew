@@ -36,7 +36,7 @@ function StockReels() {
 
   const companies = [
     { symbol: "AAPL", name: "Apple Inc." },
-    { symbol: "GOOGL", name: "Alphabet" },
+    { symbol: "GOOG", name: "Alphabet" },
     { symbol: "MSFT", name: "Microsoft" },
     { symbol: "TSLA", name: "Tesla" },
     { symbol: "AMZN", name: "Amazon" },

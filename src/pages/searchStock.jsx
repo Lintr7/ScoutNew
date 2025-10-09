@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const searchSuggestions = [
   { symbol: "AAPL", name: "Apple Inc." },
-  { symbol: "GOOGL", name: "Alphabet" },
+  { symbol: "GOOG", name: "Alphabet" },
   { symbol: "MSFT", name: "Microsoft" },
   { symbol: "TSLA", name: "Tesla" },
   { symbol: "AMZN", name: "Amazon" },
@@ -373,7 +373,7 @@ function SearchStock() {
     <div style={{overflowX: 'hidden', position: 'relative', backgroundColor: 'rgb(5, 12, 34)', width: '100%', height: '100dvh', overflow:'hidden'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
-          <h2 style={{marginTop: '-1.7em', position: 'absolute'}} className="bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">
+          <h2 style={{marginTop: '-1.7em', position: 'absolute'}} className="typing bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">
             <TypewriterEffectSmooth words={words} />
           </h2>
           <div style={{position: 'absolute'}} >
@@ -392,7 +392,7 @@ function SearchStock() {
               />
             </motion.div>
           </div>
-          <div style={{marginTop: '20em', position: 'absolute', width: '100%'}}>
+          <div className="search-bar" style={{marginTop: '20em', position: 'absolute', width: '100%'}}>
             <PlaceholdersAndVanishInput
               placeholders={placeholders}
               onChange={handleChange}
@@ -449,6 +449,7 @@ function SearchStock() {
               setSelectedStock(null);
               setSearchValue('');
             }}
+            className="mobile-button2"
             style={{
               position: 'absolute',
               height: '40px',
@@ -471,7 +472,7 @@ function SearchStock() {
           >
             <ArrowLeft size={20} />
           </button>
-          <div className="bento-scale-wrapper">
+          <div className="bento-scale-wrapper3">
             <BentoGridThirdDemo companySymbol={selectedStock.symbol} companyName={selectedStock.name} />
           </div>
         </div>
