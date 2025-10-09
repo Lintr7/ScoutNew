@@ -539,7 +539,8 @@ function StockReels() {
           transition: 'all 0.3s ease',
           opacity: cooldownActive ? 0.5 : 1,
           pointerEvents: cooldownActive ? 'none' : 'auto',
-          animation: cooldownActive ? 'none' : 'floatUpDown 2s ease-in-out infinite'
+          animation: 'floatUpDown 2s ease-in-out infinite',
+          animationPlayState: cooldownActive ? 'paused' : 'running'
         }}
       >
         <div style={{
