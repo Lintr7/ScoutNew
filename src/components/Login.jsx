@@ -75,7 +75,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[rgb(0,0,0)]">
-  <div className="max-w-md w-full space-y-8">
+  <div className="login-scale max-w-md w-full space-y-8">
     {/* Outer container with relative positioning for the glow effect */}
     <div className="relative h-full rounded-2xl border border-transparent p-px md:rounded-2xl md:p-px">
       <GlowingEffect

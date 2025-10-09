@@ -130,8 +130,8 @@ export default function Signup() {
     }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[rgb(0,0,0)]">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-[rgb(0,0,0)]">
+      <div className="login-scale max-w-md w-full space-y-8">
         <div className="relative h-full rounded-2xl border border-transparent p-px md:rounded-2xl md:p-px">
               <GlowingEffect
                 spread={40}
@@ -140,17 +140,17 @@ export default function Signup() {
                 proximity={64}
                 inactiveZone={0.01}
               />
-        <div className="bg-white dark:bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 dark:border-zinc-700">
+        <div className="bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 border-zinc-700">
           <div className="flex justify-center mb-5">
             <img style={{width: '3.5em'}} src='./logoScout.png' alt="Scout Logo" />
           </div>
-          <h2 className="mt-3 text-center text-2xl font-extrabold text-gray-900 dark:text-white">
+          <h2 className="mt-3 text-center text-2xl font-extrabold text-white">
             Get Started
           </h2>
           <p style={{ fontWeight: 'bold', fontSize: '1rem', opacity: '0.6'}} className="mt-2 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">Create your Scout account</p>
           <br/>
           {error && (
-            <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-400 rounded">
+            <div className="mb-4 p-3 bg-red-900/30 border border-red-600 text-red-400 rounded">
               {error}
             </div>
           )}
@@ -186,7 +186,7 @@ export default function Signup() {
                 onChange={handleInputChange}
                 disabled={loading}
               />
-              <p className="mt-1 text-xs text-gray-500 dark:text-zinc-400">
+              <p className="mt-1 text-xs text-zinc-400">
                 Must be 8+ characters with uppercase, lowercase, number, and special character
               </p>
             </div>

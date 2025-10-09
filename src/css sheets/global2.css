@@ -100,6 +100,9 @@ html, body {
   .mobile-button2 {
     margin-top: -3em;
   }
+  .login-scale {
+    transform: scale(0.9);
+  }
 }
 
 @media (max-width: 640px) {
@@ -121,6 +124,9 @@ html, body {
   .mobile-button2 {
     margin-top: -3.5em;
     margin-left: -0.5em;
+    transform: scale(0.9);
+  }
+  .login-scale {
     transform: scale(0.9);
   }
 }
@@ -158,6 +164,9 @@ html, body {
   }
   .watchlist {
     margin-top: 1em;
+  }
+  .login-scale {
+    transform: scale(0.9);
   }
 }
 
