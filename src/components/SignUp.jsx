@@ -140,7 +140,7 @@ export default function Signup() {
                 proximity={64}
                 inactiveZone={0.01}
               />
-        <div className="bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 border-zinc-700">
+        <div className="bg-[rgb(10,10,12)] py-8 px-4 shadow-lg rounded-xl sm:px-10 border-zinc-700">
           <div className="flex justify-center mb-5">
             <img style={{width: '3.5em'}} src='./logoScout.png' alt="Scout Logo" />
           </div>

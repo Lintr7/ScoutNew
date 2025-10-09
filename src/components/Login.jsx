@@ -86,7 +86,7 @@ export default function Login() {
         inactiveZone={0.01}
       />
       {/* Inner container - your actual card content */}
-      <div className="relative bg-[rgb(10,10,12)] py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 border-0 border-purple-300">
+      <div className="relative bg-[rgb(10,10,12)] py-8 px-4 shadow-lg rounded-xl sm:px-10 border-0 border-purple-300">
         <div className="flex justify-center mb-5">
           <img style={{width: '3.5em'}} src='./logoScout.png' alt="Scout Logo" />
         </div>
