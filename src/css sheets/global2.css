@@ -14,6 +14,8 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -50,16 +52,18 @@ html, body {
 
 @media (max-width: 1280px) {
   .bento-scale-wrapper {
-    transform: scale(0.95);
+    transform: scale(0.85);
     margin-left: -2em;
   }
   .bento-scale-wrapper2 {
     transform: scale(0.95);
     margin-left: 2em;
+    margin-top: 3em;
   }
   .bento-scale-wrapper3 {
-    transform: scale(0.95);
+    transform: scale(0.93);
     margin-left: 2em;
+    margin-top: 2em;
   }
 }
 

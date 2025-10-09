@@ -370,7 +370,7 @@ function SearchStock() {
   };
 
   return(
-    <div style={{overflowX: 'hidden', position: 'relative', backgroundColor: 'rgb(5, 12, 34)', width: '100%', height: '100vh', overflow:'hidden'}}>
+    <div style={{overflowX: 'hidden', position: 'relative', backgroundColor: 'rgb(5, 12, 34)', width: '100%', height: '100dvh', overflow:'hidden'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
           <h2 style={{marginTop: '-1.7em', position: 'absolute'}} className="typing bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">

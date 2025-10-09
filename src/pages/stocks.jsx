@@ -128,7 +128,7 @@ function Stocks() {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100dvw'}} className="flex flex-col md:flex-row h-screen bg-gray-900">
+    <div style={{ height: '100dvh', width: '100dvw'}} className="flex flex-col md:flex-row h-screen bg-gray-900">
       
       {/* Desktop border - hidden on mobile */}
       <div className="hidden md:block" style={{ 
