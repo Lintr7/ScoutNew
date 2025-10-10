@@ -480,13 +480,14 @@ async def get_finnhub_data(
         
         # Validate critical data - check if we have meaningful data from all sources
         has_meaningful_earnings = len(processed_earnings) > 0
-        has_meaningful_profile = profile.get('marketCapitalization', 0) > 0 or profile.get('name')
-        has_meaningful_metrics = (
-            company_metrics.get('marketCap', 0) > 0 or
-            company_metrics.get('peRatio', 0) > 0 or
-            company_metrics.get('weekHigh52', 0) > 0 or
-            company_metrics.get('grossMargin', 0) > 0
-        )
+        
+        # CRITICAL: Market cap must exist - every public company has market cap
+        market_cap = profile.get('marketCapitalization', 0)
+        has_valid_market_cap = market_cap > 0
+        has_meaningful_profile = has_valid_market_cap and profile.get('name')
+        
+        # Metrics validation - market cap is critical, others are optional
+        has_meaningful_metrics = company_metrics.get('marketCap', 0) > 0
         
         # Check if profile has logo and industry (for separate caching)
         # Validate that they're not just present, but actually have meaningful values
@@ -498,21 +499,28 @@ async def get_finnhub_data(
         )
         
         # Only cache if we have meaningful data from at least 2 out of 3 sources
+        # CRITICAL REQUIREMENT: Market cap must always be valid
         data_sources_count = sum([has_meaningful_earnings, has_meaningful_profile, has_meaningful_metrics])
-        has_meaningful_data = data_sources_count >= 2
+        has_meaningful_data = data_sources_count >= 2 and has_valid_market_cap
         
         # Build validation warnings
         validation_warnings = []
         if not has_meaningful_earnings:
             validation_warnings.append("No earnings data")
+        if not has_valid_market_cap:
+            validation_warnings.append("CRITICAL: No market cap data - cannot cache")
         if not has_meaningful_profile:
             validation_warnings.append("No profile data")
         if not has_meaningful_metrics:
             validation_warnings.append("No metrics data")
         
         if not has_meaningful_data:
-            validation_warnings.append(f"Insufficient data (only {data_sources_count}/3 sources available) - not caching")
-            print(f"Warning: Insufficient data for {clean_symbol} ({data_sources_count}/3 sources) - not caching")
+            if not has_valid_market_cap:
+                validation_warnings.append(f"Market cap is required but missing - not caching")
+                print(f"CRITICAL: {clean_symbol} has no market cap - not caching")
+            else:
+                validation_warnings.append(f"Insufficient data (only {data_sources_count}/3 sources available) - not caching")
+                print(f"Warning: Insufficient data for {clean_symbol} ({data_sources_count}/3 sources) - not caching")
         
         if not has_profile_identity:
             validation_warnings.append(f"Profile missing logo or industry - profile not cached")
