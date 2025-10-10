@@ -28,7 +28,7 @@ app = FastAPI(title="News Sentiment API")
 # Different cache expiration times for different APIs (in hours)
 CACHE_TIMES = {
     "news": 10,          # MarketAux news 
-    "finnhub": 6,       # Finnhub earnings/metrics 
+    "finnhub": 10,       # Finnhub earnings/metrics 
     "search": 2,        # OpenAI sentiment analysis 
     "stocks": 0.1      # Alpaca stock data
 }
@@ -333,8 +333,10 @@ def process_company_metrics(profile: dict, quote: dict, metrics: dict) -> dict:
     return {
         "marketCap": safe_number(profile.get('marketCapitalization', 0) * 1000000, 0),
         "grossMargin": safe_number(metrics_data.get('grossMarginTTM'), 0),
-        "dayChange": safe_number(quote.get('d'), 0),
-        "dayChangePercent": safe_number(quote.get('dp'), 0),
+        "logo" : profile.get('logo', ''),
+        "industry" : profile.get('finnhubIndustry', ''),
+        # "dayChange": safe_number(quote.get('d'), 0),
+        # "dayChangePercent": safe_number(quote.get('dp'), 0),
         "peRatio": safe_number(metrics_data.get('peTTM'), 0),
         "volume10Day": safe_number(metrics_data.get('10DayAverageTradingVolume'), 0),
         "weekHigh52": safe_number(metrics_data.get('52WeekHigh'), 0),
@@ -424,9 +426,25 @@ async def get_finnhub_data(
             "raw_data": raw_data,
             "validation_warnings": validation_warnings
         }
+
+        arrayChecker = ["marketCap", "grossMargin", "peRatio", "volume10Day", "weekHigh52", "weekLow52"]
+        earnings = ["expected", "actual", "surprise"]
+
+        count = 0
+        for s in arrayChecker:
+            if response_data["company_metrics"][s] == 0:
+                count += 1
         
-        # Cache the result
-        set_cached_data(finnhub_cache, cache_key, response_data, "finnhub")
+        earnings_fields = ["expected", "actual", "surprise"]
+        missing_earnings_count = 0
+
+        for quarter in response_data["earnings_data"]:
+            quarter_missing = sum(1 for field in earnings_fields if quarter[field] == 0)
+            if quarter_missing == 3: 
+                missing_earnings_count += 1
+
+        if len(response_data["company_metrics"]["logo"]) > 0 and len(response_data["company_metrics"]["industry"]) > 0 and count <= 3 and missing_earnings_count <= 2:
+            set_cached_data(finnhub_cache, cache_key, response_data, "finnhub")
         return response_data
         
     except HTTPException:

@@ -111,7 +111,7 @@ const FinnhubEarnings = ({
           <div style={styles.metricCard}>
             <div style={styles.metricLabel}>Gross Margin</div>
             <div style={styles.metricValue}>
-              {companyMetrics?.grossMargin ? (companyMetrics.grossMargin / 100).toFixed(1) + '%' : 'N/A'}
+              {companyMetrics?.grossMargin ? (companyMetrics.grossMargin).toFixed(1) + '%' : 'N/A'}
             </div>
           </div>
           <div style={styles.metricCard}>

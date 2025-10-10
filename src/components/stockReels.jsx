@@ -60,7 +60,7 @@ function StockReels() {
     { symbol: "C", name: "Citigroup" },
     { symbol: "WFC", name: "Wells Fargo" },
     { symbol: "CVX", name: "Chevron" },
-    { symbol: "BRK.B", name: "Berkshire Hathaway" },
+    { symbol: "BRK.A", name: "Berkshire Hathaway" },
     { symbol: "UNH", name: "UnitedHealth Group" },
     { symbol: "PG", name: "Procter & Gamble" },
     { symbol: "HD", name: "Home Depot" },

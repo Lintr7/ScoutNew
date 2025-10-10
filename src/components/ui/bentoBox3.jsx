@@ -47,7 +47,8 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         company_name: companyName
       });
       
-      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
+      /* const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`); */
+      const response = await fetch(`http://127.0.0.1:8000/finnhub/${cleanSymbol}?${params}`);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -69,8 +70,8 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
       const processedEarningsData = result.earnings_data || [];
       const processedCompanyMetrics = result.company_metrics || {};
       const currentRawData = result.raw_data || {};
-      const logo = currentRawData.profile.logo || '';
-      const industry = currentRawData.profile.finnhubIndustry || 'N/A';
+      const logo = processedCompanyMetrics.logo || '';
+      const industry = processedCompanyMetrics.industry || 'N/A';
       
       // Set state
       setEarningsData(processedEarningsData);
