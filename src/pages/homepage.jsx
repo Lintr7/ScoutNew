@@ -14,6 +14,9 @@ import { Navbar,
 import { ContainerScroll } from '../components/ui/device.jsx';
 import LogoCarousel2 from '../components/carousel.jsx';
 import { useNavigate } from 'react-router-dom';
+import { LampDemo } from '../components/ui/lamp.jsx';
+import { LampContainer } from '../components/ui/lamp.jsx';
+import { FeaturesSectionDemo } from '../components/ui/featureSection.jsx';
 
 function Homepage() {
   const navItems = [
@@ -102,10 +105,11 @@ function Homepage() {
             A new way to view stocks
           </p>
         </div>
-        <div style={{position: 'absolute', marginTop: '35em', width: '50%'}}>
+        <div style={{position: 'absolute', marginTop: '35em', width: '50%', zIndex: '10'}}>
           <LogoCarousel2/>
         </div>
         
+        {/* 
         <div style={{position: 'absolute', marginTop: '30em'}} className="flex flex-col overflow-hidden">
           <div>
             <ContainerScroll
@@ -119,6 +123,10 @@ function Homepage() {
               />
             </ContainerScroll>
           </div>
+        </div>
+        */}
+        <div style={{ position:'absolute', width: '100%', marginTop: '35.1em', zIndex: '1'}}>
+          <LampContainer/>
         </div>
         
         <div style={{ position: 'absolute', marginTop: '27em'}}>
