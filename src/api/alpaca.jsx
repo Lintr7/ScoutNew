@@ -14,8 +14,8 @@ const TIME_PERIODS = {
 
 const fetchAlpacaStockData = async (symbol, start, end, timeframe) => {
   try {
-    /* const response = await fetch(`https://scoutnew-production.up.railway.app/stocks/${symbol}?start=${start}&end=${end}&timeframe=${timeframe}`); */
-    const response = await fetch(`http://127.0.0.1:8000/stocks/${symbol}?start=${start}&end=${end}&timeframe=${timeframe}`);
+    const response = await fetch(`https://scoutnew-production.up.railway.app/stocks/${symbol}?start=${start}&end=${end}&timeframe=${timeframe}`); 
+    /* const response = await fetch(`http://127.0.0.1:8000/stocks/${symbol}?start=${start}&end=${end}&timeframe=${timeframe}`); */
     
     if (!response.ok) {
       // Log the actual error response

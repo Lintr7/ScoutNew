@@ -47,8 +47,8 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
         company_name: companyName
       });
       
-      /* const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`); */
-      const response = await fetch(`http://127.0.0.1:8000/finnhub/${cleanSymbol}?${params}`);
+      const response = await fetch(`https://scoutnew-production.up.railway.app/finnhub/${cleanSymbol}?${params}`);
+      /* const response = await fetch(`http://127.0.0.1:8000/finnhub/${cleanSymbol}?${params}`); */
       
       if (!response.ok) {
         const errorText = await response.text();
