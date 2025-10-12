@@ -101,7 +101,7 @@ function Homepage() {
                  handleNavClick(e, item.link);
                  handleMobileItemClick();
                }}
-               className="w-full text-left font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors py-2"
+               className="w-full text-left font-medium text-neutral-300 hover:text-neutral-100 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors py-2"
              >
                {item.name}
              </a>

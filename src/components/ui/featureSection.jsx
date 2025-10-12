@@ -17,14 +17,14 @@ export function FeaturesSectionDemo() {
         "Track and manage your project issues with ease using our intuitive interface.",
       skeleton: <SkeletonOne />,
       className:
-        "show-text col-span-1 lg:col-span-4 border lg:border rounded-2xl dark:border-[rgba(255,255,255,0.1)] dark:shadow-[0_0_100px_rgba(15,120,150,0.3)]",
+        "show-text col-span-1 lg:col-span-4 border lg:border rounded-2xl border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
     },
     {
       title: "Swipe Through Popular Companies",
       description:
         "Capture stunning photos effortlessly using our advanced AI technology.",
       skeleton: <SkeletonTwo />,
-      className: "show-text border col-span-1 lg:col-span-2 rounded-2xl dark:border-[rgba(255,255,255,0.1)] dark:shadow-[0_0_100px_rgba(15,120,150,0.3)]",
+      className: "show-text border col-span-1 lg:col-span-2 rounded-2xl border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
     },
     {
       title: "Get LLM Sentiment Analysis",
@@ -32,14 +32,14 @@ export function FeaturesSectionDemo() {
         "Whether its you or Tyler Durden, you can get to know about our product on YouTube",
       skeleton: <SkeletonThree />,
       className:
-        "show-text -z-1 col-span-1 lg:col-span-3 lg:border rounded-2xl dark:border-[rgba(255,255,255,0.1)] dark:shadow-[0_0_100px_rgba(15,120,150,0.3)]",
+        "show-text -z-1 col-span-1 lg:col-span-3 lg:border rounded-2xl border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
     },
     {
       title: "Stay Updated on the Latest News",
       description:
         "With our blazing fast, state of the art, cutting edge, we are so back cloud servies (read AWS) - you can deploy your model in seconds.",
       skeleton: <SkeletonFour />,
-      className: "show-text -z-1 min-h-[500px] col-span-1 lg:col-span-3 border lg:border rounded-2xl dark:border-[rgba(255,255,255,0.1)] dark:shadow-[0_0_100px_rgba(15,120,150,0.3)]",
+      className: "show-text -z-1 min-h-[500px] col-span-1 lg:col-span-3 border lg:border rounded-2xl border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
     },
   ];
   return (
@@ -49,7 +49,7 @@ export function FeaturesSectionDemo() {
       </div>
       <div className="relative ">
         <div
-          className="grid grid-cols-1 lg:grid-cols-6 mt-12 xl:border rounded-md dark:border-transparent">
+          className="grid grid-cols-1 lg:grid-cols-6 mt-12 xl:border rounded-md border-transparent">
           {features.map((feature) => (
             <FeatureCard key={feature.title} className={feature.className}>
               <FeatureTitle>{feature.title}</FeatureTitle>
