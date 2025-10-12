@@ -17,6 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import { LampDemo } from '../components/ui/lamp.jsx';
 import { LampContainer } from '../components/ui/lamp.jsx';
 import { FeaturesSectionDemo } from '../components/ui/featureSection.jsx';
+import { IsolatedTextAnimation } from '../components/ui/lamp.jsx';
+import ContactSection from '../components/contactInfo.jsx';
 
 function Homepage() {
   const navItems = [
@@ -37,6 +39,19 @@ function Homepage() {
     setIsMobileMenuOpen(false); 
   };
 
+  const handleNavClick = (e, link) => {
+    e.preventDefault();
+    const targetId = link.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className='wrapper'>
       <div style={{position: 'fixed', top: '1.3em', width:'100%', zIndex: '1000'}}>
@@ -45,7 +60,7 @@ function Homepage() {
             <NavbarLogo />
             <NavItems
               items={navItems}
-              onItemClick={() => {}}
+              onItemClick={(item, e) => handleNavClick(e, item.link)}
               className="flex" />
             <div className="flex items-center space-x-2">
               <NavbarButton variant="secondary" onClick={() => navigate('/login')}>
@@ -82,7 +97,10 @@ function Homepage() {
              <a
                key={idx}
                href={item.link}
-               onClick={handleMobileItemClick}
+               onClick={(e) => {
+                 handleNavClick(e, item.link);
+                 handleMobileItemClick();
+               }}
                className="w-full text-left font-medium text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors py-2"
              >
                {item.name}
@@ -93,12 +111,12 @@ function Homepage() {
       </Navbar>
       </div>
 
-        <div style={{marginTop: '-16em', marginLeft:'-68em'}}>
+        <div id="home" style={{marginTop: '-16em', marginLeft:'-68em'}}>
           <CyanSpotlight style={{position: 'absolute'}}/>
         </div>
         
         <div style={{position: 'absolute', zIndex: '4', marginTop:'11em'}} className="p-4 max-w-7xl mx-auto absolute z-10 w-full pt-20 md:pt-0">
-          <h1 className="fadeUpText text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-300 bg-opacity-50">
+          <h1 className="fadeUpText text-5xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-300 bg-opacity-50">
             Swipe Into <br/> Your Portfolio
           </h1>
           <p style={{ fontFamily: "'SF Mono', Monaco, 'Cascadia Code', monospace", fontWeight: 'bold', fontSize: '1.1rem', opacity: '0.6'}} className="mt-4 font-normal text-base text-neutral-300 max-w-lg text-center mx-auto">
@@ -125,10 +143,18 @@ function Homepage() {
           </div>
         </div>
         */}
-        <div style={{ position:'absolute', width: '100%', marginTop: '35.1em', zIndex: '1'}}>
+        <div id="features" style={{ position:'absolute', width: '100%', marginTop: '35.5em', zIndex: '0'}}>
           <LampContainer/>
         </div>
-        
+        <h1 style={{ position:'absolute', marginTop: '55em', zIndex: '11'}}>
+          <IsolatedTextAnimation />
+        </h1>
+          <div style={{ position:'absolute', width: '100%', marginTop: '60em', zIndex: '1'}}>
+            <FeaturesSectionDemo/>
+            <div id="contact" style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+              <ContactSection/>
+            </div>
+          </div>
         <div style={{ position: 'absolute', marginTop: '27em'}}>
           <button onClick={() => navigate('/signup')} className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
@@ -136,7 +162,8 @@ function Homepage() {
               Get Started
             </span>
           </button>
-        </div>  
+        </div> 
+
     </div>
   );
 }

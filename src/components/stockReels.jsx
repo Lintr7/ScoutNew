@@ -36,7 +36,7 @@ function StockReels() {
 
   const companies = [
     { symbol: "AAPL", name: "Apple Inc." },
-    { symbol: "GOOG", name: "Alphabet" },
+    { symbol: "GOOGL", name: "Alphabet" },
     { symbol: "MSFT", name: "Microsoft" },
     { symbol: "TSLA", name: "Tesla" },
     { symbol: "AMZN", name: "Amazon" },
@@ -60,7 +60,6 @@ function StockReels() {
     { symbol: "C", name: "Citigroup" },
     { symbol: "WFC", name: "Wells Fargo" },
     { symbol: "CVX", name: "Chevron" },
-    { symbol: "BRK.A", name: "Berkshire Hathaway" },
     { symbol: "UNH", name: "UnitedHealth Group" },
     { symbol: "PG", name: "Procter & Gamble" },
     { symbol: "HD", name: "Home Depot" },
@@ -289,6 +288,22 @@ function StockReels() {
     { symbol: "URI", name: "United Rentals" },
     { symbol: "GEV", name: "GE Vernova" },
     { symbol: "WMB", name: "Williams Companies" },
+    { symbol: "TMUS", name: "T-Mobile US" },
+    { symbol: "APO", name: "Apollo Global Management" },
+    { symbol: "FI", name: "Fiserv" },
+    { symbol: "PWR", name: "Quanta Services" },
+    { symbol: "SRE", name: "Sempra Energy" },
+    { symbol: "DDOG", name: "Datadog" },
+    { symbol: "SMCI", name: "Super Micro Computer" },
+    { symbol: "FICO", name: "Fair Isaac" },
+    { symbol: "MPWR", name: "Monolithic Power Systems" },
+    { symbol: "YUM", name: "Yum! Brands" },
+    { symbol: "HSY", name: "Hershey Company" },
+    { symbol: "CCL", name: "Carnival" },
+    { symbol: "CHTR", name: "Charter Communications" },
+    { symbol: "STT", name: "State Street Corporation" },
+    { symbol: "MTB", name: "M&T Bank" },
+    { symbol: "CTSH", name: "Cognizant" }
   ];
 
   // Save to localStorage whenever currentIndex changes
@@ -361,7 +376,7 @@ function StockReels() {
     setTimeout(() => {
       setCurrentIndex((p) => p + 1);
       setIsAnimating(false);
-    }, ANIMATION_MS);
+    }, ANIMATION_MS + 100);
     
     // Re-enable button after SWIPE_COOLDOWN_MS
     setTimeout(() => {
@@ -440,7 +455,7 @@ function StockReels() {
       style={{ position: 'relative', overflow: 'hidden', height: '100dvh', width: '100dvw', maxWidth: '100dvw', maxHeight: '100dvh'}}
     >
       <div className="hidden md:block" style={{ 
-          backgroundColor: 'rgb(5, 12, 34)', 
+          backgroundColor: 'rgb(1,3,33)', 
           width: '100%', 
           position: 'absolute', 
           top: '0em', 

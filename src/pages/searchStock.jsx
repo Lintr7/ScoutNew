@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 const searchSuggestions = [
   { symbol: "AAPL", name: "Apple Inc." },
-  { symbol: "GOOG", name: "Alphabet" },
+  { symbol: "GOOGL", name: "Alphabet" },
   { symbol: "MSFT", name: "Microsoft" },
   { symbol: "TSLA", name: "Tesla" },
   { symbol: "AMZN", name: "Amazon" },
@@ -33,7 +33,6 @@ const searchSuggestions = [
   { symbol: "C", name: "Citigroup" },
   { symbol: "WFC", name: "Wells Fargo" },
   { symbol: "CVX", name: "Chevron" },
-  { symbol: "BRK.B", name: "Berkshire Hathaway" },
   { symbol: "UNH", name: "UnitedHealth Group" },
   { symbol: "PG", name: "Procter & Gamble" },
   { symbol: "HD", name: "Home Depot" },
@@ -262,6 +261,22 @@ const searchSuggestions = [
   { symbol: "URI", name: "United Rentals" },
   { symbol: "GEV", name: "GE Vernova" },
   { symbol: "WMB", name: "Williams Companies" },
+  { symbol: "TMUS", name: "T-Mobile US" },
+  { symbol: "APO", name: "Apollo Global Management" },
+  { symbol: "FI", name: "Fiserv" },
+  { symbol: "PWR", name: "Quanta Services" },
+  { symbol: "SRE", name: "Sempra Energy" },
+  { symbol: "DDOG", name: "Datadog" },
+  { symbol: "SMCI", name: "Super Micro Computer" },
+  { symbol: "FICO", name: "Fair Isaac" },
+  { symbol: "MPWR", name: "Monolithic Power Systems" },
+  { symbol: "YUM", name: "Yum! Brands" },
+  { symbol: "HSY", name: "Hershey Company" },
+  { symbol: "CCL", name: "Carnival" },
+  { symbol: "CHTR", name: "Charter Communications" },
+  { symbol: "STT", name: "State Street Corporation" },
+  { symbol: "MTB", name: "M&T Bank" },
+  { symbol: "CTSH", name: "Cognizant" }
 ];
 
 function SearchStock() {
@@ -370,7 +385,7 @@ function SearchStock() {
   };
 
   return(
-    <div style={{overflowX: 'hidden', position: 'relative', backgroundColor: 'rgb(5, 12, 34)', width: '100%', height: '100dvh', overflow:'hidden'}}>
+    <div style={{overflowX: 'hidden', position: 'relative', backgroundColor: 'rgb(1,3,33)', width: '100%', height: '100dvh', overflow:'hidden'}}>
       {!selectedStock ? (
         <div className="h-[40rem] flex flex-col justify-center items-center px-4">
           <h2 style={{marginTop: '-1.7em', position: 'absolute'}} className="typing bg-gradient-to-b from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-7xl font-medium tracking-tight text-transparent md:text-7xl">

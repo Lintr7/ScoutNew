@@ -359,6 +359,10 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
               fontFamily: 'Geist, sans-serif',
               fontWeight: '700',
             }}
+            labelStyle={{
+              color: 'white',
+            }}
+
           />
           <Area
             type="linear"

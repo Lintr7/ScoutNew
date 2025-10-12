@@ -428,7 +428,6 @@ async def get_finnhub_data(
         }
 
         arrayChecker = ["marketCap", "grossMargin", "peRatio", "volume10Day", "weekHigh52", "weekLow52"]
-        earnings = ["expected", "actual", "surprise"]
 
         count = 0
         for s in arrayChecker:

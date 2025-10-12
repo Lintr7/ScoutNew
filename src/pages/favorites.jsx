@@ -111,9 +111,9 @@ const Favorites = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'rgb(5, 12, 34)', width: '100%', overflowY: 'auto', position: 'relative'}}>
+    <div style={{ backgroundColor: 'rgb(1,3,33)', width: '100%', overflowY: 'auto', position: 'relative'}}>
         <div className="hidden md:block" style={{ 
-          backgroundColor: 'rgb(5, 12, 34)', 
+          backgroundColor: 'rgb(1, 3, 33)', 
           width: '100%', 
           position: 'fixed', 
           top: '0em', 
@@ -133,7 +133,7 @@ const Favorites = () => {
                     <div
                     key={favorite.id}
                     onClick={() => handleClick(favorite)}
-                    className="flex items-center justify-between p-4 w-full bg-gray-700/70 rounded-lg shadow hover:shadow-md hover:bg-gray-700 hover:scale-[1.01] transition-all duration-300 cursor-pointer group"
+                    className="flex items-center justify-between p-4 w-full bg-gray-700/60 rounded-lg shadow hover:shadow-md hover:bg-gray-700/90 hover:scale-[1.01] transition-all duration-300 cursor-pointer group"
                     >
                     <div>
                         <h3 className="font-bold text-lg text-white group-hover:text-purple-400/90">{favorite.company_name}</h3>
