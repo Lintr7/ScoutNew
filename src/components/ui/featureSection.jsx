@@ -32,7 +32,7 @@ export function FeaturesSectionDemo() {
         "Whether its you or Tyler Durden, you can get to know about our product on YouTube",
       skeleton: <SkeletonThree />,
       className:
-        "show-text -z-1 col-span-1 lg:col-span-3 lg:border rounded-2xl border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
+        "show-text -z-1 col-span-1 lg:col-span-3 lg:border rounded-2xl border border-[rgba(255,255,255,0.1)] shadow-[0_0_100px_rgba(15,120,150,0.3)]",
     },
     {
       title: "Stay Updated on the Latest News",

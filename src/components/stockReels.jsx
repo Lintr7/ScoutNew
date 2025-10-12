@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { BentoGridSecondDemo } from "./bentoBox";
 import { BentoGridThirdDemo } from './ui/bentoBox3';
 import { User } from 'lucide-react';
@@ -318,15 +318,30 @@ function StockReels() {
   }, [currentIndex]);
 
   // Random Reel Function
-  const daySeed = new Date().toISOString().slice(0, 10)
-    .split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const daySeed = useMemo(() => {
+    return new Date().toISOString().slice(0, 10)
+      .split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  }, []); // Empty dependency - calculates once per mount
+
+  const getShuffledCompanies = (seed) => {
+    const shuffled = [...companies];
+    let currentSeed = seed;
+    
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      currentSeed = (currentSeed * 1664525 + 1013904223) >>> 0;
+      const j = currentSeed % (i + 1);
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Create shuffled array once per day - MEMOIZED
+  const shuffledCompanies = useMemo(() => {
+    return getShuffledCompanies(daySeed);
+  }, [daySeed]); // Only recalculates if daySeed changes
 
   const getCurrentCompany = (index) => {
-    let s = index + daySeed;
-    s ^= s << 13;
-    s ^= s >>> 17;
-    s ^= s << 5;
-    return companies[(s >>> 0) % companies.length];
+    return shuffledCompanies[index % shuffledCompanies.length];
   };
 
   /*
