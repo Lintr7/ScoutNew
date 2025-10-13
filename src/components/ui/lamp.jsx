@@ -24,7 +24,7 @@ export function LampDemo() {
 export function IsolatedTextAnimation() {
   return (
     <motion.h1
-      initial={{ opacity: 0.5, y: 100 }}
+      initial={{ opacity: 0.5, y: 80 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{
         delay: 0.3,
@@ -89,7 +89,7 @@ export const LampContainer = ({
         <div
           className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
         <div
-          className="absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full bg-cyan-500 opacity-50 blur-3xl"></div>
+          className="absolute inset-auto z-50 h-38 w-[33rem] -translate-y-1/2 rounded-full bg-cyan-500 opacity-50 blur-3xl"></div>
         <motion.div
           initial={{ width: "8rem" }}
           whileInView={{ width: "16rem" }}
@@ -101,7 +101,7 @@ export const LampContainer = ({
           className="absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full bg-cyan-400 blur-2xl"></motion.div>
         <motion.div
           initial={{ width: "15rem" }}
-          whileInView={{ width: "30rem" }}
+          whileInView={{ width: "28rem" }}
           transition={{
             delay: 0.3,
             duration: 0.8,
