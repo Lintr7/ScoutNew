@@ -3,6 +3,7 @@ html, body {
   padding: 0;
   width: 100dvw;
   height: 100dvh;
+  background: rgb(1, 3, 33);
   /* overflow: hidden; */
 }
 
@@ -63,7 +64,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 440vh;            
+    height: 415vh;            
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -92,7 +93,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 435vh;            
+    height: 430vh;            
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -118,7 +119,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 550vh;            
+    height: 540vh;         
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -156,7 +157,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 530vh;            
+    height: 510vh;            
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -193,7 +194,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 510vh;            
+    height: 500vh;            
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -243,7 +244,7 @@ html, body {
     margin: 0;
     background: rgb(1, 3, 33);
     color: white;             
-    height: 500vh;            
+    height: 490vh;            
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
