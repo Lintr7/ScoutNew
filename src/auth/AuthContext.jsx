@@ -41,7 +41,7 @@ export function AuthProvider({ children }) {
       async (event, session) => {
         if (!mounted) return;
         
-        console.log('Auth state changed:', event);
+        // console.log('Auth state changed:', event);
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);

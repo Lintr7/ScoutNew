@@ -113,7 +113,6 @@ const searchSuggestions = [
   { symbol: "KLAC", name: "KLA" },
   { symbol: "FTNT", name: "Fortinet" },
   { symbol: "ALGN", name: "Align Technology" },
-  { symbol: "EXC", name: "Exelon" },
   { symbol: "ABNB", name: "Airbnb" },
   { symbol: "PNC", name: "PNC Financial Services Group" },
   { symbol: "RBLX", name: "Roblox" },
@@ -331,7 +330,7 @@ function SearchStock() {
     const value = e.target.value;
     setSearchValue(value);
     setSelectedIndex(-1);
-    console.log(value);
+    // console.log(value);
 
     if (value.trim() === '') {
       setFilteredSuggestions([]);
@@ -351,7 +350,7 @@ function SearchStock() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted:", searchValue);
+    // console.log("Submitted:", searchValue);
     setShowDropdown(false);
     
     // If a suggestion is highlighted, use it

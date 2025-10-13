@@ -9,7 +9,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        console.log(`Fetching fresh data for ${symbol}`);
+        // console.log(`Fetching fresh data for ${symbol}`);
         setLoading(true);
         setError(null);
 
@@ -31,7 +31,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
       } catch (err) {
         setError(err.message);
         setLoading(false);
-        console.log('error', err);
+        // console.log('error', err);
       }
     };
 

@@ -226,14 +226,14 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
       if (isFavorited) {
         await removeFavorite(symbol);
         setIsFavorited(false);
-        console.log(`Removed ${companyName} from favorites`);
+        // console.log(`Removed ${companyName} from favorites`);
       } else {
         await addFavorite(symbol, companyName);
         setIsFavorited(true);
-        console.log(`Added ${companyName} to favorites`);
+        // console.log(`Added ${companyName} to favorites`);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
+      // console.error('Error toggling favorite:', error);
       alert(error.message); 
     } finally {
       setFavoriteLoading(false);
@@ -413,7 +413,7 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
       const data = await fetchAlpacaStockData(symbol, prevDateStr, prevDateStr, '1Day');
       return data.length > 0 ? data[data.length - 1].c : null;
     } catch (error) {
-      console.error('Error fetching previous close:', error);
+      // console.error('Error fetching previous close:', error);
       return null;
     }
   };
@@ -543,11 +543,11 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
       const startDateStr = formatDateForAPI(startDate);
       const endDateStr = formatDateForAPI(endDate);
       
-      console.log(`Fetching ${period} data from ${startDateStr} to ${endDateStr}`);
-      console.log(`Current Eastern Time:`, easternTime.toLocaleString());
-      console.log(`Market Open:`, isMarketOpen(easternTime));
+      // console.log(`Fetching ${period} data from ${startDateStr} to ${endDateStr}`);
+      // console.log(`Current Eastern Time:`, easternTime.toLocaleString());
+      // console.log(`Market Open:`, isMarketOpen(easternTime));
       if (period === '5D') {
-        console.log(`Trading days range: ${startDate.toDateString()} to ${endDate.toDateString()}`);
+        // console.log(`Trading days range: ${startDate.toDateString()} to ${endDate.toDateString()}`);
       }
       
       const data = await fetchAlpacaStockData(symbol, startDateStr, endDateStr, config.timeframe);

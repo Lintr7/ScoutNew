@@ -98,7 +98,7 @@ const FeatureTitle = ({
   return (
     <p
       style={{ fontFamily: "'SF Mono', Monaco, 'Cascadia Code', monospace", fontWeight: 'bold', fontSize: '1.15rem'}}
-      className="max-w-5xl mx-auto text-left tracking-tight text-blue-200/40 text-xl md:text-2xl md:leading-snug">
+      className="max-w-5xl mx-auto text-left tracking-tight text-blue-200/50 text-xl md:text-2xl md:leading-snug">
       {children}
     </p>
   );

@@ -140,7 +140,6 @@ function StockReels() {
     { symbol: "KLAC", name: "KLA" },
     { symbol: "FTNT", name: "Fortinet" },
     { symbol: "ALGN", name: "Align Technology" },
-    { symbol: "EXC", name: "Exelon" },
     { symbol: "ABNB", name: "Airbnb" },
     { symbol: "PNC", name: "PNC Financial Services Group" },
     { symbol: "RBLX", name: "Roblox" },
@@ -369,7 +368,7 @@ function StockReels() {
     
     // Check if 1000ms have passed since the last swipe
     if (now - lastSwipeTime.current < SWIPE_COOLDOWN_MS) {
-      console.log(`Swipe blocked. ${SWIPE_COOLDOWN_MS - (now - lastSwipeTime.current)}ms remaining`);
+      // console.log(`Swipe blocked. ${SWIPE_COOLDOWN_MS - (now - lastSwipeTime.current)}ms remaining`);
       return; // Block the swipe
     }
     

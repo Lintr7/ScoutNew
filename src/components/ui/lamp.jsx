@@ -31,7 +31,7 @@ export function IsolatedTextAnimation() {
         duration: 0.8,
         ease: "easeInOut",
       }}
-      className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium text-transparent md:text-6xl"
+      className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-5xl font-medium text-transparent md:text-6xl"
     >
       Discover New Stocks
     </motion.h1>
