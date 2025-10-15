@@ -123,7 +123,7 @@ function Homepage() {
             A new way to view stocks
           </p>
         </div>
-        <div style={{position: 'absolute', marginTop: '35em', width: '50%', zIndex: '10'}}>
+        <div className="scale-logos" style={{position: 'absolute', marginTop: '35em', zIndex: '10'}}>
           <LogoCarousel2/>
         </div>
         

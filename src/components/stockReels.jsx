@@ -213,7 +213,6 @@ function StockReels() {
     { symbol: "COP", name: "ConocoPhillips" },
     { symbol: "DASH", name: "DoorDash" },
     { symbol: "KKR", name: "KKR" },
-    { symbol: "ORLY", name: "O'Reilly Automotive" },
     { symbol: "MSI", name: "Motorola Solutions" },
     { symbol: "ETR", name: "Entergy" },
     { symbol: "HAL", name: "Halliburton" },
