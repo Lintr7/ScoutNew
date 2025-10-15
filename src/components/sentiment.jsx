@@ -102,7 +102,7 @@ const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
             
             {loading ? "🔍 Searching..." : `Search ${companyName}`}
           </button>
-          <div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2 justify-center items-center mt-4">
+          <div className="flex flex-1 w-full h-54 dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2 justify-center items-center mt-4">
             <EvervaultCard/>
           </div>
           </>
@@ -110,7 +110,7 @@ const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         {error && <p style={styles.error}>{error}</p>}
 
         {sentiment && (
-          <div style={styles.resultBoxContainer}>
+          <div className="mobile-resultBox" style={styles.resultBoxContainer}>
             <div style={styles.resultBox} className="always-scroll flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2">
               <h3 style={styles.resultTitle}>{companyName}:</h3>
               <div style={styles.resultText}>
@@ -137,7 +137,6 @@ const styles = {
     minHeight: "20vh",
     padding: "20px",
     display: "flex",
-    position: 'relative',
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
@@ -249,7 +248,6 @@ const styles = {
     position: 'relative', 
     marginTop: '1em', 
     backgroundColor: "rgba(96, 165, 250, 0.3)",
-    width: '260px',
     height: '211px',
     borderRadius: "8px",
   },
@@ -262,10 +260,11 @@ const styles = {
   },
   resultText: {
     fontSize: "15px",
+    paddingLeft: '10px',
     color: "white",
     lineHeight: "1.7",
-    marginBottom: "16px",
-    textAlign: "left"
+    marginTop: "0px",
+    textAlign: "left",
   },
   recommendation: {
     marginTop: "16px",

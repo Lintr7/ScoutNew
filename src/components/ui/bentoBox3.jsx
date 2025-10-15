@@ -155,7 +155,7 @@ export function BentoGridThirdDemo({ companySymbol, companyName }) {
     ),
     header: <Sentiment symbol={symbol} companyName={name} />,
     // Second row right: half width on mobile, full on desktop
-    className: "col-span-1 md:col-span-1",
+    className: "col-span-1 md:col-span-1 overflow-hidden",
   },
   {
     title: <span className="text-purple-400">Market News</span>,

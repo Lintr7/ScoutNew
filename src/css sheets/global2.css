@@ -47,6 +47,9 @@ html, body {
   .scale-feature {
     margin-top: 52em;
   }
+  .mobile-resultBox {
+    width: 258px;
+  }
 }
 
 @media (max-width: 1536px) {
@@ -72,6 +75,9 @@ html, body {
   }
   .scale-feature {
     margin-top: 54.5em;
+  }
+  .mobile-resultBox {
+    width: 258px;
   }
 }
 
@@ -105,6 +111,9 @@ html, body {
   .scale-feature {
     margin-top: 54.5em;
   }
+  .mobile-resultBox {
+    width: 258px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -133,6 +142,9 @@ html, body {
   }
   .scale-feature {
     margin-top: 61.5em;
+  }
+  .mobile-resultBox {
+    width: 258px;
   }
 }
 
@@ -175,6 +187,9 @@ html, body {
   .scale-feature {
     margin-top: 60.5em;
   }
+  .mobile-resultBox {
+    width: 285px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -214,6 +229,9 @@ html, body {
   }
   .scale-feature {
     margin-top: 60.3em;
+  }
+  .mobile-resultBox {
+    width: 285px;
   }
 }
 
@@ -267,6 +285,9 @@ html, body {
   }
   .scale-feature {
     margin-top: 60.5em;
+  }
+  .mobile-resultBox {
+    width: 285px;
   }
 }
 

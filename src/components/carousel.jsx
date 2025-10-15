@@ -1,7 +1,7 @@
 import React from "react";
 
 const logos = [
-'/slide6.png',
+  '/slide6.png',
   '/slide5.png',
   '/slide4.png',
   '/slide3.png',
@@ -18,7 +18,7 @@ const logos = [
   '/slide15.png',
 ];
 
-export default function LogoCarousel() {
+export default function LogoCarousel2() {
 return (
   <>
     <style>{`
@@ -42,11 +42,12 @@ return (
       }
       .carousel::before {
         left: 0;
-        background: linear-gradient(to right, rgb(1,3,33), transparent);
+        z-index: 100;
+        background: linear-gradient(to right, rgba(1, 3, 33, 1), transparent);
       }
       .carousel::after {
         right: 0;
-        background: linear-gradient(to left, rgb(1,3,33), transparent);
+        background: linear-gradient(to left, rgba(1, 3, 33, 1), transparent);
       }
       .track {
         display: flex;
