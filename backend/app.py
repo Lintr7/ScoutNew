@@ -181,7 +181,7 @@ def handle_search(payload: CompanyRequest, request: Request):
 
 
 @app.get("/stocks/{symbol}")
-@limiter.limit("100/minute")
+@limiter.limit("150/minute")
 async def get_stock_data(
    symbol: str,
    start: str,
@@ -376,9 +376,8 @@ def process_company_metrics(profile: dict, quote: dict, metrics: dict) -> dict:
 
 
 @app.get("/finnhub/{symbol}")
-@limiter.limit("120/minute")
 async def get_finnhub_data(
-   request: Request,  # FIX: Add this parameter
+   request: Request,
    symbol: str,
    company_name: Optional[str] = Query(None),
 ):
