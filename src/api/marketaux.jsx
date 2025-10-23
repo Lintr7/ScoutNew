@@ -19,6 +19,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         });
         
         const response = await fetch(`https://scoutnew-production.up.railway.app/news/${symbol}?${params}`);
+        /* const response = await fetch(`http://127.0.0.1:8000/news/${symbol}?${params}`); */
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

@@ -108,7 +108,7 @@ export default function Signup() {
         });
 
         // DEBUG: Log to see what we actually get
-        console.log('Signup response:', { data, error });
+        // console.log('Signup response:', { data, error });
 
         if (error) {
         setError(error.message);

@@ -5,6 +5,7 @@ import { HoverBorderGradientDemo } from "./ui/aceternityButton";
 import { MovingBorderDemo } from "./ui/borderButton";
 
 const endpoint = 'https://scoutnew-production.up.railway.app/search';
+/* const endpoint = 'http://127.0.0.1:8000/search'; */
 
 const Sentiment = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   const [query, setQuery] = useState(companyName);

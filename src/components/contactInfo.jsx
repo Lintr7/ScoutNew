@@ -17,7 +17,7 @@ export default function ContactSection() {
     form.append('message', formData.message)
     
     try {
-      const response = await fetch('https://formsubmit.co/scout.travislin@gmail.com', {
+      const response = await fetch('https://formsubmit.co/scout.tlin@gmail.com', {
         method: 'POST',
         body: form,
         headers: {
@@ -63,8 +63,8 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-medium text-white mb-1">Email</h4>
-                    <a href="mailto:scout.travislin@gmail.com" className="text-blue-300 hover:text-blue-200 transition-colors">
-                      scout.travislin@gmail.com
+                    <a href="mailto:scout.tlin@gmail.com" className="text-blue-300 hover:text-blue-200 transition-colors">
+                      scout.tlin@gmail.com
                     </a>
                   </div>
                 </div>       
