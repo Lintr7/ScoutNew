@@ -108,7 +108,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         whileHover="hover"
         className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-full w-1/3 rounded-2xl bg-black/20 p-4 border-white/[0.1] border flex flex-col items-center justify-center">
+          <div key={i} className="h-full w-1/3 rounded-2xl bg-black/30 p-4 border-black/[0.1] border flex flex-col items-center justify-center">
             <div className="animate-pulse">
               <div className="w-10 h-10 bg-gray-300 rounded-full mb-2"></div>
               <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
