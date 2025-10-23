@@ -110,9 +110,9 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         {[0, 1, 2].map((i) => (
           <div key={i} className="h-full w-1/3 rounded-2xl bg-black/30 p-4 border-black/[0.1] border flex flex-col items-center justify-center">
             <div className="animate-pulse">
-              <div className="w-10 h-10 bg-gray-300 rounded-full mb-2"></div>
-              <div className="h-4 bg-gray-300 rounded w-20 mb-2"></div>
-              <div className="h-6 bg-gray-300 rounded-full w-16"></div>
+              <div className="w-10 h-10 bg-gray-400 rounded-full mb-2"></div>
+              <div className="h-4 bg-gray-400 rounded w-20 mb-2"></div>
+              <div className="h-6 bg-gray-400 rounded-full w-16"></div>
             </div>
           </div>
         ))}
