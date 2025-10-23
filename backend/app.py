@@ -115,6 +115,7 @@ class CompanyRequest(BaseModel):
 
 @app.post("/search")
 @limiter.limit("20/minute")  # Lower limit for expensive OpenAI calls
+@limiter.limit("300/day")
 def handle_search(payload: CompanyRequest, request: Request):
    """POST /search - OpenAI sentiment analysis (2 hour cache)"""
    try:

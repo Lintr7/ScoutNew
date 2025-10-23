@@ -109,7 +109,6 @@ const searchSuggestions = [
   { symbol: "MMC", name: "Marsh & McLennan" },
   { symbol: "CB", name: "Chubb" },
   { symbol: "ALL", name: "Allstate" },
-  { symbol: "FCEL", name: "FuelCell Energy" },
   { symbol: "KLAC", name: "KLA" },
   { symbol: "FTNT", name: "Fortinet" },
   { symbol: "ALGN", name: "Align Technology" },
