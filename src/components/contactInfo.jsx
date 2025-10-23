@@ -8,36 +8,39 @@ export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Create form data for FormSubmit
-    const form = new FormData()
-    form.append('email', formData.email)
-    form.append('message', formData.message)
-    
-    try {
-      const response = await fetch('https://formsubmit.co/scout.tlin@gmail.com', {
-        method: 'POST',
-        body: form,
-        headers: {
-          'Accept': 'application/json'
-        }
+  e.preventDefault()
+  setIsSubmitting(true)
+  
+  try {
+    const response = await fetch('https://formsubmit.co/scout.tlin@gmail.com', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+      },
+      body: new URLSearchParams({
+        email: formData.email,
+        message: formData.message,
+        _subject: 'New Contact from Scout',
+        _captcha: 'false'
       })
+    })
 
-      if (response.ok) {
-        alert("Message sent successfully!")
-        setFormData({ email: "", message: "" })
-      } else {
-        alert("Failed to send message. Please try again.")
-      }
-    } catch (error) {
-      alert("Error sending message. Please try again.")
-      console.error("Error:", error)
-    } finally {
-      setIsSubmitting(false)
+    if (response.ok) {
+      alert("Message sent successfully!")
+      setFormData({ email: "", message: "" })
+    } else {
+      const errorData = await response.json()
+      console.error('Error response:', errorData)
+      alert("Failed to send message. Please try again.")
     }
+  } catch (error) {
+    alert("Error sending message. Please try again.")
+    console.error("Error:", error)
+  } finally {
+    setIsSubmitting(false)
   }
+}
 
   return (
     <div className="bg-blue-100/6 border border-blue-500/20 rounded-2xl" style={{ position: 'absolute'}}>
