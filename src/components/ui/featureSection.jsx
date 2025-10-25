@@ -49,7 +49,7 @@ export function FeaturesSectionDemo() {
       </div>
       <div className="relative ">
         <div
-          className="grid grid-cols-1 lg:grid-cols-6 mt-12 xl:border rounded-md border-transparent">
+          className="grid grid-cols-1 lg:grid-cols-6 mt-19 xl:border rounded-md border-transparent">
           {features.map((feature) => (
             <FeatureCard key={feature.title} className={feature.className}>
               <FeatureTitle>{feature.title}</FeatureTitle>
