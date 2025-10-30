@@ -84,10 +84,6 @@ def set_cached_data(cache_dict: dict, key: str, data, cache_type: str):
    hours_valid = CACHE_TIMES.get(cache_type, 1)
    print(f"Cache SET for {cache_type} key: {key} (valid for {hours_valid}h)")
 
-
-# Add timeout middleware BEFORE CORS
-app.add_middleware(TimeoutMiddleware)
-
 FRONTEND_ORIGINS = [
    "http://localhost:5173",
    "http://127.0.0.1:5173",
@@ -103,6 +99,7 @@ app.add_middleware(
    allow_headers=["*"],
 )
 
+app.add_middleware(TimeoutMiddleware)
 
 class CompanyRequest(BaseModel):
    company: str
