@@ -36,7 +36,7 @@ VALID_SYMBOLS = {
     'DDOG', 'SMCI', 'FICO', 'MPWR', 'YUM', 'HSY', 'CCL', 'CHTR', 'STT',
     'MTB', 'CTSH', 'SNOW', 'MDB', 'ASML', 'SPOT', 'LULU', 'ULTA',
     'DKNG', 'DPZ', 'PRU', 'MRNA', 'BNTX', 'LNG', 'DD', 'MRVL', 'ARM',
-    'FIG', 'TEAM'
+    'FIG', 'TEAM', 'EXC', 'KR', 'D', 'OTIS', 'CARR', 'ROK'
 }
 
 COMPANY_NAMES = {
@@ -316,7 +316,13 @@ COMPANY_NAMES = {
     'MRVL': 'Marvell Technology',
     'ARM': 'Arm Holdings',
     'FIG': 'Figma',
-    'TEAM': 'Atlassian'
+    'TEAM': 'Atlassian',
+    'EXC': 'Exelon Corporation',
+    'KR': 'Kroger',
+    'D': 'Dominion Energy',
+    'OTIS': 'Otis Worldwide',
+    'CARR': 'Carrier Global',
+    'ROK': 'Rockwell Automation',
 }
 
 def validate_symbol(symbol: str) -> str:

@@ -312,6 +312,12 @@ function StockReels() {
     { symbol: "ARM", name: "Arm Holdings" },
     { symbol: "FIG", name: "Figma" },
     { symbol: "TEAM", name: "Atlassian" },
+    { symbol: "EXC", name: "Exelon Corporation" },
+    { symbol: "KR", name: "Kroger" },
+    { symbol: "D", name: "Dominion Energy" },
+    { symbol: "OTIS", name: "Otis Worldwide" },
+    { symbol: "CARR", name: "Carrier Global" },
+    { symbol: "ROK", name: "Rockwell Automation" }
   ];
 
   // Save to localStorage whenever currentIndex changes
