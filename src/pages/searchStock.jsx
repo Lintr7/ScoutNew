@@ -467,7 +467,7 @@ function SearchStock() {
           </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', position: 'relative', marginRight: '2em'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100dvh', position: 'relative', marginRight: '2em'}}>
           <button
             onClick={() => {
               setSelectedStock(null);
