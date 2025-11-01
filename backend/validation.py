@@ -36,7 +36,11 @@ VALID_SYMBOLS = {
     'DDOG', 'SMCI', 'FICO', 'MPWR', 'YUM', 'HSY', 'CCL', 'CHTR', 'STT',
     'MTB', 'CTSH', 'SNOW', 'MDB', 'ASML', 'SPOT', 'LULU', 'ULTA',
     'DKNG', 'DPZ', 'PRU', 'MRNA', 'BNTX', 'LNG', 'DD', 'MRVL', 'ARM',
-    'FIG', 'TEAM', 'EXC', 'KR', 'D', 'OTIS', 'CARR', 'ROK'
+    'FIG', 'TEAM', 'EXC', 'KR', 'D', 'OTIS', 'CARR', 'ROK', "RIVN", "SE", 
+    "TWLO", "DG", "ROST", "BBY", "RL", "GPS", "ANF", "LEVI", "HII", "TDY", 
+    "ZTS", "IDXX", "ILMN", "EW", "HOLX", "IR", "DOV", "FTV", "SWK", "WCC", 
+    "SOFI", "ALLY", "RF", "KEY", "CFG", "FITB", "DVN", "APA", "O", "CCI", "WELL", 
+    "INVH", "VTR", "GME", "AMC"
 }
 
 COMPANY_NAMES = {
@@ -323,6 +327,43 @@ COMPANY_NAMES = {
     'OTIS': 'Otis Worldwide',
     'CARR': 'Carrier Global',
     'ROK': 'Rockwell Automation',
+    "RIVN": "Rivian",
+    "SE": "Sea Limited",
+    "TWLO": "Twilio",
+    "DG": "Dollar General",
+    "ROST": "Ross Stores",
+    "BBY": "Best Buy",
+    "RL": "Ralph Lauren",
+    "GPS": "Gap",
+    "ANF": "Abercrombie & Fitch",
+    "LEVI": "Levi Strauss",
+    "HII": "Huntington Ingalls Industries",
+    "TDY": "Teledyne Technologies",
+    "ZTS": "Zoetis",
+    "IDXX": "Idexx Laboratories",
+    "ILMN": "Illumina",
+    "EW": "Edwards Lifesciences",
+    "HOLX": "Hologic",
+    "IR": "Ingersoll Rand",
+    "DOV": "Dover Corporation",
+    "FTV": "Fortive",
+    "SWK": "Stanley Black & Decker",
+    "WCC": "Wesco International",
+    "SOFI": "SoFi Technologies",
+    "ALLY": "Ally Financial",
+    "RF": "Regions Financial",
+    "KEY": "KeyCorp",
+    "CFG": "Citizens Financial",
+    "FITB": "Fifth Third Bancorp",
+    "DVN": "Devon Energy",
+    "APA": "APA Corporation",
+    "O": "Realty Income",
+    "CCI": "Crown Castle",
+    "WELL": "Welltower",
+    "INVH": "Invitation Homes",
+    "VTR": "Ventas",
+    "GME": "GameStop",
+    "AMC": "AMC Entertainment"
 }
 
 def validate_symbol(symbol: str) -> str:
