@@ -133,8 +133,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   if (!newsData?.data || newsData.data.length === 0) {
     return (
       <motion.div className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
-        <div className="h-full w-full rounded-2xl bg-black p-4 dark:bg-black dark:border-white/[0.1] border border-white/[0.1] flex items-center justify-center">
-          <p className="text-neutral-500 text-sm">No {companyName} news found</p>
+        <div className="h-full w-full rounded-2xl bg-black/30 p-4 dark:bg-black/30 dark:border-white/[0.1] border border-white/[0.1] flex items-center justify-center">
+          <p className="text-neutral-300 text-sm">No recent {companyName} news found</p>
         </div>
       </motion.div>
     );

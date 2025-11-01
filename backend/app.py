@@ -257,7 +257,7 @@ async def get_news(
            return cached_result
 
 
-       thirty_days_ago = datetime.now() - timedelta(days=30)
+       thirty_days_ago = datetime.now() - timedelta(days=60)
        date_string = thirty_days_ago.strftime('%Y-%m-%d')
       
        params = {

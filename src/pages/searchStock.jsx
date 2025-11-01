@@ -496,7 +496,7 @@ function SearchStock() {
           >
             <ArrowLeft size={20} />
           </button>
-          <div className="bento-scale-wrapper3">
+          <div className="bento-scale-wrapper3 mt-10">
             <BentoGridThirdDemo companySymbol={selectedStock.symbol} companyName={selectedStock.name} />
           </div>
         </div>

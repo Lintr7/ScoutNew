@@ -32,6 +32,7 @@ html, body {
   .bento-scale-wrapper2,
   .bento-scale-wrapper3 {
     transform: scale(0.95);
+    margin-left: 2.1em;
   }
   .wrapper {
     margin: 0;
@@ -58,12 +59,15 @@ html, body {
 @media (max-width: 1536px) {
   .bento-scale-wrapper {
     transform: scale(0.95);
+    margin-left: 2.1em;
   }
   .bento-scale-wrapper2 {
     transform: scale(0.95);
+    margin-left: 2em;
   }
   .bento-scale-wrapper3 {
     transform: scale(0.95);
+    margin-left: 2em;
   }
   .wrapper {
     margin: 0;
@@ -90,7 +94,7 @@ html, body {
 @media (max-width: 1280px) {
   .bento-scale-wrapper {
     transform: scale(0.85);
-    margin-left: -2em;
+    margin-left: 2em;
     margin-top: -3.3em;
   }
   .bento-scale-wrapper2 {
@@ -101,7 +105,7 @@ html, body {
   .bento-scale-wrapper3 {
     transform: scale(0.93);
     margin-left: 2em;
-    margin-top: -1em;
+    margin-top: 2em;
   }
   .wrapper {
     margin: 0;
@@ -127,7 +131,7 @@ html, body {
 
 @media (max-width: 1024px) {
   .bento-scale-wrapper {
-    margin-left: -1.9em;
+    margin-left: 2em;
     transform: scale(0.85);
   }
   .bento-scale-wrapper2 {
@@ -167,7 +171,7 @@ html, body {
     transform: scale(0.5);
   }
   .bento-scale-wrapper2 {
-    margin-top: -8em;
+    margin-top: -4.5em;
     margin-left: 2em;
     transform: scale(0.55);
   }

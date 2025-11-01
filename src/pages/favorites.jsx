@@ -111,7 +111,7 @@ const Favorites = () => {
   };
 
   return (
-    <div style={{ backgroundColor: 'rgb(1,3,33)', width: '100%', overflowY: 'auto', position: 'relative'}}>
+    <div style={{ backgroundColor: 'rgb(1, 3, 33)', width: '100%', height: '100dvh', overflowY: 'auto', position: 'relative'}}>
         <div className="hidden md:block" style={{ 
           backgroundColor: 'rgb(1, 3, 33)', 
           width: '100%', 
@@ -156,7 +156,7 @@ const Favorites = () => {
             </div>
         </>
         ) : (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em', height: '100vh'}}>
             <button
                 className='mobile-button'
                 onClick={() => {
@@ -184,7 +184,7 @@ const Favorites = () => {
             >
                 <ArrowLeft size={20} />
             </button>
-            <div className="bento-scale-wrapper2 mt-20">
+            <div className="bento-scale-wrapper2 mt-10">
                 <BentoGridThirdDemo companySymbol={selectedFavorite.symbol} companyName={selectedFavorite.company_name} />
             </div>
             </div>
