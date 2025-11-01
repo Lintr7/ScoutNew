@@ -156,7 +156,7 @@ const Favorites = () => {
             </div>
         </>
         ) : (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em', height: '100vh'}}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', marginRight: '2em', height: '100dvh'}}>
             <button
                 className='mobile-button'
                 onClick={() => {
