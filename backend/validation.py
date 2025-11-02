@@ -40,12 +40,12 @@ VALID_SYMBOLS = {
     "TWLO", "DG", "ROST", "BBY", "RL", "ANF", "LEVI", "HII", "TDY", 
     "ZTS", "IDXX", "ILMN", "EW", "HOLX", "IR", "DOV", "FTV", "SWK",
     "SOFI", "ALLY", "RF", "KEY", "CFG", "FITB", "DVN", "APA", "O", "CCI", "WELL", 
-    "INVH", "VTR", "GME", "AMC", "BJ", "FIVE", "CHWY", "GTLB", "ZS", "NET", "HUBS", 
-    "VEEV", "BILL", "ZI", "SGEN", "ALNY", "EXAS", "NVCR", "TECH", "J", "VMC", "MLM", 
-    "BLDR", "BECN", "TSN", "CAG", "SJM", "K", "CPB", "BF.B", "STZ", "TAP", "TROW", "BEN", 
-    "IVZ", "NTRS", "OKE", "TRGP", "WES", "ARE", "MAA", "UDR", "SUI", "PARA", "WBD", "FOX", 
+    "INVH", "VTR", "BJ", "FIVE", "CHWY", "GTLB", "ZS", "NET", "HUBS", 
+    "VEEV", "ALNY", "TECH", "J", "VMC", "MLM", 
+    "BLDR", "TSN", "CAG", "SJM", "K", "CPB", "BF.B", "STZ", "TAP", "TROW", "BEN", 
+    "IVZ", "NTRS", "OKE", "TRGP", "WES", "ARE", "MAA", "UDR", "SUI", "WBD", "FOX", 
     "NWSA", "NYT", "CHD", "CLX", "HRL", "ON", "SWKS", "ENTG", "WDC", "PINS", "ETSY", "W", 
-    "BMBL", "MTCH", "GRAB", "LCID", "CROX"
+    "BMBL", "MTCH", "GRAB", "LCID", "CROX", "SIEGY"
 }
 
 COMPANY_NAMES = {
@@ -365,8 +365,6 @@ COMPANY_NAMES = {
     "WELL": "Welltower",
     "INVH": "Invitation Homes",
     "VTR": "Ventas",
-    "GME": "GameStop",
-    "AMC": "AMC Entertainment",
     "BJ": "BJ's Wholesale Club",
     "FIVE": "Five Below",
     "CHWY": "Chewy",
@@ -375,18 +373,12 @@ COMPANY_NAMES = {
     "NET": "Cloudflare",
     "HUBS": "HubSpot",
     "VEEV": "Veeva Systems",
-    "BILL": "Bill.com",
-    "ZI": "ZoomInfo",
-    "SGEN": "Seagen",
     "ALNY": "Alnylam Pharmaceuticals",
-    "EXAS": "Exact Sciences",
-    "NVCR": "Novocure",
     "TECH": "Bio-Techne",
     "J": "Jacobs Solutions",
     "VMC": "Vulcan Materials",
     "MLM": "Martin Marietta Materials",
     "BLDR": "Builders FirstSource",
-    "BECN": "Beacon Roofing Supply",
     "TSN": "Tyson Foods",
     "CAG": "Conagra Brands",
     "SJM": "J.M. Smucker",
@@ -406,7 +398,6 @@ COMPANY_NAMES = {
     "MAA": "Mid-America Apartment Communities",
     "UDR": "UDR Inc",
     "SUI": "Sun Communities",
-    "PARA": "Paramount Global",
     "WBD": "Warner Bros. Discovery",
     "FOX": "Fox Corporation",
     "NWSA": "News Corp",
@@ -425,7 +416,8 @@ COMPANY_NAMES = {
     "MTCH": "Match Group",
     "GRAB": "Grab Holdings",
     "LCID": "Lucid Motors",
-    "CROX": "Crocs"
+    "CROX": "Crocs",
+    "SIEGY" : "Siemens AG",
 }
 
 def validate_symbol(symbol: str) -> str:
