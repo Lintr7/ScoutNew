@@ -45,7 +45,7 @@ VALID_SYMBOLS = {
     "BLDR", "TSN", "CAG", "SJM", "K", "CPB", "BF.B", "STZ", "TAP", "TROW", "BEN", 
     "IVZ", "NTRS", "OKE", "TRGP", "WES", "ARE", "MAA", "UDR", "SUI", "WBD", "FOX", 
     "NWSA", "NYT", "CHD", "CLX", "HRL", "ON", "SWKS", "ENTG", "WDC", "PINS", "ETSY", "W", 
-    "BMBL", "MTCH", "GRAB", "LCID", "CROX", "SIEGY"
+    "BMBL", "MTCH", "GRAB", "LCID", "CROX",
 }
 
 COMPANY_NAMES = {
@@ -417,7 +417,6 @@ COMPANY_NAMES = {
     "GRAB": "Grab Holdings",
     "LCID": "Lucid Motors",
     "CROX": "Crocs",
-    "SIEGY" : "Siemens AG",
 }
 
 def validate_symbol(symbol: str) -> str:

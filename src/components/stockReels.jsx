@@ -403,7 +403,6 @@ function StockReels() {
     { symbol: "GRAB", name: "Grab Holdings" },
     { symbol: "LCID", name: "Lucid Motors" },
     { symbol: "CROX", name: "Crocs" },
-    { symbol: "SIEGY", name: "Siemens AG" },
   ];
 
   // Save to localStorage whenever currentIndex changes
