@@ -40,9 +40,13 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   }, [symbol, companyName]); // Re-fetch when symbol or companyName changes
 
   const getSentimentColor = (sentiment) => {
-    if (sentiment === 'positive') return 'border-green-500 bg-green-900/20 text-green-600';
-    if (sentiment === 'negative') return 'border-red-500 bg-red-900/20 text-red-600';
+    if (sentiment > 0) return 'border-green-500 bg-green-900/20 text-green-600';
+    if (sentiment < 0) return 'border-red-500 bg-red-900/20 text-red-600';
     return 'border-orange-500 bg-orange-900/20 text-orange-600';
+  };
+
+  const getArticleSentiment = (article) => {
+    return article?.entities?.[0]?.sentiment_score || 0;
   };
 
   // Fixed animation variants
@@ -66,6 +70,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   // Helper function to render a single card
   const renderCard = (article, fallbackText, fallbackColor) => {
     if (article) {
+      const sentiment = getArticleSentiment(article);
       return (
         <>
           {article.image_url && (
@@ -81,8 +86,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
           <p className="text-[8px] sm:text-xs text-center font-semibold text-neutral-200 mt-3 group-hover:text-purple-400 transition-colors duration-200">
             {article.title?.length > 60 ? article.title.substring(0, 60) + '...' : article.title}
           </p>
-          <p className={`border text-xs rounded-full px-2 py-0.5 mt-2 ${getSentimentColor(article.sentiment || 'neutral')}`}>
-            {article.sentiment?.charAt(0)?.toUpperCase() + article.sentiment?.slice(1) || 'Neutral'}
+          <p className={`border text-xs rounded-full px-2 py-0.5 mt-2 ${getSentimentColor(sentiment)}`}>
+            {article.source}
           </p>
         </>
       );
