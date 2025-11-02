@@ -340,7 +340,6 @@ const searchSuggestions = [
   { symbol: "BLDR", name: "Builders FirstSource" },
   { symbol: "TSN", name: "Tyson Foods" },
   { symbol: "CAG", name: "Conagra Brands" },
-  { symbol: "SJM", name: "J.M. Smucker" },
   { symbol: "K", name: "Kellanova" },
   { symbol: "CPB", name: "Campbell Soup" },
   { symbol: "BF.B", name: "Brown-Forman" },
