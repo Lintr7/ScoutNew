@@ -5,6 +5,19 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   const [newsData, setNewsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if screen is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 499);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -83,7 +96,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
               }}
             />
           )}
-          <p className="text-[8px] sm:text-xs text-center font-semibold text-neutral-200 mt-3 group-hover:text-purple-400 transition-colors duration-200">
+          <p className="text-[12px] sm:text-xs text-center font-semibold text-neutral-200 mt-3 group-hover:text-purple-400 transition-colors duration-200">
             {article.title?.length > 60 ? article.title.substring(0, 60) + '...' : article.title}
           </p>
           <p className={`border text-xs rounded-full px-2 py-0.5 mt-2 ${getSentimentColor(sentiment)}`}>
@@ -109,7 +122,8 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   if (loading) {
     return (
       <motion.div 
-        initial="initial"
+        initial={isMobile ? "hover" : "initial"}
+        animate={isMobile ? "hover" : "initial"}
         whileHover="hover"
         className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-2">
         {[0, 1, 2].map((i) => (
@@ -153,11 +167,12 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
 
   return (
     <motion.div
-      initial="initial"
+      initial={isMobile ? "hover" : "initial"}
+      animate={isMobile ? "hover" : "initial"}
       whileHover="hover"
       className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] bg-dot-white/[0.2] flex-row space-x-3">
       
-      {/* First card with left animation */}
+      {/* First card - animation disabled on mobile */}
       <motion.div
         variants={first}
         onClick={() => handleCardClick(article1)}
@@ -172,7 +187,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         {renderCard(article2, "No news available", "border-green-500 bg-green-900/20 text-green-600")}
       </motion.div>
 
-      {/* Third card with right animation */}
+      {/* Third card - animation disabled on mobile */}
       <motion.div
         variants={second}
         onClick={() => handleCardClick(article3)}
