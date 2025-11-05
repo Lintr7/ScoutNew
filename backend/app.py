@@ -214,7 +214,7 @@ async def get_stock_data(
            'start': start,
            'end': end,
            'timeframe': timeframe,
-           'feed': 'sip',
+           'feed': 'iex',
            'adjustment': 'all',
            'currency' : 'USD'
        }
