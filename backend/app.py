@@ -215,7 +215,8 @@ async def get_stock_data(
            'end': end,
            'timeframe': timeframe,
            'feed': 'iex',
-           'adjustment': 'all'
+           'adjustment': 'all',
+           'currency' : 'USD'
        }
       
        async with httpx.AsyncClient(timeout=10.0) as client_http:
