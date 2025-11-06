@@ -445,7 +445,6 @@ function StockReels() {
     { symbol: "JACK", name: "Jack in the Box" },
     { symbol: "SAM", name: "Boston Beer Company" },
     { symbol: "AWK", name: "American Water Works" },
-    { symbol: "WCN", name: "Waste Connections" },
     { symbol: "VAC", name: "Marriott Vacations Worldwide" },
     { symbol: "HGV", name: "Hilton Grand Vacations" },
     { symbol: "HTZ", name: "Hertz" },

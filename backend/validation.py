@@ -49,7 +49,7 @@ VALID_SYMBOLS = {
     "PSKY", "OMC", "SIRI", "IPG", "H", "WH", "CHH", "MGM", "WYNN",
     "CZR", "LVS", "NCLH", "FUN", "UAL", "AAL", "ADM", "BG", "DOW", "LYB",
     "NUE", "STLD", "PKG", "SW", "APTV", "ALV", "XPO", "M", "KSS", "VFC", "PVH", "UAA", "SIG", "CPRI", "PLNT", "DKS", "QSR", "DRI",
-    "WEN", "JACK", "SAM", "AWK", "WCN", "VAC",
+    "WEN", "JACK", "SAM", "AWK", "VAC",
     "HGV", "HTZ", "CBRE", "JLL", "SCI", "GT", "HBI",
     "ELF", "COTY", "ODP", "SYY"
 }
@@ -465,7 +465,6 @@ COMPANY_NAMES = {
     'JACK': 'Jack in the Box',
     'SAM': 'Boston Beer Company',
     'AWK': 'American Water Works',
-    'WCN': 'Waste Connections',
     'VAC': 'Marriott Vacations Worldwide',
     'HGV': 'Hilton Grand Vacations',
     'HTZ': 'Hertz',
