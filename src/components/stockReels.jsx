@@ -400,7 +400,6 @@ function StockReels() {
     { symbol: "IBKR", name: "Interactive Brokers" },
     { symbol: "SCCO", name: "Southern Copper" },
     { symbol: "ORLY", name: "O'Reilly Automotive" },
-    { symbol: "CRH", name: "Cement Roadstone Holding" },
     { symbol: "MSTR", name: "MicroStrategy" },
     { symbol: "VRT", name: "Vertiv Holdings" },
     { symbol: "EPD", name: "Enterprise Products" },

@@ -373,7 +373,6 @@ const searchSuggestions = [
   { symbol: "IBKR", name: "Interactive Brokers" },
   { symbol: "SCCO", name: "Southern Copper" },
   { symbol: "ORLY", name: "O'Reilly Automotive" },
-  { symbol: "CRH", name: "Cement Roadstone Holding" },
   { symbol: "MSTR", name: "MicroStrategy" },
   { symbol: "VRT", name: "Vertiv Holdings" },
   { symbol: "EPD", name: "Enterprise Products" },
@@ -381,8 +380,8 @@ const searchSuggestions = [
   { symbol: "OMC", name: "Omnicom Group" },
   { symbol: "SIRI", name: "SiriusXM" },
   { symbol: "IPG", name: "Interpublic Group" },
-  { symbol: "H", name: "Hyatt Hotels" }, //
-  { symbol: "WH", name: "Wyndham Hotels" }, //
+  { symbol: "H", name: "Hyatt Hotels" },
+  { symbol: "WH", name: "Wyndham Hotels" },
   { symbol: "CHH", name: "Choice Hotels International" }, 
   { symbol: "MGM", name: "MGM Resorts International" },
   { symbol: "WYNN", name: "Wynn Resorts" },
