@@ -415,7 +415,7 @@ function StockReels() {
     { symbol: "CZR", name: "Caesars Entertainment" },
     { symbol: "LVS", name: "Las Vegas Sands" },
     { symbol: "NCLH", name: "Norwegian Cruise Line Holdings" },
-    { symbol: "SIX", name: "Six Flags Entertainment" },
+    { symbol: "FUN", name: "Six Flags Entertainment" },
     { symbol: "UAL", name: "United Airlines" },
     { symbol: "AAL", name: "American Airlines" },
     { symbol: "ADM", name: "Archer Daniels Midland" },
