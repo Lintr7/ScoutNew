@@ -424,7 +424,6 @@ const searchSuggestions = [
   { symbol: "JLL", name: "Jones Lang LaSalle" },
   { symbol: "SCI", name: "Service Corporation International" },
   { symbol: "GT", name: "Goodyear Tire & Rubber" },
-  { symbol: "HBI", name: "Hanesbrands" },
   { symbol: "ELF", name: "e.l.f. Beauty" },
   { symbol: "COTY", name: "Coty Inc." },
   { symbol: "ODP", name: "The ODP Corporation" },

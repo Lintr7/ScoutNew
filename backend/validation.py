@@ -50,7 +50,7 @@ VALID_SYMBOLS = {
     "CZR", "LVS", "NCLH", "FUN", "UAL", "AAL", "ADM", "BG", "DOW", "LYB",
     "NUE", "STLD", "PKG", "SW", "APTV", "ALV", "XPO", "M", "KSS", "VFC", "PVH", "UAA", "SIG", "CPRI", "PLNT", "DKS", "QSR", "DRI",
     "WEN", "JACK", "SAM", "AWK", "VAC",
-    "HGV", "HTZ", "CBRE", "JLL", "SCI", "GT", "HBI",
+    "HGV", "HTZ", "CBRE", "JLL", "SCI", "GT",
     "ELF", "COTY", "ODP", "SYY"
 }
 
@@ -471,7 +471,6 @@ COMPANY_NAMES = {
     'JLL': 'Jones Lang LaSalle',
     'SCI': 'Service Corporation International',
     'GT': 'Goodyear Tire & Rubber',
-    'HBI': 'Hanesbrands',
     'ELF': 'e.l.f. Beauty',
     'COTY': 'Coty Inc.',
     'ODP': 'The ODP Corporation',
