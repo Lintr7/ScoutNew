@@ -9,7 +9,7 @@ const TIME_PERIODS = {
   '1M': { days: 30, timeframe: '1Hour', label: '1 Month' },
   '6M': { days: 180, timeframe: '1Day', label: '6 Months' },
   '1Y': { days: 365, timeframe: '1Day', label: '1 Year' },
-  '5Y': { days: 1825, timeframe: '1Day', label: '5 Years' }
+  '5Y': { days: 1825, timeframe: '1Week', label: '5 Years' }
 };
 
 const fetchAlpacaStockData = async (symbol, start, end, timeframe) => {
