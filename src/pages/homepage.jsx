@@ -143,7 +143,13 @@ function Homepage() {
           </div>
         </div>
         */}
-        <div id="features" style={{ position:'absolute', width: '100%', marginTop: '-13.6em', zIndex: '0'}}>
+        <div id="features" style={{ 
+          position: 'absolute', 
+          marginTop: '43em',
+          height: '0',
+          width: '0'
+        }} />
+        <div style={{ position:'absolute', width: '100%', marginTop: '-13.6em', zIndex: '0'}}>
           <LampContainer/>
         </div>
         <h1 style={{ position:'absolute', marginTop: '56em', zIndex: '11'}}>
