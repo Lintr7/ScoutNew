@@ -466,7 +466,6 @@ function SearchStock() {
     },
   ];
 
-  // Handle click outside to close dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -489,7 +488,6 @@ function SearchStock() {
       return;
     }
 
-    // Filter suggestions based on company name or symbol
     const filtered = searchSuggestions.filter(stock =>
       stock.name.toLowerCase().includes(value.toLowerCase()) ||
       stock.symbol.toLowerCase().includes(value.toLowerCase())
@@ -504,13 +502,11 @@ function SearchStock() {
     // console.log("Submitted:", searchValue);
     setShowDropdown(false);
     
-    // If a suggestion is highlighted, use it
     if (selectedIndex >= 0 && filteredSuggestions[selectedIndex]) {
       setSelectedStock(filteredSuggestions[selectedIndex]);
       return;
     }
     
-    // Find the stock that matches the search value
     const matchedStock = searchSuggestions.find(stock => 
       stock.name.toLowerCase() === searchValue.toLowerCase() ||
       stock.symbol.toLowerCase() === searchValue.toLowerCase()
@@ -525,7 +521,6 @@ function SearchStock() {
     setSearchValue(stock.name);
     setShowDropdown(false);
     setSelectedIndex(-1);
-    // Keep focus on input so user can press Enter
     setTimeout(() => {
       const input = document.querySelector('input[type="text"]');
       if (input) {

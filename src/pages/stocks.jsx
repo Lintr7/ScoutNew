@@ -255,7 +255,7 @@ function Stocks() {
         </SidebarBody>
       </Sidebar>
       
-      {/* Main Content - add padding top on mobile for header */}
+      {/* Main Content */}
       <div className="flex-1 overflow-auto p-0 md:pt-0">
         <div style={{zIndex:'-1', backgroundColor: 'rgb(5, 12, 34)'}} className="rounded-tl-2xl border-neutral-700 h-full overflow-auto">
           {renderContent()}

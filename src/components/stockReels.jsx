@@ -5,7 +5,6 @@ import { User } from 'lucide-react';
 
 
 function StockReels() {
-  // Initialize currentIndex from localStorage or default to 0
   const [currentIndex, setCurrentIndex] = useState(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -22,9 +21,8 @@ function StockReels() {
   
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Handle clicks outside the dropdown
   const containerRef = useRef(null);
-  const lastSwipeTime = useRef(0); // Track when the last swipe occurred
+  const lastSwipeTime = useRef(0);
   const wheelAccum = useRef(0);
   const gestureEndTimer = useRef(null);
 
@@ -629,27 +627,22 @@ function StockReels() {
       return; // Block the swipe
     }
     
-    // Record this swipe time
     lastSwipeTime.current = now;
     
-    // Start the swipe
     setIsAnimating(true);
     setCooldownActive(true); 
     
-    // Clear any wheel accumulation
     wheelAccum.current = 0;
     if (gestureEndTimer.current) {
       clearTimeout(gestureEndTimer.current);
       gestureEndTimer.current = null;
     }
 
-    // Update index and stop animation after ANIMATION_MS
     setTimeout(() => {
       setCurrentIndex((p) => p + 1);
       setIsAnimating(false);
     }, ANIMATION_MS + 100);
     
-    // Re-enable button after SWIPE_COOLDOWN_MS
     setTimeout(() => {
       setCooldownActive(false);
     }, SWIPE_COOLDOWN_MS);
@@ -662,10 +655,9 @@ function StockReels() {
     const onWheel = (e) => {
       e.preventDefault();
 
-      // Check if we're still in cooldown period
       const now = Date.now();
       if (now - lastSwipeTime.current < SWIPE_COOLDOWN_MS) {
-        return; // Block all wheel events during cooldown
+        return;
       }
 
       if (Math.abs(e.deltaY) < SMALL_THRESHOLD) return;
@@ -766,10 +758,10 @@ function StockReels() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100vh',  // Changed from minHeight
-          width: '100vw',   // Added explicit width
+          height: '100vh',
+          width: '100vw',
           position: 'absolute',
-          overflow: 'hidden', // Prevent scrollbars
+          overflow: 'hidden',
           animation: isAnimating ? `synchronizedSwipe ${ANIMATION_MS}ms ease-out forwards` : 'none'
         }}
       >

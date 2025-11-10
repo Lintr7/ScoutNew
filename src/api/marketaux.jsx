@@ -7,7 +7,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if screen is mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 499);
@@ -26,7 +25,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
         setLoading(true);
         setError(null);
 
-        // Updated fetch to use FastAPI route
         const params = new URLSearchParams({
           companyName: companyName
         });
@@ -50,7 +48,7 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     };
 
     fetchNews();
-  }, [symbol, companyName]); // Re-fetch when symbol or companyName changes
+  }, [symbol, companyName]);
 
   const getSentimentColor = (sentiment) => {
     if (sentiment > 0) return 'border-green-500 bg-green-900/20 text-green-600';
@@ -62,7 +60,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     return article?.entities?.[0]?.sentiment_score || 0;
   };
 
-  // Fixed animation variants
   const first = {
     initial: { x: 25, rotate: -3 },
     hover: { x: 0, rotate: 0 }
@@ -73,14 +70,12 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     hover: { x: 0, rotate: 0 }
   };
 
-  // Safe click handler
   const handleCardClick = (article) => {
     if (article && article.url) {
       window.open(article.url, '_blank');
     }
   };
 
-  // Helper function to render a single card
   const renderCard = (article, fallbackText, fallbackColor) => {
     if (article) {
       const sentiment = getArticleSentiment(article);
@@ -159,7 +154,6 @@ const NewsComponent = ({ symbol = 'AAPL', companyName = 'Apple' }) => {
     );
   }
 
-  // Get the first 3 articles safely
   const articles = newsData?.data ? newsData.data.slice(0, 3) : [];
   const article1 = articles[0] || null;
   const article2 = articles[1] || null;  

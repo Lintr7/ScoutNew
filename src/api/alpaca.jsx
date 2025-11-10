@@ -18,7 +18,6 @@ const fetchAlpacaStockData = async (symbol, start, end, timeframe) => {
     /* const response = await fetch(`http://127.0.0.1:8000/stocks/${symbol}?start=${start}&end=${end}&timeframe=${timeframe}`); */
     
     if (!response.ok) {
-      // Log the actual error response
       const errorText = await response.text();
       console.error('API Error:', response.status, errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -37,26 +36,20 @@ const fetchAlpacaStockData = async (symbol, start, end, timeframe) => {
   }
 };
 
-
-// Helper function to check if market is currently open
 const isMarketOpen = (easternTime) => {
   const day = easternTime.getDay();
   const hour = easternTime.getHours();
   const minute = easternTime.getMinutes();
   
-  // Not a weekday
   if (day === 0 || day === 6) return false;
   
-  // Before 9:30 AM
   if (hour < 9 || (hour === 9 && minute < 30)) return false;
   
-  // After 4:00 PM
   if (hour >= 16) return false;
   
   return true;
 };
 
-// Helper function to filter data to market hours only
 const filterToMarketHours = (data) => {
   return data.filter(point => {
     const date = new Date(point.t);
@@ -64,7 +57,6 @@ const filterToMarketHours = (data) => {
     const hour = easternTime.getHours();
     const minute = easternTime.getMinutes();
     
-    // Keep data between 9:30 AM and 4:00 PM ET (inclusive of 4:00 PM)
     return (hour > 9 || (hour === 9 && minute >= 30)) && (hour < 16 || (hour === 16 && minute === 0));
   });
 };
@@ -93,10 +85,8 @@ const TimePeriodToggle = ({ selectedPeriod, onPeriodChange, loading }) => {
 };
 
 const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loading, previousClose, logo, industry, symbol, companyName }) => {
-  // Filter data to market hours for 1D and 5D periods
   const filteredData = (period === '1D' || period === '5D') ? filterToMarketHours(data) : data;
 
-  // Calculate dynamic Y-axis range for more dramatic visualization
   const calculateYAxisDomain = () => {
     if (!filteredData || filteredData.length === 0) return ['dataMin - 5', 'dataMax + 5'];
     
@@ -105,16 +95,12 @@ const StockChart = ({ data, title, period, selectedPeriod, onPeriodChange, loadi
     const maxPrice = Math.max(...prices);
     const priceRange = maxPrice - minPrice;
     
-    // Use a smaller padding for dramatic effect - only 10-20% of the actual range
     let padding;
     if (period === '1D') {
-      // For 1D, use very tight padding (5% of range, minimum $0.50)
       padding = Math.max(priceRange * 0.05, 0.5);
     } else if (period === '5D') {
-      // For 5D, use moderate padding (8% of range, minimum $1)
       padding = Math.max(priceRange * 0.08, 1);
     } else {
-      // For longer periods, use slightly more padding (15% of range)
       padding = Math.max(priceRange * 0.15, priceRange * 0.1);
     }
     
@@ -395,7 +381,6 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
     const prevDate = new Date(currentDate);
     prevDate.setDate(prevDate.getDate() - 1);
     
-    // Handle weekends
     while (prevDate.getDay() === 0 || prevDate.getDay() === 6) {
       prevDate.setDate(prevDate.getDate() - 1);
     }
@@ -434,49 +419,40 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
         endDate = new Date(easternTime);
         startDate = new Date(easternTime);
         
-        // Check if it's a weekend
         const dayOfWeek = endDate.getDay();
         const currentHour = easternTime.getHours();
         const currentMinute = easternTime.getMinutes();
         
-        if (dayOfWeek === 0) { // Sunday - use Friday
+        if (dayOfWeek === 0) {
           endDate.setDate(endDate.getDate() - 2);
           startDate.setDate(startDate.getDate() - 2);
-          // Full trading day
           startDate.setHours(9, 30, 0, 0);
           endDate.setHours(16, 0, 0, 0);
-        } else if (dayOfWeek === 6) { // Saturday - use Friday
+        } else if (dayOfWeek === 6) {
           endDate.setDate(endDate.getDate() - 1);
           startDate.setDate(startDate.getDate() - 1);
-          // Full trading day
           startDate.setHours(9, 30, 0, 0);
           endDate.setHours(16, 0, 0, 0);
         } else if (currentHour < 9 || (currentHour === 9 && currentMinute < 30)) {
-          // Weekday before market open - use previous trading day
           endDate.setDate(endDate.getDate() - 1);
           startDate.setDate(startDate.getDate() - 1);
           
-          // Make sure we didn't land on a weekend
           const newDayOfWeek = endDate.getDay();
-          if (newDayOfWeek === 0) { // Sunday, go to Friday
+          if (newDayOfWeek === 0) {
             endDate.setDate(endDate.getDate() - 2);
             startDate.setDate(startDate.getDate() - 2);
-          } else if (newDayOfWeek === 6) { // Saturday, go to Friday
+          } else if (newDayOfWeek === 6) {
             endDate.setDate(endDate.getDate() - 1);
             startDate.setDate(startDate.getDate() - 1);
           }
-          // Full trading day
           startDate.setHours(9, 30, 0, 0);
           endDate.setHours(16, 0, 0, 0);
         } else {
-          // It's a trading day - show today's data
           startDate.setHours(9, 30, 0, 0);
           
           if (isMarketOpen(easternTime)) {
-            // Market is open - show up to current time
             endDate = new Date(easternTime);
           } else {
-            // Market is closed but it's a trading day - show full day
             endDate.setHours(16, 0, 0, 0);
           }
         }
@@ -487,43 +463,35 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
         
         endDate = new Date(easternTime);
         
-        // If it's weekend, move to Friday
         let dayOfWeek = endDate.getDay();
-        if (dayOfWeek === 0) { // Sunday
+        if (dayOfWeek === 0) {
           endDate.setDate(endDate.getDate() - 2);
-        } else if (dayOfWeek === 6) { // Saturday
+        } else if (dayOfWeek === 6) {
           endDate.setDate(endDate.getDate() - 1);
         }
 
-        // Set end time
         if (isMarketOpen(easternTime) && (dayOfWeek >= 1 && dayOfWeek <= 5)) {
-          // Market is open - use current time
           endDate = new Date(easternTime);
         } else {
-          // Market closed or weekend - use market close time
           endDate.setHours(16, 0, 0, 0);
         }
 
-        // Find the 5 most recent trading days (including today if it's a trading day)
         const tradingDays = [];
         let currentDate = new Date(endDate);
         
-        // If today is a trading day, include it
         const todayIsTrading = (currentDate.getDay() >= 1 && currentDate.getDay() <= 5);
         if (todayIsTrading) {
           tradingDays.push(new Date(currentDate));
         }
         
-        // Find the remaining days to make 5 total
         while (tradingDays.length < 5) {
           currentDate.setDate(currentDate.getDate() - 1);
           const day = currentDate.getDay();
-          if (day !== 0 && day !== 6) { // Not weekend
+          if (day !== 0 && day !== 6) {
             tradingDays.push(new Date(currentDate));
           }
         }
         
-        // Start date is the earliest of the 5 trading days
         startDate = new Date(tradingDays[tradingDays.length - 1]);
         startDate.setHours(9, 30, 0, 0);
                       
@@ -553,7 +521,6 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
       const data = await fetchAlpacaStockData(symbol, startDateStr, endDateStr, config.timeframe);
       setStockData(data);
 
-      // For 1D period, also fetch previous trading day's close
       if (period === '1D') {
         const prevClose = await fetchPreviousClose(symbol, startDate);
         setPreviousClose(prevClose);
@@ -571,7 +538,6 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
   useEffect(() => {
     loadStockData(selectedPeriod);
     
-    // Set up auto-refresh for 1D when market is open
     let refreshInterval;
     if (selectedPeriod === '1D') {
       const now = new Date();
@@ -581,7 +547,7 @@ const StockDashboard = ({ symbol = 'AAPL', companyName = 'Apple Inc.', className
         // Refresh every 5 minutes when market is open
         refreshInterval = setInterval(() => {
           loadStockData('1D');
-        }, 5 * 60 * 1000); // 5 minutes
+        }, 5 * 60 * 1000);
       }
     }
     

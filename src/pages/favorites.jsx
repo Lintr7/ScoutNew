@@ -14,7 +14,6 @@ const Favorites = () => {
 
 
   useEffect(() => {
-    // Get current user
     const getCurrentUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
@@ -27,25 +26,23 @@ const Favorites = () => {
 
     loadFavorites();
 
-    // Subscribe to real-time changes
     const subscription = supabase
       .channel('favorites_changes')
       .on(
         'postgres_changes',
         {
-          event: '*', // Listen to INSERT, UPDATE, DELETE
+          event: '*',
           schema: 'public',
           table: 'favorites',
           filter: `user_id=eq.${user.id}`
         },
         (payload) => {
           console.log('Real-time change detected:', payload);
-          loadFavorites(); // Reload favorites when something changes
+          loadFavorites();
         }
       )
       .subscribe();
 
-    // Cleanup subscription on unmount
     return () => {
       subscription.unsubscribe();
     };
@@ -65,7 +62,6 @@ const Favorites = () => {
 
   const handleRemove = async (symbol) => {
   try {
-    // Optimistically update the UI - remove from local state immediately
     setFavorites(favorites.filter(fav => fav.symbol !== symbol));
     
     await removeFavorite(symbol);
@@ -73,7 +69,6 @@ const Favorites = () => {
   } catch (error) {
     console.error('Error removing favorite:', error);
     alert(error.message);
-    // If error, reload to get the correct state
     loadFavorites();
   }
 };
