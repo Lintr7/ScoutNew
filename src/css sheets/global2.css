@@ -31,7 +31,7 @@ html, body {
   .bento-scale-wrapper,
   .bento-scale-wrapper2,
   .bento-scale-wrapper3 {
-    transform: scale(0.95);
+    transform: scale(1);
     margin-left: 2.1em;
   }
   .wrapper {
