@@ -51,7 +51,7 @@ VALID_SYMBOLS = {
     "NUE", "STLD", "PKG", "SW", "APTV", "ALV", "XPO", "M", "KSS", "VFC", "PVH", "UAA", "SIG", "CPRI", "PLNT", "DKS", "QSR", "DRI",
     "WEN", "JACK", "SAM", "AWK",
     "HGV", "HTZ", "CBRE", "JLL", "SCI", "GT",
-    "ELF", "COTY", "ODP", "SYY"
+    "ELF", "COTY", "SYY"
 }
 
 COMPANY_NAMES = {
@@ -427,7 +427,7 @@ COMPANY_NAMES = {
     'OMC': 'Omnicom Group',
     'SIRI': 'SiriusXM',
     'IPG': 'Interpublic Group',
-    'H': 'Hyatt Hotels', #
+    'H': 'Hyatt Hotels',
     'WH': 'Wyndham Hotels & Resorts',
     'CHH': 'Choice Hotels International',
     'MGM': 'MGM Resorts International',
@@ -472,7 +472,6 @@ COMPANY_NAMES = {
     'GT': 'Goodyear Tire & Rubber',
     'ELF': 'e.l.f. Beauty',
     'COTY': 'Coty Inc.',
-    'ODP': 'The ODP Corporation',
     'SYY' : 'Sysco Corp',
 }
 

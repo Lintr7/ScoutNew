@@ -450,7 +450,6 @@ function StockReels() {
     { symbol: "GT", name: "Goodyear Tire & Rubber" },
     { symbol: "ELF", name: "e.l.f. Beauty" },
     { symbol: "COTY", name: "Coty Inc." },
-    { symbol: "ODP", name: "The ODP Corporation" },
     { symbol: "SYY", name: "Sysco Corp"},
   ];
 
