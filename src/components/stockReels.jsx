@@ -275,7 +275,7 @@ function StockReels() {
     { symbol: "WMB", name: "Williams Companies" },
     { symbol: "TMUS", name: "T-Mobile US" },
     { symbol: "APO", name: "Apollo Global Management" },
-    { symbol: "FI", name: "Fiserv" },
+    { symbol: "FISV", name: "Fiserv" },
     { symbol: "PWR", name: "Quanta Services" },
     { symbol: "SRE", name: "Sempra Energy" },
     { symbol: "DDOG", name: "Datadog" },
