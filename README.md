@@ -6,7 +6,7 @@ Scout is an AI-powered stock platform that allows you to view stocks in an Insta
 
 ## Try It Out Now! 🤩
 
-Experience Scout in action (best viewed on a laptop):  
+Experience Scout live in action (best viewed on a laptop):  
 [https://scout-reels.vercel.app](https://scout-reels.vercel.app)
 
 ## Tech Stack 🛠️
