@@ -87,7 +87,7 @@ def set_cached_data(cache_dict: dict, key: str, data, cache_type: str):
 FRONTEND_ORIGINS = [
    #"http://localhost:5173",
    #"http://127.0.0.1:5173",
-   "https://scout-new.vercel.app",
+   #"https://scout-new.vercel.app",
    "https://scout-reels.vercel.app",
 ]
 
