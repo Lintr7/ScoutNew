@@ -2,12 +2,12 @@
 
 ## What is Scout? 🤔
 
-Scout is an AI-powered stock platform that allows you to view stocks in an Instagram reels format. We provide the latest news, price movement, financial metrics, and LLM-powered sentiment analysis on popular stocks.
+Scout is an AI-powered stock platform that allows you to view stocks in an Instagram reels format, providing the latest news, price movement, financial metrics, and LLM-powered sentiment analysis on popular stocks.
 
 ## Try It Out Now! 🤩
 
 Experience Scout in action (best viewed on a laptop):  
-Coming soon!
+[https://scout-reels.vercel.app](https://scout-reels.vercel.app)
 
 ## Tech Stack 🛠️
 
@@ -17,14 +17,15 @@ Coming soon!
 
 **Backend:**
 - FastAPI
-- AWS Elastic Beanstalk (for backend deployment)
+- Railway (Deployment), Used AWS Elastic Beanstalk before
 - Python (for web scraping and OpenAI sentiment analysis)
 - Marketaux, Finnhub, and Alpaca API calls
 
 ## Challenges Faced 😰
 
-During development, we tackled several challenges:
+During development, I encountered several challenges:
 
-- **Responsive Design:** Ensuring our React components scaled and displayed correctly across different screen sizes required meticulous adjustments and testing.
-- **AWS Elastic Beanstalk:** Configuring and restructuring files to meet AWS deployment requirements definitely proved to be a complicated.
-- **API Communication:** Initially, our API endpoint calls failed due to mixed content issues (HTTPS on the frontend vs. HTTP on the backend). We resolved this by implementing a secure proxy to align both endpoints under HTTPS.
+- **Responsive Design:** Ensuring the React components scaled and displayed correctly across different screen sizes required many adjustments and testing.
+- **AWS Elastic Beanstalk:** Configuring and restructuring files to meet AWS deployment requirements was definitely complicated.
+- **API Communication:** Initially, our API endpoint calls failed due to mixed content issues (HTTPS on the frontend vs. HTTP on the backend). I resolved this by implementing a secure proxy to align both endpoints under HTTPS. Currently, Scout is deployed Railway due to its ease of use.
+- **API Optimation:** Looking for the best API providers with generous free tiers that gave all the information we wanted wasn't easy. I also implemented an in-memory cache to drastically reduce API calls.
