@@ -42,8 +42,8 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Cache times for each API
 CACHE_TIMES = {
-   "news": 10,
-   "finnhub": 10,
+   "news": 24,
+   "finnhub": 24,
    "search": 2,
    "stocks": 0.1
 }
